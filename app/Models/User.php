@@ -54,4 +54,8 @@ class User extends Authenticatable
     {
         return $this->role()->first()->name;
     }
+
+    const ROLE_SUPERADMIN = 'superadmin';
+    const ROLE_ADMIN = 'admin';
+    const ROLE_PERSONIL = 'personil';
 }

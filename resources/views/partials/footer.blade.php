@@ -1,0 +1,1 @@
+<div class="col-12 bg-dark text-light text-center p-2">Copyright @2024</div>
