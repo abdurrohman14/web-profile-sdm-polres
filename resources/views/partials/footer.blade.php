@@ -1,1 +1,7 @@
-<div class="col-12 bg-dark text-light text-center p-2">Copyright @2024</div>
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2021</span>
+        </div>
+    </div>
+</footer>

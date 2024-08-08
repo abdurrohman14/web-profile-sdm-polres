@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('jabatan_id');
             $table->unsignedBigInteger('pangkat_id');
+            $table->unsignedBigInteger('pangkat_pns_polri_id');
             $table->unsignedBigInteger('user_id');
             $table->string('foto')->nullable();
             $table->string('nama_lengkap');
@@ -51,7 +52,7 @@ return new class extends Migration
             $table->string('nomor_kk')->unique()->nullable();
             $table->integer('berat')->nullable();
             $table->integer('ukuran_sepatu')->nullable();
-            $table->integer('ukuran_baju')->nullable();
+            $table->char('ukuran_baju')->nullable();
             $table->string('sidik_jari_2')->nullable();
             $table->string('kta')->unique()->nullable();
             $table->string('asabri')->unique()->nullable();
@@ -61,6 +62,7 @@ return new class extends Migration
             $table->string('akte_lahir')->nullable();
             $table->foreign('jabatan_id')->references('id')->on('jabatans');
             $table->foreign('pangkat_id')->references('id')->on('pangkats');
+            $table->foreign('pangkat_pns_polri_id')->references('id')->on('pangkat_pns_polris');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();

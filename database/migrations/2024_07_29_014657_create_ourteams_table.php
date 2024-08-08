@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('jabatan_id');
             $table->string('nrp');
             $table->string('gambar')->nullable();
-            $table->timestamps();
             $table->foreign('pangkat_id')->references('id')->on('pangkats');
             $table->foreign('jabatan_id')->references('id')->on('jabatans');
+            $table->timestamps();
             $table->softDeletes();
         });
     }

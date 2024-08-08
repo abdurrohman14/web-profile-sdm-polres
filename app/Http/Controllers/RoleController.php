@@ -19,7 +19,6 @@ class RoleController extends Controller
 
     public function superadmin()
     {
-        // $jabatans = Jabatan::with('parent')->take(10)->get();
         return view('superadmin.superadmin');
     }
 
