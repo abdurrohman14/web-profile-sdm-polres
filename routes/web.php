@@ -5,15 +5,18 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\SuperAdmin\HeroController;
+use App\Http\Controllers\LandingPage\HeroesController;
 use App\Http\Controllers\SuperAdmin\JabatanController;
 use App\Http\Controllers\SuperAdmin\PartnerController;
 use App\Http\Controllers\SuperAdmin\PersonilController;
 use App\Http\Controllers\SuperAdmin\PangkatPolriController;
 use App\Http\Controllers\SuperAdmin\pangkatPnsPolriController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [HeroesController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

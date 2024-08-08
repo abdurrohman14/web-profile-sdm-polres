@@ -31,16 +31,17 @@ class HeroController extends Controller
             $gambar = $request->file('gambar');
             $gambarName = time().'.'.$gambar->getClientOriginalExtension();
             $gambar->storeAs('public/hero', $gambarName);
-            $validateData['gambar'] = 'hero/'. $gambarName;
+            $validateData['gambar'] = $gambarName;
         }
 
         $heros = new Hero();
         $heros->title = $validateData['title'];
         $heros->deskripsi = $validateData['deskripsi'];
-        $heros->gambar = $validateData['gambar'] ?? null;
+        // $heros->gambar = $validateData['gambar'] ?? null;
+        $heros->gambar = $gambarName;
         $heros->save();
 
-        return redirect()->route('hero.index')->with('success', 'Data Berhasil Ditambahkan');
+        return redirect()->route('index.hero')->with('success', 'Data Berhasil Ditambahkan');
     }
 
     public function showHero($id) {
@@ -69,7 +70,7 @@ class HeroController extends Controller
             $gambar = $request->file('gambar');
             $gambarName = time().'.'.$gambar->getClientOriginalExtension();
             $gambar->storeAs('public/hero', $gambarName);
-            $validateData['gambar'] = 'hero/' . $gambarName;
+            $validateData['gambar'] =$gambarName;
         }
         
         $heros->title = $validateData['title'];
@@ -79,13 +80,13 @@ class HeroController extends Controller
         }
 
         $heros->save();
-        return redirect()->route('hero.index')->with('success', 'Data Berhasil Diupdate');
+        return redirect()->route('index.hero')->with('success', 'Data Berhasil Diupdate');
     }
 
     public function delete($id) {
         $heros = Hero::find($id);
         $heros->delete();
 
-        return redirect()->route('hero.index')->with('success', 'Data Berhasil Dihapus!');
+        return redirect()->route('index.hero')->with('success', 'Data Berhasil Dihapus!');
     }
 }

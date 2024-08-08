@@ -21,7 +21,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>
                         @if($partner->gambar)
-                            <img src="{{ asset('storage/' . $partner->gambar) }}" alt="" width="100">
+                            <img src="{{ asset('storage/hero/' . $partner->gambar) }}" alt="" width="100">
                         @endif</td>
                         <td>
                             <a href="{{ route('edit.partner', $partner->id) }}" class="btn btn-sm btn-primary">Edit</a>

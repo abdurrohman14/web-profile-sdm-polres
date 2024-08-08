@@ -1,0 +1,108 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 600; 
+  }  
+
+span {
+    font-weight: bold;
+}
+
+.navbar-custom {
+    background-color: yellow;
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.hero {
+    padding: 50px 0;
+    background-color: #f8f9fa;
+}
+
+.hero img {
+    max-width: 100%;
+    height: auto;
+}
+
+.hero .btn-primary {
+    margin-bottom: 20px;
+}
+
+.hero .social-icons a {
+    margin-right: 10px;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.carousel-item img {
+    max-height: 150px;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: #DBB055;
+}
+
+.news-card {
+    width: 100%;
+    /* Makes the card take up full width within the column */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Ensures equal height for all cards */
+}
+
+.news-card .card-img-top {
+    width: 100%;
+    /* Makes the image take the full width of the card */
+    height: auto;
+    /* Maintains aspect ratio */
+}
+
+.news-card .card-body {
+    flex: 1;
+    /* Takes up the remaining space in the card to ensure equal height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Distributes the space evenly */
+}
+
+.news-card .card-body .card-title,
+.news-card .card-body .card-text,
+.news-card .card-body .btn {
+    margin: 0;
+}
+
+.news-card .btn {
+    align-self: flex-start;
+    /* Aligns the button to the start */
+}
+
+.social-icons a {
+    color: black;
+}
+
+a {
+    font-weight: 550;
+    color: black;
+    text-decoration: none;
+}
+
+h1 {
+    font-weight: 700;
+}
+
+h2 {
+    font-weight: 600;
+}
+
+footer {
+    background-color: yellow;
+    padding: 4em;
+}

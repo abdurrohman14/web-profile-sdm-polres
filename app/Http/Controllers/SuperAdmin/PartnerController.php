@@ -26,11 +26,12 @@ class PartnerController extends Controller
             $gambar = $request->file('gambar');
             $gambarName = time().'.'.$gambar->getClientOriginalExtension();
             $gambar->storeAs('public/hero', $gambarName);
-            $validateData['gambar'] = 'hero/'. $gambarName;
+            $validateData['gambar'] = $gambarName;
         }
 
         $partners = new Partner();
-        $partners->gambar = $validateData['gambar'] ?? null;
+        // $partners->gambar = $validateData['gambar'] ?? null;
+        $partners->gambar = $gambarName;
         $partners->save();
 
         return redirect()->route('index.partner')->with('success', 'Data Berhasil Ditambahkan');
@@ -50,7 +51,7 @@ class PartnerController extends Controller
             $gambar = $request->file('gambar');
             $gambarName = time().'.'.$gambar->getClientOriginalExtension();
             $gambar->storeAs('public/hero', $gambarName);
-            $validateData['gambar'] = 'hero/'. $gambarName;
+            $validateData['gambar'] = $gambarName;
         }
         
         $partners = Partner::find($id);

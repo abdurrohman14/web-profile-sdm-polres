@@ -25,7 +25,7 @@
                         <td>{{ $hero->deskripsi }}</td>
                         <td>
                         @if($hero->gambar)
-                            <img src="{{ asset('storage/' . $hero->gambar) }}" alt="{{ $hero->title }}" width="100">
+                            <img src="{{ asset('storage/hero/' . $hero->gambar) }}" alt="{{ $hero->title }}" width="100">
                         @endif</td>
                         <td>
                             <a href="{{ route('edit.hero', $hero->id) }}" class="btn btn-sm btn-primary">Edit</a>
