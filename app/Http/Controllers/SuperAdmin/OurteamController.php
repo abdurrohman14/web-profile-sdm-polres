@@ -24,7 +24,7 @@ class OurteamController extends Controller
         return view('superadmin.ourteam.add_team', [
             'pangkat' => $pangkat,
             'jabatan' => $jabatan,
-            'title' => 'Add Team'
+            'title' => 'Tambah Team'
         ]);
     }
 

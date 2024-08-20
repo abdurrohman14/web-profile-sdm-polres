@@ -142,35 +142,51 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="golongan_darah">Golongan Darah</label>
-                        <input type="text" class="form-control" id="golongan_darah" name="golongan_darah" placeholder="" required>
+                        <label for="golongan_darah">Golongan Darah:</label>
+                        <select name="golongan_darah" id="golongan_darah" class="form-control" required>
+                            <option value="">Pilih Golongan Darah</option>
+                            <option value="A" {{ old('golongan_darah') == 'A' ? 'selected' : '' }}>A</option>
+                            <option value="B" {{ old('golongan_darah') == 'B' ? 'selected' : '' }}>B</option>
+                            <option value="AB" {{ old('golongan_darah') == 'AB' ? 'selected' : '' }}>AB</option>
+                            <option value="O" {{ old('golongan_darah') == 'O' ? 'selected' : '' }}>O</option>
+                        </select>
                         @error('golongan_darah')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="jenis_kelamin">Jenis Kelamin</label>
-                        <input type="text" class="form-control" id="jenis_kelamin" name="jenis_kelamin" placeholder="" required>
+                        <label for="jenis_kelamin">Jenis Kelamin:</label>
+                        <select name="jenis_kelamin" id="jenis_kelamin" class="form-control" required>
+                            <option value="">Pilih Jenis Kelamin</option>
+                            <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                            <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                        </select>
                         @error('jenis_kelamin')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="status_pernikahan">Status Pernikahan</label>
-                        <input type="text" class="form-control" id="status_pernikahan" name="status_pernikahan" placeholder="" required>
+                        <label for="status_pernikahan">Status Pernikahan:</label>
+                        <select name="status_pernikahan" id="status_pernikahan" class="form-control" required>
+                            <option value="">Pilih Status Pernikahan</option>
+                            <option value="Belum Menikah" {{ old('status_pernikahan') == 'Belum Menikah' ? 'selected' : '' }}>Belum Menikah</option>
+                            <option value="Menikah" {{ old('status_pernikahan') == 'Menikah' ? 'selected' : '' }}>Menikah</option>
+                            <option value="Duda" {{ old('status_pernikahan') == 'Duda' ? 'selected' : '' }}>Duda</option>
+                            <option value="Janda" {{ old('status_pernikahan') == 'Janda' ? 'selected' : '' }}>Janda</option>
+                        </select>
                         @error('status_pernikahan')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="anak_ke">Anak Ke</label>
-                        <input type="text" class="form-control" id="anak_ke" name="anak_ke" placeholder="" required>
+                        <input type="number" class="form-control" id="anak_ke" name="anak_ke" placeholder="" required>
                         @error('anak_ke')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -178,10 +194,18 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="agama">Agama</label>
-                        <input type="text" class="form-control" id="agama" name="agama" placeholder="" required>
+                        <label for="agama">Agama:</label>
+                        <select name="agama" id="agama" class="form-control" required>
+                            <option value="">Pilih Agama</option>
+                            <option value="Islam" {{ old('agama') == 'Islam' ? 'selected' : '' }}>Islam</option>
+                            <option value="Kristen" {{ old('agama') == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                            <option value="Katolik" {{ old('agama') == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                            <option value="Hindu" {{ old('agama') == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                            <option value="Buddha" {{ old('agama') == 'Buddha' ? 'selected' : '' }}>Buddha</option>
+                            <option value="Konghucu" {{ old('agama') == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+                        </select>
                         @error('agama')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
