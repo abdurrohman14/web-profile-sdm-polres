@@ -19,7 +19,7 @@ class HeroController extends Controller
 
     public function create() {
         return view('superadmin.hero.add_hero', [
-            'title' => 'Tambah Hero',
+            'title' => 'Add Hero',
         ]);
     }
 
