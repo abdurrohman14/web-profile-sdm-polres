@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PersonilsController;
 use App\Http\Controllers\SuperAdmin\HeroController;
 use App\Http\Controllers\SuperAdmin\BeritaController;
 use App\Http\Controllers\LandingPage\HeroesController;
@@ -35,6 +36,18 @@ require __DIR__.'/auth.php';
 // Rute untuk Admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin', [RoleController::class, 'admin'])->name('admin');
+
+        // Personel
+        Route::prefix('person')->group(function () {
+            Route::get('/', [PersonilsController::class, 'index'])->name('index.person');
+            // Route::get('/create', [PersonilController::class, 'create'])->name('create.personel');
+            // Route::post('/store', [PersonilController::class, 'store'])->name('store.personel');
+            // Route::get('/detail/{id}', [PersonilController::class, 'show'])->name('show.personel');
+            // Route::get('/edit/{id}', [PersonilController::class, 'edit'])->name('edit.personel');
+            // Route::post('/update/{id}', [PersonilController::class, 'update'])->name('update.personel');
+            // Route::delete('/delete/{id}', [PersonilController::class, 'delete'])->name('delete.personel');
+        });
+
 });
 
 // Rute untuk Superadmin

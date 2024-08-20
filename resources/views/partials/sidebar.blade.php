@@ -28,6 +28,37 @@ $jabatans = [
         'sikeu' => 'Sikeu',
         'sidokkes' => 'Sidokkes',
     ];
+
+$subJabatans = [
+        'subbagbinops' => 'Subbagbinops',
+        'subbagdalops' => 'Subbagdalops',
+        'subbagkerma' => 'Subbagkerma',
+        'subbagrenprogar' => 'Subbagrenprogar',
+        'subbagdalprogar' => 'Subbagdalprogar',
+        'subbagbinkar' => 'Subbagbinkar',
+        'subbagdalpers' => 'Subbagdalpers',
+        'subbagwatpers' => 'Subbagwatpers',
+        'subbagbekpal' => 'Subbagbekpal',
+        'subbagfaskon' => 'Subbagfaskon',
+        'subsiopsnal' => 'Subsiopsnal',
+        'subsibin' => 'Subsibin',
+        'subsidumas' => 'Subsidumas',
+        'unitpropam' => 'Unitpropam',
+        'unitpaminal' => 'Unitpaminal',
+        'subsipidm' => 'Subsipidm',
+        'subsipenmas' => 'Subsipenmas',
+        'subsibankum' => 'Subsibankum',
+        'subsiluhkum' => 'Subsiluhkum',
+        'subsitekkom' => 'Subsitekkom',
+        'subsitekinfo' => 'Subsitekinfo',
+        'subsimintu' => 'Subsimintu',
+        'subsiyanma' => 'Subsiyanma',
+        'subsigaji' => 'Subsigaji',
+        'subsiverif' => 'Subsiverif',
+        'subsiapk' => 'Subsiapk',
+        'subsidokpol' => 'Subsidokpol',
+        'subsikespol' => 'Subsikespol',
+    ];
 @endphp
 
 <!-- Sidebar - Brand -->
@@ -42,126 +73,128 @@ $jabatans = [
 <hr class="sidebar-divider my-0">
 
 @if($user->role === \App\Models\User::ROLE_SUPERADMIN)
-<!-- Nav Item - Dashboard -->
-<li class="nav-item active">
-  <a class="nav-link" href="{{ route('superadmin') }}">
-      <i class="fas fa-fw fa-tachometer-alt"></i>
-      <span>Dashboard</span></a>
-</li>
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item active">
+      <a class="nav-link" href="{{ route('superadmin') }}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+      </a>
+  </li>
 
-<!-- Divider -->
-<hr class="sidebar-divider">
+  <!-- Divider -->
+  <hr class="sidebar-divider">
 
-<!-- Heading -->
-<div class="sidebar-heading">
-  Interface
-</div>
-
-<!-- Nav Item - Pages Collapse Menu -->
-<li class="nav-item">
-  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-      aria-expanded="true" aria-controls="collapseTwo">
-      <i class="fas fa-fw fa-cog"></i>
-      <span>Data Master</span>
-  </a>
-  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Custom Components:</h6>
-          <a class="collapse-item" href="{{ route('view.jabatan') }}">Jabatan</a>
-          <a class="collapse-item" href="{{ route('view.pangkat') }}">Pangkat Polri</a>
-          <a class="collapse-item" href="{{ route('view.pns') }}">PNS Polri</a>
-          <a class="collapse-item" href="{{ route('view.subJabatan') }}">SubJabatan</a>
-          <a class="collapse-item" href="{{ route('view.subPangkat') }}">SubPangkat</a>
-          <a class="collapse-item" href="{{ route('view.subPns') }}">SubPNS</a>
-      </div>
+  <!-- Heading -->
+  <div class="sidebar-heading">
+      Interface
   </div>
-</li>
 
-<li class="nav-item">
-  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-      aria-expanded="true" aria-controls="collapseThree">
-      <i class="fas fa-fw fa-cog"></i>
-      <span>Data</span>
-  </a>
-  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Custom Components:</h6>
-          <a class="collapse-item" href="{{ route('index.hero') }}">Hero</a>
-          <a class="collapse-item" href="{{ route('index.partner') }}">Partner</a>
-          <a class="collapse-item" href="{{ route('index.team') }}">OurTeam</a>
-          <a class="collapse-item" href="{{ route('view.berita') }}">Berita</a>
+  <!-- Nav Item - Data Master Collapse Menu -->
+  <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+         aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Data Master</span>
+      </a>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Custom Components:</h6>
+              <a class="collapse-item" href="{{ route('view.jabatan') }}">Jabatan</a>
+              <a class="collapse-item" href="{{ route('view.pangkat') }}">Pangkat Polri</a>
+              <a class="collapse-item" href="{{ route('view.pns') }}">PNS Polri</a>
+              <a class="collapse-item" href="{{ route('view.subJabatan') }}">Sub Jabatan</a>
+              <a class="collapse-item" href="{{ route('view.subPangkat') }}">Sub Pangkat</a>
+              <a class="collapse-item" href="{{ route('view.subPns') }}">Sub PNS</a>
+          </div>
       </div>
-  </div>
-</li>
+  </li>
 
-<!-- Nav Item - Utilities Collapse Menu -->
-<li class="nav-item">
-  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-      aria-expanded="true" aria-controls="collapseUtilities">
-      <i class="fas fa-fw fa-wrench"></i>
-      <span>Personel</span>
-  </a>
-  <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-      data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Custom Utilities:</h6>
-          @foreach($jabatans as $key => $label)
-          <a class="collapse-item" href="{{ route('view.personel', ['jabatan' => $key]) }}">{{ $label }}</a>
-          @endforeach
+  <!-- Nav Item - Data Collapse Menu -->
+  <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+         aria-expanded="true" aria-controls="collapseThree">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Data</span>
+      </a>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Custom Components:</h6>
+              <a class="collapse-item" href="{{ route('index.hero') }}">Hero</a>
+              <a class="collapse-item" href="{{ route('index.partner') }}">Partner</a>
+              <a class="collapse-item" href="{{ route('index.team') }}">Our Team</a>
+              <a class="collapse-item" href="{{ route('view.berita') }}">Berita</a>
+          </div>
       </div>
-  </div>
-</li>
+  </li>
 
-<!-- Divider -->
+  <!-- Nav Item - Personel Collapse Menu -->
+  <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+         aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>Personel</span>
+      </a>
+      <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+           data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Custom Utilities:</h6>
+              @foreach($jabatans as $key => $label)
+                  <a class="collapse-item" href="{{ route('view.personel', ['jabatan' => $key]) }}">{{ $label }}</a>
+              @endforeach
+          </div>
+      </div>
+  </li>
+  
 @elseif($user->role === \App\Models\User::ROLE_ADMIN)
-<hr class="sidebar-divider">
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+  
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item active">
+      <a class="nav-link" href="{{ route('admin') }}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+      </a>
+  </li>
 
-<!-- Heading -->
-<div class="sidebar-heading">
-  Addons
-</div>
-
-<!-- Nav Item - Pages Collapse Menu -->
-<li class="nav-item">
-  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-      aria-expanded="true" aria-controls="collapsePages">
-      <i class="fas fa-fw fa-folder"></i>
-      <span>Pages</span>
-  </a>
-  <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Login Screens:</h6>
-          <a class="collapse-item" href="login.html">Login</a>
-          <a class="collapse-item" href="register.html">Register</a>
-          <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-          <div class="collapse-divider"></div>
-          <h6 class="collapse-header">Other Pages:</h6>
-          <a class="collapse-item" href="404.html">404 Page</a>
-          <a class="collapse-item" href="blank.html">Blank Page</a>
-      </div>
+  <!-- Heading -->
+  <div class="sidebar-heading">
+      Addons
   </div>
-</li>
 
-<!-- Nav Item - Charts -->
+  <!-- Nav Item - Subag Collapse Menu -->
+  <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+         aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Subag</span>
+      </a>
+      <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Sub Jabatan</h6>
+              @foreach ($subJabatans as $key => $label)
+              <a class="collapse-item" href="{{ route('index.person', ['subJabatan' => $label]) }}">{{ $label }}</a>
+          @endforeach
+          </div>
+      </div>
+  </li>
+
 @elseif($user->role === \App\Models\User::ROLE_PERSONIL)
-<li class="nav-item active">
-  <a class="nav-link" href="{{ route('personil') }}">
-      <i class="fas fa-fw fa-tachometer-alt"></i>
-      <span>Dashboard</span></a>
-</li>
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item active">
+      <a class="nav-link" href="{{ route('personil') }}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+      </a>
+  </li>
 
-<li class="nav-item">
-  <a class="nav-link" href="charts.html">
-      <i class="fas fa-fw fa-chart-area"></i>
-      <span>Ubah Biodata</span></a>
-</li>
-
-<!-- Nav Item - Tables -->
-{{-- <li class="nav-item">
-  <a class="nav-link" href="tables.html">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Tables</span></a>
-</li> --}}
+  <!-- Nav Item - Ubah Biodata -->
+  <li class="nav-item">
+      <a class="nav-link" href="charts.html">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Ubah Biodata</span>
+      </a>
+  </li>
 @endif
 
 <!-- Divider -->

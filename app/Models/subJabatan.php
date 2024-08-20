@@ -15,4 +15,8 @@ class subJabatan extends Model
     {
         return $this->belongsTo(Jabatan::class);
     }
+
+    public function personel() {
+        return $this->hasMany(Personel::class);
+    }
 }

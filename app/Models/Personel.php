@@ -41,4 +41,8 @@ class Personel extends Model
     public function user() {
         return $this->belongsTo(Role::class);
     }
+
+    public function subJabatan() {
+        return $this->belongsTo(subJabatan::class,'nama');
+    }
 }
