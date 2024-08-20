@@ -19,7 +19,7 @@ class HeroController extends Controller
 
     public function create() {
         return view('superadmin.hero.add_hero', [
-            'title' => 'Add Hero'
+            'title' => 'Tambah Hero',
         ]);
     }
 
@@ -53,15 +53,15 @@ class HeroController extends Controller
         $heros = Hero::find($id);
         return view('superadmin.hero.view_hero_detail', [
             'heros' => $heros,
-            'title' => 'Detail Hero'
+            'title' => 'Detail Hero',
         ]);
     }
 
     public function edit($id) {
         $heros = Hero::find($id);
-        return view('superadmin.hero.edit_hero',[
+        return view('superadmin.hero.edit_hero', [
             'heros' => $heros,
-            'title' => 'Edit Hero'
+            'title' => 'Edit Hero',
         ]);
     }
 

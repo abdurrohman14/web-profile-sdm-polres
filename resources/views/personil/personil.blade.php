@@ -7,17 +7,24 @@
         <h6 class="m-0 font-weight-bold text-primary">Informasi Data Diri</h6>
     </div>
     <div class="card-body">
-        @foreach($personel as $person)
-            <div class="person">
-                <h5>{{ $person->nama_lengkap }}</h5>
-                <p>{{ $person->user->name }}</p>
-                <p>Jabatan: {{ $person->jabatan->nama }}</p>
-                <p>Pangkat Polri: {{ $person->pangkat->nama }}</p>
-                <p>Pangkat PNS Polri: {{ $person->pangkatPnsPolri->nama ?? 'N/A' }}</p>
+        @foreach ($personel as $person)
+            <div class="person d-flex align-items-center mb-3">
+                <div class="person-image mr-3">
+                    <img src="{{ asset('assets1/image/kapolres.jpeg') }}" alt="Foto Personel" style="width: 298px; height: auto; border-radius: 8px;">
+                </div>
+                <div class="person-info">
+                    <h5>{{ $person->nama_lengkap }}</h5>
+                    <p>Jabatan: {{ $person->jabatan->nama }}</p>
+                    <p>Pangkat Polri: {{ $person->pangkat->nama }}</p>
+                    <p>Pangkat PNS Polri: {{ $person->pangkatPnsPolri->nama ?? 'N/A' }}</p>
+                </div>
             </div>
-            <hr>
         @endforeach
     </div>
+    <div class="card-footer d-flex justify-content-end">
+        <a href="" class="btn btn-info">Detail</a>
+    </div>
 </div>
+
 
 @endsection

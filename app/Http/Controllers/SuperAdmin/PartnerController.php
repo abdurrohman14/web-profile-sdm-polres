@@ -18,7 +18,7 @@ class PartnerController extends Controller
 
     public function create() {
         return view('superadmin.partner.add_partner', [
-            'title' => 'Add Partner',
+            'title' => 'Tambah Partner',
         ]);
     }
 

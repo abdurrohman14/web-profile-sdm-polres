@@ -188,6 +188,7 @@ $subJabatans = [
       </a>
   </li>
 
+<<<<<<< HEAD
   <!-- Nav Item - Ubah Biodata -->
   <li class="nav-item">
       <a class="nav-link" href="charts.html">
@@ -195,7 +196,25 @@ $subJabatans = [
           <span>Ubah Biodata</span>
       </a>
   </li>
+=======
+<li class="nav-item">
+  <a class="nav-link" href="{{ route('personil') }}">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>Dashboard</span>
+  </a>
+</li>
+
+<!-- Nav Item - Tables -->
+<li class="nav-item">
+  <a class="nav-link" href="{{ route('personil.edit', ['id' => $personel->id])}}">
+      <i class="fas fa-fw fa-table"></i>
+      <span>Ubah Biodata</span>
+  </a>
+</li>
+>>>>>>> c3963c79044714a6728f624baaf892370a32de72
 @endif
+
+
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">

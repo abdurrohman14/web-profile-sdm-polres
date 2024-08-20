@@ -6,6 +6,7 @@ use App\Models\Jabatan;
 use App\Models\Personel;
 use Illuminate\Http\Request;
 
+
 class RoleController extends Controller
 {
     public function index()
@@ -29,14 +30,24 @@ class RoleController extends Controller
 
     public function personil()
     {
-        $personel = Personel::with('jabatan', 'pangkat', 'pangkatPnsPolri', 'user')->get();
-        // dd($personel);
-        return view('personil.personil', [
+            $personel = Personel::with('jabatan', 'pangkat', 'pangkatPnsPolri', 'user') ->get();
+            return view('personil.personil', [
+                'personel' => $personel,
+                'title' => 'Dashboard'
+            ]);
+    }
+
+    public function edit($id)
+    {
+        $personel = Personel::with('jabatan', 'pangkat', 'pangkatPnsPolri', 'user')->findOrFail($id);
+
+        if (!$personel) {
+            abort(404, 'Personel not found');
+        }
+
+        return view('edit.personil', [
             'personel' => $personel,
-            'title' => 'Dashboard',
+            'title' => 'Ubah Biodata'
         ]);
-        // return view('personil.personil', [
-        //     'title' => 'Personil',
-        // ]);
     }
 }

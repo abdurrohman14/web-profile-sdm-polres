@@ -14,6 +14,7 @@ use App\Http\Controllers\SuperAdmin\PartnerController;
 use App\Http\Controllers\SuperAdmin\PersonilController;
 use App\Http\Controllers\SuperAdmin\PangkatPolriController;
 use App\Http\Controllers\SuperAdmin\pangkatPnsPolriController;
+use App\Models\Role;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -173,5 +174,6 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
 // Rute untuk Personil
 Route::middleware(['auth', 'role:personil'])->group(function () {
     Route::get('/personil', [RoleController::class, 'personil'])->name('personil');
-});
+    Route::get('/personil/{id}/edit', [RoleController::class, 'edit'])->name('personil.edit');
 
+});
