@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('pangkat_pns_polris', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->foreign('parent_id')->references('id')->on('pangkat_pns_polris');
             $table->timestamps();
         });
     }

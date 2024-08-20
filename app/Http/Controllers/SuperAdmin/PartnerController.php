@@ -10,11 +10,16 @@ class PartnerController extends Controller
 {
     public function index() {
         $partners = Partner::all();
-        return view('superadmin.partner.view_partner', compact('partners'));
+        return view('superadmin.partner.view_partner', [
+            'partners' => $partners,
+            'title' => 'Partner',
+        ]);
     }
 
     public function create() {
-        return view('superadmin.partner.add_partner');
+        return view('superadmin.partner.add_partner', [
+            'title' => 'Add Partner',
+        ]);
     }
 
     public function store(Request $request) {

@@ -1,5 +1,33 @@
 @php
  $user = auth()->user();
+
+//  Per-Jabatan Personil
+$jabatans = [
+        'kapolresta' => 'Kapolresta',
+        'wakapolresta' => 'Wakapolresta',
+        'bagops' => 'Bagops',
+        'bagren' => 'Bagren',
+        'bagsdm' => 'Bagsdm',
+        'baglog' => 'Baglog',
+        'siwas' => 'Siwas',
+        'sipromam' => 'Sipromam',
+        'sihumas' => 'Sihumas',
+        'sikum' => 'Sikum',
+        'sitik' => 'Sitik',
+        'sium' => 'Sium',
+        'spkt' => 'Spkt',
+        'satintelkum' => 'Satintelkum',
+        'satreskim' => 'Satreskim',
+        'satnarkoba' => 'Satnarkoba',
+        'satbinmas' => 'Satbinmas',
+        'satsamapta' => 'Satsamapta',
+        'satlantas' => 'Satlantas',
+        'satpamobvit' => 'Satpamobvit',
+        'satpolairud' => 'Satpolairud',
+        'sattahti' => 'Sattahti',
+        'sikeu' => 'Sikeu',
+        'sidokkes' => 'Sidokkes',
+    ];
 @endphp
 
 <!-- Sidebar - Brand -->
@@ -42,6 +70,9 @@
           <a class="collapse-item" href="{{ route('view.jabatan') }}">Jabatan</a>
           <a class="collapse-item" href="{{ route('view.pangkat') }}">Pangkat Polri</a>
           <a class="collapse-item" href="{{ route('view.pns') }}">PNS Polri</a>
+          <a class="collapse-item" href="{{ route('view.subJabatan') }}">SubJabatan</a>
+          <a class="collapse-item" href="{{ route('view.subPangkat') }}">SubPangkat</a>
+          <a class="collapse-item" href="{{ route('view.subPns') }}">SubPNS</a>
       </div>
   </div>
 </li>
@@ -57,7 +88,8 @@
           <h6 class="collapse-header">Custom Components:</h6>
           <a class="collapse-item" href="{{ route('index.hero') }}">Hero</a>
           <a class="collapse-item" href="{{ route('index.partner') }}">Partner</a>
-          {{-- <a class="collapse-item" href="{{ route('view.pns') }}">PNS Polri</a> --}}
+          <a class="collapse-item" href="{{ route('index.team') }}">OurTeam</a>
+          <a class="collapse-item" href="{{ route('view.berita') }}">Berita</a>
       </div>
   </div>
 </li>
@@ -73,10 +105,9 @@
       data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Custom Utilities:</h6>
-          <a class="collapse-item" href="{{ route('view.personel') }}">Personel</a>
-          {{-- <a class="collapse-item" href="utilities-border.html">Borders</a>
-          <a class="collapse-item" href="utilities-animation.html">Animations</a>
-          <a class="collapse-item" href="utilities-other.html">Other</a> --}}
+          @foreach($jabatans as $key => $label)
+          <a class="collapse-item" href="{{ route('view.personel', ['jabatan' => $key]) }}">{{ $label }}</a>
+          @endforeach
       </div>
   </div>
 </li>
@@ -113,18 +144,24 @@
 
 <!-- Nav Item - Charts -->
 @elseif($user->role === \App\Models\User::ROLE_PERSONIL)
+<li class="nav-item active">
+  <a class="nav-link" href="{{ route('personil') }}">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span></a>
+</li>
+
 <li class="nav-item">
   <a class="nav-link" href="charts.html">
       <i class="fas fa-fw fa-chart-area"></i>
-      <span>Charts</span></a>
+      <span>Ubah Biodata</span></a>
 </li>
 
 <!-- Nav Item - Tables -->
-<li class="nav-item">
+{{-- <li class="nav-item">
   <a class="nav-link" href="tables.html">
       <i class="fas fa-fw fa-table"></i>
       <span>Tables</span></a>
-</li>
+</li> --}}
 @endif
 
 <!-- Divider -->

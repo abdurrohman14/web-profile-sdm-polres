@@ -11,7 +11,10 @@ class HeroController extends Controller
 {
     public function index() {
         $heros = Hero::all();
-        return view('superadmin.hero.view_hero', compact('heros'));
+        return view('superadmin.hero.view_hero', [
+            'heros' => $heros,
+            'title' => 'Hero',
+        ]);
     }
 
     public function create() {

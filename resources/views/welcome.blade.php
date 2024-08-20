@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SDM - Polres</title>
+    <title>{{ $title }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
@@ -42,16 +42,21 @@
     <section class="hero">
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
-            <h1>{{ $hero->title }}</h1>
-            <p>
-              {{ $hero->deskripsi }}
-            </p>
-            <a href="#" class="btn btn-dark">Learn More</a>
-          </div>
-          <div class="col-md-6 d-flex justify-content-center">
-            <img src="{{ asset('storage/hero/' . $hero->gambar) }}" alt="Hero Image" width="200px"/>
-          </div>
+          @if($hero)
+                <div class="col-md-6">
+                    <h1>{{ $hero->title }}</h1>
+                    <p>{{ $hero->deskripsi }}</p>
+                    <a href="#" class="btn btn-dark">Learn More</a>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                    <img src="{{ asset('storage/hero/' . $hero->gambar) }}" alt="Hero Image" width="200px"/>
+                </div>
+            @else
+                <div class="col-md-12">
+                    <h1>Belum Ada Data</h1>
+                    <p>Data untuk hero section belum tersedia.</p>
+                </div>
+            @endif
         </div>
       </div>
     </section>
@@ -60,27 +65,34 @@
       <div class="container">
         <h2 class="text-center mb-4">Our Partners</h2>
         <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Mauris sit amet lacus ac orci faucibus dapibus. Duis quis sapien sed libero malesuada aliquam. </p>
-        <div id="partnersCarousel" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            @foreach($partners->chunk(2) as $chunk)
-                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                    <div class="d-flex justify-content-center">
-                        @foreach($chunk as $partner)
-                            <img src="{{ asset('storage/hero/' . $partner->gambar) }}" class="d-block w-50" alt="{{ $partner->name }}" />
-                        @endforeach
-                    </div>
+        @if($partners->isNotEmpty())
+            <div id="partnersCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach($partners->chunk(2) as $chunk)
+                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                            <div class="d-flex justify-content-center">
+                                @foreach($chunk as $partner)
+                                    <img src="{{ asset('storage/hero/' . $partner->gambar) }}" class="d-block w-50" alt="{{ $partner->name }}" />
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-                @endforeach
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#partnersCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#partnersCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#partnersCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#partnersCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        @else
+            <div class="text-center">
+                <h3>Belum Ada Partner</h3>
+                <p>Data untuk partner belum tersedia.</p>
+            </div>
+        @endif
       </div>
     </section>
 
@@ -154,32 +166,14 @@
         <div class="row">
           <div class="col-md-4">
             <div class="card news-card">
-              <img src="{{ asset('assets1/image/news1.jpg') }}" class="card-img-top" alt="News 1" />
+              @foreach($berita as $brt)
+              <img src="{{ asset('storage/berita/' . $brt->foto) }}" class="card-img-top" alt="News 1" />
               <div class="card-body">
-                <h5 class="card-title">News Title 1</h5>
-                <p class="card-text">Brief description of news 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h5 class="card-title">{{ $brt->judul }}</h5>
+                <p class="card-text">{!! $brt->deskripsi !!}</p>
                 <a href="#" class="btn btn-dark mt-4">Read More</a>
               </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card news-card">
-              <img src="{{ asset('assets1/image/news2.jpg') }}" class="card-img-top" alt="News 2" />
-              <div class="card-body">
-                <h5 class="card-title">News Title 2</h5>
-                <p class="card-text">Brief description of news 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <a href="#" class="btn btn-dark mt-4">Read More</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card news-card">
-              <img src="{{ asset('assets1/image/news3.jpg') }}" class="card-img-top" alt="News 3" />
-              <div class="card-body">
-                <h5 class="card-title">News Title 3</h5>
-                <p class="card-text">Brief description of news 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <a href="#" class="btn btn-dark mt-4">Read More</a>
-              </div>
+              @endforeach
             </div>
           </div>
         </div>
@@ -192,70 +186,48 @@
 
     <section class="ourteams mt-5">
       <div class="container">
-        <h2 class="text-center mb-4">Famous Our Team</h2>
-        <p class="text-center mb-5">Meet our esteemed educators who have made significant contributions to our institution.</p>
-        <div id="teamCarousel" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="row justify-content-center">
-                <div class="col-md-3">
-                  <div class="card team-card text-center">
-                    <img src="{{ asset('assets1//image/teacher1.jpg') }}" class="card-img-top rounded-circle mx-auto mt-3" alt="Team 1" style="width: 150px;">
-                    <div class="card-body">
-                      <h5 class="card-title">Mr. John Doe</h5>
-                      <p class="card-text">Expert in Mathematics with over 20 years of experience.</p>
-                      <a href="#" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="card team-card text-center">
-                    <img src="{{ asset('assets1/image/teacher2.jpg') }}" class="card-img-top rounded-circle mx-auto mt-3" alt="Team 2" style="width: 150px;">
-                    <div class="card-body">
-                      <h5 class="card-title">Ms. Jane Smith</h5>
-                      <p class="card-text">Passionate instructor of English literature and author.</p>
-                      <a href="#" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
+          <h2 class="text-center mb-4">Famous Our Team</h2>
+          <p class="text-center mb-5">Meet our esteemed educators who have made significant contributions to our institution.</p>
+          @if($ourteams->isNotEmpty())
+          <div id="teamCarousel" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                  @foreach($ourteams->chunk(2) as $key => $teamChunk)
+                      <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                          <div class="row justify-content-center">
+                              @foreach($teamChunk as $team)
+                                  <div class="col-md-3">
+                                      <div class="card team-card text-center">
+                                          <img src="{{ asset('storage/team/' . $team->gambar) }}" class="card-img-top rounded-circle mx-auto mt-3" alt="{{ $team->nama }}" style="width: 150px;">
+                                          <div class="card-body">
+                                              <h5 class="card-title">{{ $team->nama }}</h5>
+                                              <p class="card-text">{{ $team->jabatan->nama }} - {{ $team->pangkat->nama }}</p>
+                                              <p class="card-text">{{ $team->nrp }}</p>
+                                          </div>
+                                      </div>
+                                  </div>
+                              @endforeach
+                          </div>
+                      </div>
+                  @endforeach
               </div>
-            </div>
-            <div class="carousel-item">
-              <div class="row justify-content-center">
-                <div class="col-md-3">
-                  <div class="card team-card text-center">
-                    <img src="{{ asset('assets1/image/teacher3.jpg') }}" class="card-img-top rounded-circle mx-auto mt-3" alt="Team 3" style="width: 150px;">
-                    <div class="card-body">
-                      <h5 class="card-title">Dr. Emily Johnson</h5>
-                      <p class="card-text">Renowned scientist focusing on environmental studies.</p>
-                      <a href="#" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="card team-card text-center">
-                    <img src="{{ asset('assets1/image/teacher4.jpg') }}" class="card-img-top rounded-circle mx-auto mt-3" alt="Teacher 4" style="width: 150px;">
-                    <div class="card-body">
-                      <h5 class="card-title">Mr. Michael Lee</h5>
-                      <p class="card-text">Specialist in History with a deep knowledge of ancient civilizations.</p>
-                      <a href="#" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+              </button>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
+          @else
+            <div class="text-center">
+                <h3>Belum Ada Team</h3>
+                <p>Data untuk team belum tersedia.</p>
+            </div>
+          @endif
       </div>
-    </section>
+  </section>
+  
 
     <footer class="footer mt-5">
       <div class="container">
