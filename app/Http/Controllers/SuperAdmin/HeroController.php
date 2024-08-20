@@ -18,7 +18,9 @@ class HeroController extends Controller
     }
 
     public function create() {
-        return view('superadmin.hero.add_hero');
+        return view('superadmin.hero.add_hero', [
+            'title' => 'Add Hero'
+        ]);
     }
 
     public function store(Request $request) {
@@ -49,12 +51,18 @@ class HeroController extends Controller
 
     public function showHero($id) {
         $heros = Hero::find($id);
-        return view('superadmin.hero.view_hero_detail', compact('heros'));
+        return view('superadmin.hero.view_hero_detail', [
+            'heros' => $heros,
+            'title' => 'Detail Hero'
+        ]);
     }
 
     public function edit($id) {
         $heros = Hero::find($id);
-        return view('superadmin.hero.edit_hero', compact('heros'));
+        return view('superadmin.hero.edit_hero',[
+            'heros' => $heros,
+            'title' => 'Edit Hero'
+        ]);
     }
 
     public function update(Request $request, $id) {
