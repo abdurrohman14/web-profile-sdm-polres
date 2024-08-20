@@ -9,13 +9,22 @@ class Jabatan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'parent_id'];
+    protected $fillable = ['nama'];
 
-    public function parent() {
-        return $this->belongsTo(Jabatan::class, 'parent_id');
+    public function subJabatans()
+    {
+        return $this->hasMany(subJabatan::class);
     }
 
-    public function childre() {
-        return $this->hasMany(Jabatan::class, 'parent_id');
+    public function ourteam(){ 
+        return $this->hasMany(Ourteam::class);
     }
+
+    // public function parent() {
+    //     return $this->belongsTo(Jabatan::class, 'parent_id');
+    // }
+
+    // public function childre() {
+    //     return $this->hasMany(Jabatan::class, 'parent_id');
+    // }
 }

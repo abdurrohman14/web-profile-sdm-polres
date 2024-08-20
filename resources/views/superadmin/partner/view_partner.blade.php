@@ -16,9 +16,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($partners as $partner)
+                    @foreach($partners as $key => $partner)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $key + 1 }}</td>
                         <td>
                         @if($partner->gambar)
                             <img src="{{ asset('storage/hero/' . $partner->gambar) }}" alt="" width="100">
@@ -28,7 +28,7 @@
                             <form action="{{ route('delete.partner', ['id' => $partner->id]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                             </form>
                         </td>
                     </tr>

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
-use Illuminate\Http\Request;
 use App\Models\Personel;
+use Illuminate\Http\Request;
 
 
 class RoleController extends Controller
@@ -16,12 +16,16 @@ class RoleController extends Controller
 
     public function admin()
     {
-        return view('admin.admin');
+        return view('admin.admin', [
+            'title' => 'Admin',
+        ]);
     }
 
     public function superadmin()
     {
-        return view('superadmin.superadmin');
+        return view('superadmin.superadmin', [
+            'title' => 'Super Admin',
+        ]);
     }
 
     public function personil()

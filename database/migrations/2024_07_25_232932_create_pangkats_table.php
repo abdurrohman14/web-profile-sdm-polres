@@ -14,10 +14,7 @@ return new class extends Migration
         Schema::create('pangkats', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->foreign('parent_id')->references('id')->on('pangkats');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

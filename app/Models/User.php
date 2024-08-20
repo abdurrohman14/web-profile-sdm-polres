@@ -55,6 +55,10 @@ class User extends Authenticatable
         return $this->role()->first()->name;
     }
 
+    public function personel() {
+        return $this->hasMany(Personel::class);
+    }
+
     const ROLE_SUPERADMIN = 'superadmin';
     const ROLE_ADMIN = 'admin';
     const ROLE_PERSONIL = 'personil';

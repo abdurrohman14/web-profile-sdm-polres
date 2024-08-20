@@ -18,9 +18,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($heros as $hero)
+                    @foreach($heros as $key => $hero)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $key + 1 }}</td>
                         <td>{{ $hero->title }}</td>
                         <td>{{ $hero->deskripsi }}</td>
                         <td>
