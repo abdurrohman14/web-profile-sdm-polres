@@ -114,18 +114,22 @@
 <!-- Nav Item - Charts -->
 @elseif($user->role === \App\Models\User::ROLE_PERSONIL)
 <li class="nav-item">
-  <a class="nav-link" href="charts.html">
+  <a class="nav-link" href="{{ route('personil') }}">
       <i class="fas fa-fw fa-chart-area"></i>
-      <span>Charts</span></a>
+      <span>Dashboard</span>
+  </a>
 </li>
 
 <!-- Nav Item - Tables -->
 <li class="nav-item">
-  <a class="nav-link" href="tables.html">
+  <a class="nav-link" href="{{ route('personil.edit', ['id' => $personel->id])}}">
       <i class="fas fa-fw fa-table"></i>
-      <span>Tables</span></a>
+      <span>Ubah Biodata</span>
+  </a>
 </li>
 @endif
+
+
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
