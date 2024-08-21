@@ -30,22 +30,22 @@ $jabatans = [
     ];
 
 $subJabatans = [
-        'subbagbinops' => 'Subbagbinops',
-        'subbagdalops' => 'Subbagdalops',
-        'subbagkerma' => 'Subbagkerma',
-        'subbagrenprogar' => 'Subbagrenprogar',
-        'subbagdalprogar' => 'Subbagdalprogar',
-        'subbagbinkar' => 'Subbagbinkar',
-        'subbagdalpers' => 'Subbagdalpers',
-        'subbagwatpers' => 'Subbagwatpers',
-        'subbagbekpal' => 'Subbagbekpal',
-        'subbagfaskon' => 'Subbagfaskon',
+        'subbagbinops' => 'Subbag binops',
+        'subbagdalops' => 'Subbag dalops',
+        'subbagkerma' => 'Subbag kerma',
+        'subbagrenprogar' => 'Subbag renprogar',
+        'subbagdalprogar' => 'Subbag dalprogar',
+        'subbagbinkar' => 'Subbag binkar',
+        'subbagdalpers' => 'Subbag dalpers',
+        'subbagwatpers' => 'Subbag watpers',
+        'subbagbekpal' => 'Subbag bekpal',
+        'subbagfaskon' => 'Subbag faskon',
         'subsiopsnal' => 'Subsiopsnal',
         'subsibin' => 'Subsibin',
         'subsidumas' => 'Subsidumas',
-        'unitpropam' => 'Unitpropam',
-        'unitpaminal' => 'Unitpaminal',
-        'subsipidm' => 'Subsipidm',
+        'unitpropam' => 'Unit propam',
+        'unitpaminal' => 'Unit paminal',
+        'subsipidm' => 'Subsi pidm',
         'subsipenmas' => 'Subsipenmas',
         'subsibankum' => 'Subsibankum',
         'subsiluhkum' => 'Subsiluhkum',
@@ -157,17 +157,17 @@ $subJabatans = [
       </a>
   </li>
 
-  <!-- Heading -->
-  <div class="sidebar-heading">
-      Addons
-  </div>
+<!-- Heading -->
+<div class="sidebar-heading">
+  Addons
+</div>
 
   <!-- Nav Item - Subag Collapse Menu -->
   <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
          aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Subag</span>
+          <span>Subbag</span>
       </a>
       <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -188,33 +188,14 @@ $subJabatans = [
       </a>
   </li>
 
-<<<<<<< HEAD
-  <!-- Nav Item - Ubah Biodata -->
-  <li class="nav-item">
-      <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Ubah Biodata</span>
-      </a>
-  </li>
-=======
-<li class="nav-item">
-  <a class="nav-link" href="{{ route('personil') }}">
-      <i class="fas fa-fw fa-chart-area"></i>
-      <span>Dashboard</span>
-  </a>
-</li>
-
 <!-- Nav Item - Tables -->
 <li class="nav-item">
-  <a class="nav-link" href="{{ route('personil.edit', ['id' => $personel->id])}}">
+  <a class="nav-link" href="{{ route('personil.edit', $personel->id) }}">
       <i class="fas fa-fw fa-table"></i>
       <span>Ubah Biodata</span>
   </a>
 </li>
->>>>>>> c3963c79044714a6728f624baaf892370a32de72
 @endif
-
-
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">

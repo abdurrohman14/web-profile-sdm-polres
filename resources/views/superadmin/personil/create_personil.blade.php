@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label for="jabatan_id" class="form-label">Jabatan</label>
                         <select name="jabatan_id" id="jabatan_id" class="form-control select2" required>
-                            <option value="" disabled selected>Select Jabatan</option>
+                            <option value="" disabled selected>Pilih Jabatan</option>
                             @foreach($jabatan as $jabatan)
                                 <option value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>
                             @endforeach
@@ -22,9 +22,20 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
+                        <label for="sub_jabatan_id" class="form-label">SubJabatan</label>
+                        <select name="sub_jabatan_id" id="sub_jabatan_id" class="form-control select2" required>
+                            <option value="" disabled selected>Pilih SubJabatan</option>
+                            @foreach($subJabatan as $subJbt)
+                                <option value="{{ $subJbt->id }}">{{ $subJbt->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label for="pangkat_id" class="form-label">Pangkat</label>
                         <select name="pangkat_id" id="pangkat_id" class="form-control select2" required>
-                            <option value="" disabled selected>Select Pangkat</option>
+                            <option value="" disabled selected>Pilih Pangkat</option>
                             @foreach($pangkat as $pangkat)
                                 <option value="{{ $pangkat->id }}">{{ $pangkat->nama }}</option>
                             @endforeach
@@ -35,7 +46,7 @@
                     <div class="form-group">
                         <label for="pangkat_pns_polri_id" class="form-label">Pangkat PNS</label>
                         <select name="pangkat_pns_polri_id" id="pangkat_pns_polri_id" class="form-control select2" required>
-                            <option value="" disabled selected>Select Pangkat</option>
+                            <option value="" disabled selected>Pilih Gol Ruang</option>
                             @foreach($pangkatPnsPolri as $pPns)
                                 <option value="{{ $pPns->id }}">{{ $pPns->nama }}</option>
                             @endforeach
@@ -46,7 +57,7 @@
                     <div class="form-group">
                         <label for="role_id" class="form-label">Role</label>
                         <select name="role_id" id="role_id" class="form-control select2" required>
-                            <option value="" disabled selected>Select Role</option>
+                            <option value="" disabled selected>Pilih Role</option>
                             @foreach($roles as $role)
                                 <option value="{{ $role->id }}">{{ $role->name }}</option>
                             @endforeach

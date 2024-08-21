@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Jabatan;
 use App\Models\Personel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class RoleController extends Controller
@@ -30,24 +31,37 @@ class RoleController extends Controller
 
     public function personil()
     {
-            $personel = Personel::with('jabatan', 'pangkat', 'pangkatPnsPolri', 'user') ->get();
-            return view('personil.personil', [
-                'personel' => $personel,
-                'title' => 'Dashboard'
-            ]);
+        // Ambil ID pengguna yang sedang login
+        $userId = Auth::id();
+    
+        // Ambil data personel yang terkait dengan pengguna
+        $personel = Personel::where('user_id', $userId)->first();
+        
+        // Periksa apakah data personel ditemukan
+        if (!$personel) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan untuk pengguna ini.');
+        };
+            
+        return view('personil.personil', [
+            'personel' => $personel,
+            'title' => 'Dashboard'
+        ]);
     }
 
-    public function edit($id)
-    {
-        $personel = Personel::with('jabatan', 'pangkat', 'pangkatPnsPolri', 'user')->findOrFail($id);
+    public function show($id) {
+        $personel = Personel::with('jabatan', 'pangkat', 'pangkatPnsPolri')->findOrFail($id);
 
-        if (!$personel) {
-            abort(404, 'Personel not found');
-        }
-
-        return view('edit.personil', [
+        return view('personil.detail', [
             'personel' => $personel,
-            'title' => 'Ubah Biodata'
+            'title' => 'Detail Personel',
+        ]);
+    }
+
+    public function edit($id) {
+        $personel = Personel::findOrFail($id);
+        return view('personil.edit', [
+            'personel' => $personel,
+            'title' => 'Edit Personel',
         ]);
     }
 }

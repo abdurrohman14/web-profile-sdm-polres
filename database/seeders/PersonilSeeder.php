@@ -17,6 +17,7 @@ class PersonilSeeder extends Seeder
         $data = [
             [
                 'jabatan_id' => 1,
+                'sub_jabatan_id' => 1,
                 'pangkat_id' => 1,
                 'pangkat_pns_polri_id' => 1,
                 'user_id' => 1,

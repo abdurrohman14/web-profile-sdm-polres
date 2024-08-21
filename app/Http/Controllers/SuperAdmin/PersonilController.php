@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Jabatan;
 use App\Models\Pangkat;
 use App\Models\Personel;
+use App\Models\subJabatan;
 use Illuminate\Http\Request;
 use App\Models\pangkat_pns_polri;
 use App\Http\Controllers\Controller;
@@ -18,7 +19,7 @@ class PersonilController extends Controller
         $jabatan = $request->input('jabatan');
 
         if($jabatan) {
-            $personels = Personel::with('jabatan', 'pangkat', 'pangkatPnsPolri', 'user')
+            $personels = Personel::with('jabatan', 'subJabatan', 'pangkat', 'pangkatPnsPolri', 'user')
             ->whereHas('jabatan', function($query) use ($jabatan) {
                 $query->where('nama', $jabatan);
             })->get();
@@ -35,11 +36,13 @@ class PersonilController extends Controller
 
     public function create() {
         $jabatan = Jabatan::all();
+        $subJabatan = subJabatan::all();
         $pangkat = Pangkat::all();
         $pangkatPnsPolri = pangkat_pns_polri::all();
         $roles = Role::all();
         return view('superadmin.personil.create_personil', [
             'jabatan' => $jabatan,
+            'subJabatan' => $subJabatan,
             'pangkat' => $pangkat,
             'pangkatPnsPolri' => $pangkatPnsPolri,
             'roles' => $roles,
@@ -50,8 +53,9 @@ class PersonilController extends Controller
     public function store(Request $request) {
         $validateData = $request->validate([
             'jabatan_id' => 'required|exists:jabatans,id',
+            'sub_jabatan_id' => 'nullable|exists:sub_jabatans,id',
             'pangkat_id' => 'required|exists:pangkats,id',
-            'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id', // nullable jika personel bukan PNS Polri
+            'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
             'role_id' => 'required|exists:roles,id',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama_lengkap' => 'required|string|max:255',
@@ -68,7 +72,7 @@ class PersonilController extends Controller
             'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
             'status_pernikahan' => 'required|string|in:Belum Menikah,Menikah,Duda,Janda',
             'anak_ke' => 'nullable|integer|min:1',
-            'agama' => 'required|string|max:50|in:Islam,Kristen,katolik,Hindu,Buddha,Konghucu',
+            'agama' => 'required|string|max:50|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
             'alamat_personel' => 'nullable|string|max:255',
             'lkhpn' => 'nullable|string|max:255',
             'jenis_rambut' => 'nullable|string|max:50',
@@ -97,20 +101,25 @@ class PersonilController extends Controller
             'akte_lahir' => 'nullable|string|max:255|unique:personels,akte_lahir,' . $request->id,
             'tmt_masa_dinas' => 'nullable|date|after_or_equal:tanggal_lahir',
         ]);
-        
+
+        // Handle file upload
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
-            $fotoName = time().'.'.$foto->getClientOriginalExtension();
+            $fotoName = time() . '.' . $foto->getClientOriginalExtension();
             $foto->storeAs('public/personil', $fotoName);
             $validateData['foto'] = $fotoName;
         }
-
-        $personels = new Personel();
-        $personels->fill($validateData);
-
-        $personels->save();
-
-        return redirect()->route('view.personil')->with('success', 'Data berhasil ditambahkan');
+        // Save data to the database
+        try {
+            $personel = new Personel();
+            $personel->fill($validateData);
+            $personel->save();
+    
+            return redirect()->route('view.personil')->with('success', 'Data berhasil ditambahkan');
+        } catch (\Exception $e) {
+    
+            return back()->withErrors('Gagal menambahkan data. Silakan coba lagi.' . $e->getMessage());
+        }
     }
 
     public function show($id) {

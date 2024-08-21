@@ -38,17 +38,10 @@ require __DIR__.'/auth.php';
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin', [RoleController::class, 'admin'])->name('admin');
 
-        // Personel
-        Route::prefix('person')->group(function () {
-            Route::get('/', [PersonilsController::class, 'index'])->name('index.person');
-            // Route::get('/create', [PersonilController::class, 'create'])->name('create.personel');
-            // Route::post('/store', [PersonilController::class, 'store'])->name('store.personel');
-            // Route::get('/detail/{id}', [PersonilController::class, 'show'])->name('show.personel');
-            // Route::get('/edit/{id}', [PersonilController::class, 'edit'])->name('edit.personel');
-            // Route::post('/update/{id}', [PersonilController::class, 'update'])->name('update.personel');
-            // Route::delete('/delete/{id}', [PersonilController::class, 'delete'])->name('delete.personel');
-        });
-
+    // Personel
+    Route::prefix('person')->group(function () {
+        Route::get('/', [PersonilsController::class, 'index'])->name('index.person');
+    });
 });
 
 // Rute untuk Superadmin
@@ -173,7 +166,10 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
 
 // Rute untuk Personil
 Route::middleware(['auth', 'role:personil'])->group(function () {
-    Route::get('/personil', [RoleController::class, 'personil'])->name('personil');
-    Route::get('/personil/{id}/edit', [RoleController::class, 'edit'])->name('personil.edit');
-
+    Route::prefix('personil')->group(function () {
+        Route::get('/', [RoleController::class, 'personil'])->name('personil');
+        Route::get('/{id}', [RoleController::class, 'show'])->name('personil.show');
+        Route::get('/{id}/edit', [RoleController::class, 'edit'])->name('personil.edit');
+        Route::post('/{id}', [RoleController::class, 'update'])->name('personil.update');
+    });
 });

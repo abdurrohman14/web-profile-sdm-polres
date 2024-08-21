@@ -12,7 +12,7 @@ class PersonilsController extends Controller
     public function index(Request $request) {
         $subJabatan = $request->input('subJabatan');
     
-        // Fetch all available sub-jabatan options
+        // ambil semua data subJabatan
         $subJabatans = SubJabatan::pluck('nama', 'id'); // assuming SubJabatan model has `nama` and `id` fields
     
         if($subJabatan) {
@@ -23,8 +23,8 @@ class PersonilsController extends Controller
         } else {
             $personels = Personel::with('subJabatan', 'pangkat', 'pangkatPnsPolri', 'user')->get();
         }
-    
-        return view('superadmin.personil.viewPersonil', [
+        
+        return view('admin.personil.viewPersonil', [
             'personels' => $personels,
             'subJabatans' => $subJabatans,
             'subJabatan' => $subJabatan,

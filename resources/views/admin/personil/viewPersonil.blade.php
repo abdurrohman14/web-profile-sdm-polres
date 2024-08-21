@@ -12,6 +12,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
+                        <th>Sub Jabatan</th>
                         <th>Jabatan</th>
                         <th>Pangkat</th>
                         <th>Gol Ruang</th>
@@ -24,6 +25,7 @@
                     <tr>
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $personil->nama_lengkap }}</td>
+                        <td>{{ $personil->subJabatan->nama }}</td>
                         <td>{{ $personil->jabatan->nama }}</td>
                         <td>{{ $personil->pangkat->nama }}</td>
                         <td>{{ $personil->pangkatPnsPolri->nama }}</td>
