@@ -45,4 +45,8 @@ class Personel extends Model
     public function subJabatan() {
         return $this->belongsTo(subJabatan::class);
     }
+
+    public function Role() {
+        return $this->belongsTo(Role::class);
+    }
 }

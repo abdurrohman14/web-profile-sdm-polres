@@ -23,7 +23,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="sub_jabatan_id" class="form-label">SubJabatan</label>
-                        <select name="sub_jabatan_id" id="sub_jabatan_id" class="form-control select2" required>
+                        <select name="sub_jabatan_id" id="sub_jabatan_id" class="form-control select2" >
                             <option value="" disabled selected>Pilih SubJabatan</option>
                             @foreach($subJabatan as $subJbt)
                                 <option value="{{ $subJbt->id }}">{{ $subJbt->nama }}</option>
@@ -127,8 +127,17 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="email_dinas">Email Dinas</label>
-                        <input type="text" class="form-control" id="email_dinas" name="email_dinas" placeholder="" required>
+                        <input type="text" class="form-control" id="email_dinas" name="email_dinas" placeholder="" >
                         @error('email_dinas')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="no_hp">No HP</label>
+                        <input type="number" class="form-control" id="no_hp" name="no_hp" placeholder="" required>
+                        @error('no_hp')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -145,7 +154,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="tmt_status">TMT Status</label>
-                        <input type="text" class="form-control" id="tmt_status" name="tmt_status" placeholder="" required>
+                        <input type="date" class="form-control" id="tmt_status" name="tmt_status" placeholder="" required>
                         @error('tmt_status')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -232,7 +241,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="lkhpn">LKHPN</label>
-                        <input type="text" class="form-control" id="lkhpn" name="lkhpn" placeholder="" required>
+                        <input type="text" class="form-control" id="lkhpn" name="lkhpn" placeholder="" >
                         @error('lkhpn')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -241,7 +250,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="jenis_rambut">Jenis Rambut</label>
-                        <input type="text" class="form-control" id="jenis_rambut" name="jenis_rambut" placeholder="" required>
+                        <input type="text" class="form-control" id="jenis_rambut" name="jenis_rambut" placeholder="" >
                         @error('jenis_rambut')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -250,7 +259,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="warna_mata">Warna Mata</label>
-                        <input type="text" class="form-control" id="warna_mata" name="warna_mata" placeholder="" required>
+                        <input type="text" class="form-control" id="warna_mata" name="warna_mata" placeholder="" >
                         @error('warna_mata')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -259,7 +268,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="warna_kulit">Warna Kulit</label>
-                        <input type="text" class="form-control" id="warna_kulit" name="warna_kulit" placeholder="" required>
+                        <input type="text" class="form-control" id="warna_kulit" name="warna_kulit" placeholder="" >
                         @error('warna_kulit')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -268,7 +277,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="warna_rambut">Warna Rambut</label>
-                        <input type="text" class="form-control" id="warna_rambut" name="warna_rambut" placeholder="" required>
+                        <input type="text" class="form-control" id="warna_rambut" name="warna_rambut" placeholder="" >
                         @error('warna_rambut')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -277,7 +286,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="nama_ibu">Nama Ibu</label>
-                        <input type="text" class="form-control" id="nama_ibu" name="nama_ibu" placeholder="" required>
+                        <input type="text" class="form-control" id="nama_ibu" name="nama_ibu" placeholder="" >
                         @error('nama_ibu')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -286,7 +295,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="telepon_ortu">Telepon Ortu</label>
-                        <input type="number" class="form-control" id="telepon_ortu" name="telepon_ortu" placeholder="" required>
+                        <input type="number" class="form-control" id="telepon_ortu" name="telepon_ortu" placeholder="" >
                         @error('telepon_ortu')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -295,7 +304,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="alamat_ortu">Alamat Ortu</label>
-                        <input type="text" class="form-control" id="alamat_ortu" name="alamat_ortu" placeholder="" required>
+                        <input type="text" class="form-control" id="alamat_ortu" name="alamat_ortu" placeholder="" >
                         @error('alamat_ortu')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -304,7 +313,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="tinggi">Tinggi</label>
-                        <input type="number" class="form-control" id="tinggi" name="tinggi" placeholder="" required>
+                        <input type="number" class="form-control" id="tinggi" name="tinggi" placeholder="" >
                         @error('tinggi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -313,7 +322,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="berat">Berat</label>
-                        <input type="number" class="form-control" id="berat" name="berat" placeholder="" required>
+                        <input type="number" class="form-control" id="berat" name="berat" placeholder="" >
                         @error('berat')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -322,7 +331,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="ukuran_topi">Ukuran Topi</label>
-                        <input type="number" class="form-control" id="ukuran_topi" name="ukuran_topi" placeholder="" required>
+                        <input type="number" class="form-control" id="ukuran_topi" name="ukuran_topi" placeholder="" >
                         @error('ukuran_topi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -331,7 +340,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="ukuran_celana">Ukuran Celana</label>
-                        <input type="number" class="form-control" id="ukuran_celana" name="ukuran_celana" placeholder="" required>
+                        <input type="number" class="form-control" id="ukuran_celana" name="ukuran_celana" placeholder="" >
                         @error('ukuran_celana')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -340,7 +349,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="ukuran_sepatu">Ukuran Sepatu</label>
-                        <input type="number" class="form-control" id="ukuran_sepatu" name="ukuran_sepatu" placeholder="" required>
+                        <input type="number" class="form-control" id="ukuran_sepatu" name="ukuran_sepatu" placeholder="" >
                         @error('ukuran_sepatu')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -349,7 +358,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="ukuran_baju">Ukuran Baju</label>
-                        <input type="number" class="form-control" id="ukuran_baju" name="ukuran_baju" placeholder="" required>
+                        <input type="number" class="form-control" id="ukuran_baju" name="ukuran_baju" placeholder="" >
                         @error('ukuran_baju')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -358,7 +367,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="sidik_jari_1">Sidik Jari 1</label>
-                        <input type="text" class="form-control" id="sidik_jari_1" name="sidik_jari_1" placeholder="" required>
+                        <input type="text" class="form-control" id="sidik_jari_1" name="sidik_jari_1" placeholder="" >
                         @error('sidik_jari_1')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -367,7 +376,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="sidik_jari_2">Sidik Jari 2</label>
-                        <input type="text" class="form-control" id="sidik_jari_2" name="sidik_jari_2" placeholder="" required>
+                        <input type="text" class="form-control" id="sidik_jari_2" name="sidik_jari_2" placeholder="" >
                         @error('sidik_jari_2')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -376,7 +385,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="nomor_keputusan_penyidik">Nomor Keputusan Penyidik</label>
-                        <input type="text" class="form-control" id="nomor_keputusan_penyidik" name="nomor_keputusan_penyidik" placeholder="" required>
+                        <input type="text" class="form-control" id="nomor_keputusan_penyidik" name="nomor_keputusan_penyidik" placeholder="" >
                         @error('nomor_keputusan_penyidik')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -385,7 +394,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="kta">KTA</label>
-                        <input type="text" class="form-control" id="kta" name="kta" placeholder="" required>
+                        <input type="text" class="form-control" id="kta" name="kta" placeholder="" >
                         @error('kta')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -394,7 +403,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="asabri">Asabri</label>
-                        <input type="text" class="form-control" id="asabri" name="asabri" placeholder="" required>
+                        <input type="text" class="form-control" id="asabri" name="asabri" placeholder="" >
                         @error('asabri')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -412,7 +421,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="npwp">NPWP</label>
-                        <input type="number" class="form-control" id="npwp" name="npwp" placeholder="" required>
+                        <input type="number" class="form-control" id="npwp" name="npwp" placeholder="" >
                         @error('npwp')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -421,7 +430,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="bpjs">BPJS</label>
-                        <input type="number" class="form-control" id="bpjs" name="bpjs" placeholder="" required>
+                        <input type="number" class="form-control" id="bpjs" name="bpjs" placeholder="" >
                         @error('bpjs')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -430,7 +439,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="nomor_kk">Nomor KK</label>
-                        <input type="number" class="form-control" id="nomor_kk" name="nomor_kk" placeholder="" required>
+                        <input type="number" class="form-control" id="nomor_kk" name="nomor_kk" placeholder="" >
                         @error('nomor_kk')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -439,7 +448,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="paspor">Paspor</label>
-                        <input type="number" class="form-control" id="paspor" name="paspor" placeholder="" required>
+                        <input type="number" class="form-control" id="paspor" name="paspor" placeholder="" >
                         @error('paspor')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -448,7 +457,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="akte_lahir">Akte Lahir</label>
-                        <input type="number" class="form-control" id="akte_lahir" name="akte_lahir" placeholder="" required>
+                        <input type="number" class="form-control" id="akte_lahir" name="akte_lahir" placeholder="" >
                         @error('akte_lahir')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -457,7 +466,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="tmt_masa_dinas">TMT Masa Dinas</label>
-                        <input type="date" class="form-control" id="tmt_masa_dinas" name="tmt_masa_dinas" placeholder="" required>
+                        <input type="date" class="form-control" id="tmt_masa_dinas" name="tmt_masa_dinas" placeholder="" >
                         @error('tmt_masa_dinas')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

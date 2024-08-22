@@ -34,7 +34,7 @@ return new class extends Migration
             $table->integer('anak_ke')->nullable();
             $table->string('agama');
             $table->text('alamat_personel')->nullable();
-            $table->boolean('lkhpn')->default(false);
+            $table->string('lkhpn')->nullable();
             $table->date('tanggal_lahir');
             $table->string('jenis_rambut')->nullable();
             $table->string('warna_mata')->nullable();

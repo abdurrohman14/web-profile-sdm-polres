@@ -84,10 +84,10 @@ class PersonilController extends Controller
             'alamat_ortu' => 'nullable|string|max:255',
             'tinggi' => 'nullable|integer|min:100|max:250',
             'berat' => 'nullable|integer|min:30|max:200',
-            'ukuran_topi' => 'nullable|integer|min:1|max:10',
-            'ukuran_celana' => 'nullable|integer|min:1|max:10',
+            'ukuran_topi' => 'nullable|integer|min:1|max:20',
+            'ukuran_celana' => 'nullable|integer|min:1|max:50',
             'ukuran_sepatu' => 'nullable|integer|min:1|max:50',
-            'ukuran_baju' => 'nullable|integer|min:1|max:10',
+            'ukuran_baju' => 'nullable|integer|min:1|max:50',
             'sidik_jari_1' => 'nullable|string|max:255',
             'sidik_jari_2' => 'nullable|string|max:255',
             'nomor_keputusan_penyidik' => 'nullable|string|max:255',
@@ -115,7 +115,7 @@ class PersonilController extends Controller
             $personel->fill($validateData);
             $personel->save();
     
-            return redirect()->route('view.personil')->with('success', 'Data berhasil ditambahkan');
+            return redirect()->route('view.personel')->with('success', 'Data berhasil ditambahkan');
         } catch (\Exception $e) {
     
             return back()->withErrors('Gagal menambahkan data. Silakan coba lagi.' . $e->getMessage());
@@ -263,13 +263,16 @@ class PersonilController extends Controller
 
         $personels->save();
 
-        return redirect()->route('view.personil')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('view.personel')->with('success', 'Data berhasil ditambahkan');
     }
 
     public function delete($id) {
-        $personels = Personel::find($id);
-        $personels->delete();
-
-        return redirect()->route('view.personil')->with('success', 'Data berhasil dihapus');
+        try {
+            $personel = Personel::findOrFail($id);
+            $personel->delete();
+            return redirect()->route('view.personel')->with('success', 'Data berhasil dihapus');
+        } catch (\Exception $e) {
+            return back()->withErrors('Gagal menghapus data. Silakan coba lagi. ' . $e->getMessage());
+        }
     }
 }

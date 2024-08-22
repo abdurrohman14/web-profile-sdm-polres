@@ -26,10 +26,10 @@
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $personil->nama_lengkap }}</td>
                         <td>{{ $personil->jabatan->nama }}</td>
-                        <td>{{ $personil->subJabatan->nama }}</td>
+                        <td>{{ $personil->subJabatan->nama ?? '-'}}</td>
                         <td>{{ $personil->pangkat->nama }}</td>
                         <td>{{ $personil->pangkatPnsPolri->nama }}</td>
-                        <td>{{ $personil->user->name }}</td>
+                        <td>{{ $personil->role->name }}</td>
                         <td>
                             <div class="d-flex align-items-center">
                                 <a href="{{ route('show.personel', $personil->id) }}" class="btn btn-sm btn-info mr-1">View</a>
