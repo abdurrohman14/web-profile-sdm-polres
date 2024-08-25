@@ -33,15 +33,15 @@ class RoleController extends Controller
     {
         // Ambil ID pengguna yang sedang login
         $userId = Auth::id();
-    
         // Ambil data personel yang terkait dengan pengguna
         $personel = Personel::where('user_id', $userId)->first();
+        // dd($personel);
         
         // Periksa apakah data personel ditemukan
         if (!$personel) {
             return redirect()->back()->with('error', 'Data tidak ditemukan untuk pengguna ini.');
         };
-            
+        
         return view('personil.personil', [
             'personel' => $personel,
             'title' => 'Dashboard'

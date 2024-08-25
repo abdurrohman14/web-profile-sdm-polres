@@ -3,22 +3,15 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h3 class="m-0 font-weight-bold text-primary">Tambah Berita</h3>
+        <h3 class="m-0 font-weight-bold text-primary">Tambah Events</h3>
     </div>
     <div class="card-body">
-        <form action="{{ route('store.berita') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('store.event') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="judul">Judul Berita</label>
+                <label for="judul">Judul Events</label>
                 <input type="text" class="form-control" id="judul" name="judul" pattern=".*\S*." placeholder=" " required>
                 @error('judul')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="slug">Slug</label>
-                <input type="text" class="form-control" id="slug" name="slug" pattern=".*\S*." placeholder=" " required>
-                @error('slug')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
@@ -28,7 +21,7 @@
                 <img id="photo-preview" src="#" alt="Pratinjau" style="max-width: 200px; display: none; margin-top: 4px;">
             </div>
             <div class="form-group">
-                <label for="deskripsi">Deskripsi Berita</label>
+                <label for="deskripsi">Deskripsi Events</label>
                 <input id="deskripsi" type="hidden" name="deskripsi">
                 <trix-editor input="deskripsi" data-direct-upload-url="{{ route('upload') }}" data-persisted>
                 </trix-editor>
@@ -36,36 +29,9 @@
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group">
-                <label>Status:</label>
-                <div class="col-sm-9">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="status" id="publish" value="1" checked required>
-                        <label class="form-check-label" for="publish">Publish</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="status" id="draft" value="0" required>
-                        <label class="form-check-label" for="draft">Draft</label>
-                    </div>
-                </div>
-                @error('status')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
             <button type="submit" class="btn btn-primary">Tambah</button>
     </div>
 </div>
-
-<script>
-    const judul = document.querySelector('#judul');
-    const slug = document.querySelector('#slug');
-  
-    judul.addEventListener('change', function() {
-     fetch('/berita/create/checkSlug?judul=' + judul.value, {
-      method: 'GET'
-     }).then(response => response.json()).then(data => slug.value = data.slug);
-    });
-</script>
   
   <script>
       document.addEventListener('trix-file-accept', function(event) {

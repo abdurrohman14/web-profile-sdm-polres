@@ -21,7 +21,7 @@ class PersonilSeeder extends Seeder
                 'pangkat_id' => 1,
                 'pangkat_pns_polri_id' => 1,
                 'user_id' => 1,
-                'foto' => 'path/to/default/photo1.jpg',
+                'gambar' => 'path/to/default/photo1.jpg',
                 'nama_lengkap' => 'John Doe',
                 'nama_panggilan' => 'John',
                 'nrp' => '1234567890',

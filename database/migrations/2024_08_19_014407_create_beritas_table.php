@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('beritas', function (Blueprint $table) {
             $table->id();
-            $table->string('foto')->nullable();
             $table->string('judul')->nullable();
             $table->string('slug')->unique();
+            $table->string('gambar')->nullable();
             $table->text('deskripsi');
             $table->boolean('status')->default(true);
             $table->timestamps();

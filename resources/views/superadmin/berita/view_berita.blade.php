@@ -33,8 +33,8 @@
                                 <div>{{ $berita->status ? 'Publish' : 'Draft' }}</div>
                         </td>
                         <td>
-                        @if($berita->foto)
-                            <img src="{{ asset('storage/berita/' . $berita->foto) }}" alt="{{ $berita->title }}" width="100">
+                        @if($berita->gambar)
+                            <img src="{{ asset('storage/berita/' . $berita->gambar) }}" alt="{{ $berita->title }}" width="100">
                         @endif
                         </td>
                         <td>

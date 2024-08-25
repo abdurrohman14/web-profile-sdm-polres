@@ -21,7 +21,7 @@
                     @foreach($heros as $key => $hero)
                     <tr>
                         <td>{{ $key + 1 }}</td>
-                        <td>{{ $hero->title }}</td>
+                        <td>{{ $hero->judul }}</td>
                         <td>{{ $hero->deskripsi }}</td>
                         <td>
                         @if($hero->gambar)

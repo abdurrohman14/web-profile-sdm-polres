@@ -10,9 +10,9 @@
             @csrf
             @method('POST')
             <div class="form-group">
-                <label for="title">Judul Hero</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $heros->title) }}">
-                @error('title')
+                <label for="judul">Judul Hero</label>
+                <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul', $heros->judul) }}">
+                @error('judul')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

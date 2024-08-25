@@ -9,9 +9,9 @@
         <form action="{{ route('store.hero') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="title">Judul Hero</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Masukkan Judul Hero" required>
-                @error('title')
+                <label for="judul">Judul Hero</label>
+                <input type="text" class="form-control" id="judul" name="judul" placeholder="Masukkan Judul Hero" required>
+                @error('judul')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

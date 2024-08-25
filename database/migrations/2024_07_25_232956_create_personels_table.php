@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('personels', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('jabatan_id');
-            $table->unsignedBigInteger('sub_jabatan_id');
+            // $table->unsignedBigInteger('sub_jabatan_id');
             $table->unsignedBigInteger('pangkat_id');
             $table->unsignedBigInteger('pangkat_pns_polri_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('foto')->nullable();
+            $table->string('gambar')->nullable();
             $table->string('nama_lengkap');
             $table->string('nama_panggilan')->nullable();
             $table->string('nrp');
@@ -62,12 +62,11 @@ return new class extends Migration
             $table->date('tmt_masa_dinas');
             $table->string('akte_lahir')->nullable();
             $table->foreign('jabatan_id')->references('id')->on('jabatans');
-            $table->foreign('sub_jabatan_id')->references('id')->on('sub_jabatans');
+            // $table->foreignId('sub_jabatan_id')->constrained('sub_jabatans')->onDelete('cascade');
             $table->foreign('pangkat_id')->references('id')->on('pangkats');
             $table->foreign('pangkat_pns_polri_id')->references('id')->on('pangkat_pns_polris');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

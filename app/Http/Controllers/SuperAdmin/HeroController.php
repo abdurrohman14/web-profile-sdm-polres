@@ -26,7 +26,7 @@ class HeroController extends Controller
     public function store(Request $request) {
         // validasi
         $validateData = $request->validate([
-            'title' => 'required|string',
+            'judul' => 'required|string',
             'deskripsi' => 'required|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -40,7 +40,7 @@ class HeroController extends Controller
         }
 
         $heros = new Hero();
-        $heros->title = $validateData['title'];
+        $heros->judul = $validateData['judul'];
         $heros->deskripsi = $validateData['deskripsi'];
         // $heros->gambar = $validateData['gambar'] ?? null;
         $heros->gambar = $gambarName;
@@ -68,7 +68,7 @@ class HeroController extends Controller
     public function update(Request $request, $id) {
         $heros = Hero::find($id);
         $validateData = $request->validate([
-            'title' => 'required|string',
+            'judul' => 'required|string',
             'deskripsi' => 'required|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -84,7 +84,7 @@ class HeroController extends Controller
             $validateData['gambar'] =$gambarName;
         }
         
-        $heros->title = $validateData['title'];
+        $heros->judul = $validateData['judul'];
         $heros->deskripsi = $validateData['deskripsi'];
         if(isset($validateData['gambar'])) {
             $heros->gambar = $validateData['gambar'];

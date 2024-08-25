@@ -39,13 +39,13 @@ class PersonilController extends Controller
         $subJabatan = subJabatan::all();
         $pangkat = Pangkat::all();
         $pangkatPnsPolri = pangkat_pns_polri::all();
-        $roles = Role::all();
+        $user = User::all();
         return view('superadmin.personil.create_personil', [
             'jabatan' => $jabatan,
             'subJabatan' => $subJabatan,
             'pangkat' => $pangkat,
             'pangkatPnsPolri' => $pangkatPnsPolri,
-            'roles' => $roles,
+            'user' => $user,
             'title' => 'Tambah Personil'
         ]);
     }
@@ -56,8 +56,8 @@ class PersonilController extends Controller
             'sub_jabatan_id' => 'nullable|exists:sub_jabatans,id',
             'pangkat_id' => 'required|exists:pangkats,id',
             'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
-            'role_id' => 'required|exists:roles,id',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'user_id' => 'required|exists:users,id',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama_lengkap' => 'required|string|max:255',
             'nama_panggilan' => 'nullable|string|max:50',
             'nrp' => 'required|string|max:20|unique:personels,nrp,' . $request->id,
@@ -101,20 +101,32 @@ class PersonilController extends Controller
             'akte_lahir' => 'nullable|string|max:255|unique:personels,akte_lahir,' . $request->id,
             'tmt_masa_dinas' => 'nullable|date|after_or_equal:tanggal_lahir',
         ]);
-
+        
         // Handle file upload
-        if ($request->hasFile('foto')) {
-            $foto = $request->file('foto');
-            $fotoName = time() . '.' . $foto->getClientOriginalExtension();
-            $foto->storeAs('public/personil', $fotoName);
-            $validateData['foto'] = $fotoName;
+        if ($request->hasFile('gambar')) {
+            $image = $request->file('gambar');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/personil', $imageName);
+            $validateData['gambar'] = $imageName;
         }
         // Save data to the database
         try {
+            // dd($request);
+            $input = ([
+                'name' => $request->nama_lengkap,
+                'email' => $request->email_pribadi,
+                'role_id' => $request->role_id,
+                'password' => bcrypt($request->nrp),
+            ]);
+
+            $user = new User();
+            $user->fill($input);
+            $user->save();
+            
             $personel = new Personel();
             $personel->fill($validateData);
             $personel->save();
-    
+
             return redirect()->route('view.personel')->with('success', 'Data berhasil ditambahkan');
         } catch (\Exception $e) {
     
@@ -153,7 +165,7 @@ class PersonilController extends Controller
             'pangkat_id' => 'required|exists:pangkats,id',
             'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id', // nullable jika personel bukan PNS Polri
             'role_id' => 'required|exists:roles,id',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama_lengkap' => 'required|string|max:255',
             'nama_panggilan' => 'nullable|string|max:50',
             'nrp' => 'required|string|max:20|unique:personels,nrp,' . $request->id,
@@ -200,15 +212,15 @@ class PersonilController extends Controller
 
         $personels = Personel::find($id);
 
-        if ($request->hasFile('foto')) {
+        if ($request->hasFile('gambar')) {
             // Hapus foto lama jika ada
-            if ($personels->foto) {
-                Storage::delete('public/' . $personels->foto);
+            if ($personels->gambar) {
+                Storage::delete('public/' . $personels->gambar);
             }
-            $foto = $request->file('foto');
-            $fotoName = time().'.'.$foto->getClientOriginalExtension();
-            $foto->storeAs('public/personil', $fotoName);
-            $validateData['foto'] =$fotoName;
+            $image = $request->file('gambar');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->storeAs('public/personil', $imageName);
+            $validateData['gambar'] =$imageName;
         }
         
         $personels->jabatan_id = $validateData['jabatan_id'];
@@ -257,8 +269,8 @@ class PersonilController extends Controller
         $personels->akte_lahir = $validateData['akte_lahir'];
         $personels->tmt_masa_dinas = $validateData['tmt_masa_dinas'];
 
-        if(isset($validateData['foto'])) {
-            $personels->foto = $validateData['foto'];
+        if(isset($validateData['gambar'])) {
+            $personels->gambar = $validateData['gambar'];
         }
 
         $personels->save();

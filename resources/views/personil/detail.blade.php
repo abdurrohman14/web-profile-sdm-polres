@@ -8,7 +8,7 @@
     <div class="card-body">
         <div class="person d-flex align-items-center mb-3">
             <div class="person-image mr-3">
-                <img src="{{ asset('assets1/image/kapolres.jpeg') }}" alt="Foto Personel" style="width: 298px; height: auto; border-radius: 8px;">
+                <img src="{{ asset('storage/personil/' . $personel->gambar) }}" alt="Foto Personel" style="width: 298px; height: auto; border-radius: 8px;">
             </div>
             <div class="person-info">
                 <h5>{{ $personel->nama_lengkap }}</h5>

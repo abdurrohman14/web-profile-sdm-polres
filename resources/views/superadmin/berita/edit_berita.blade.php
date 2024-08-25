@@ -24,10 +24,10 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="foto">Foto</label>
-                <input type="file" class="form-control" id="foto" name="foto" accept=".jpg,.png,.jpeg,.gif" value="{{ old('foto', $beritas->foto) }}">
-                @if ($beritas->foto)
-                    <img src="{{ asset('storage/berita/' . $beritas->foto) }}" id="photo-preview" alt="Pratinjau Gambar" class="mt-2" width="200px">
+                <label for="gambar">Foto</label>
+                <input type="file" class="form-control" id="gambar" name="gambar" accept=".jpg,.png,.jpeg,.gif" value="{{ old('gambar', $beritas->gambar) }}">
+                @if ($beritas->gambar)
+                    <img src="{{ asset('storage/berita/' . $beritas->gambar) }}" id="photo-preview" alt="Pratinjau Gambar" class="mt-2" width="200px">
                 @else
                     <p>Gambar belum tersedia</p>
                 @endif
@@ -66,7 +66,7 @@
 </script>
 
 <script>
-    document.getElementById('foto').addEventListener('change', function(event) {
+    document.getElementById('gambar').addEventListener('change', function(event) {
         // Ambil file yang dipilih oleh pengguna
         const file = event.target.files[0];
         // Buat objek URL untuk pratinjau foto

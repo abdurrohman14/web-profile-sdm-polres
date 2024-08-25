@@ -66,8 +66,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="foto">Foto</label>
-                        <input type="file" class="form-control" id="foto" name="foto" accept=".jpg,.png,.jpeg,.gif" required>
+                        <label for="gambar">Foto</label>
+                        <input type="file" class="form-control" id="gambar" name="gambar" accept=".jpg,.png,.jpeg,.gif" required>
                     </div>
                 </div>
                 <div class="col-md-6">

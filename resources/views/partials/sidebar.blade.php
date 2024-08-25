@@ -62,11 +62,12 @@ $subJabatans = [
 @endphp
 
 <!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-  <div class="sidebar-brand-icon rotate-n-15">
-      <i class="fas fa-laugh-wink"></i>
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+  <div class="sidebar-brand-icon">
+      {{-- <i class="fas fa-laugh-wink"></i> --}}
+      <img src="{{ asset('assets1/image/polri.png') }}" alt="" width="60px">
   </div>
-  <div class="sidebar-brand-text mx-3">SDM Polres</div>
+  <div class="sidebar-brand-text mx-2 mt-4">SDM Polres</div>
 </a>
 
 <!-- Divider -->
@@ -121,8 +122,9 @@ $subJabatans = [
               <h6 class="collapse-header">Custom Components:</h6>
               <a class="collapse-item" href="{{ route('index.hero') }}">Hero</a>
               <a class="collapse-item" href="{{ route('index.partner') }}">Partner</a>
-              <a class="collapse-item" href="{{ route('index.team') }}">Our Team</a>
+              <a class="collapse-item" href="{{ route('index.team') }}">OurTeam</a>
               <a class="collapse-item" href="{{ route('view.berita') }}">Berita</a>
+              <a class="collapse-item" href="{{ route('view.event') }}">Events</a>
           </div>
       </div>
   </li>

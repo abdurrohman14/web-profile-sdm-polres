@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PersonilsController;
 use App\Http\Controllers\SuperAdmin\HeroController;
 use App\Http\Controllers\SuperAdmin\BeritaController;
+use App\Http\Controllers\SuperAdmin\EventsController;
 use App\Http\Controllers\LandingPage\HeroesController;
 use App\Http\Controllers\SuperAdmin\JabatanController;
 use App\Http\Controllers\SuperAdmin\OurteamController;
@@ -14,7 +16,6 @@ use App\Http\Controllers\SuperAdmin\PartnerController;
 use App\Http\Controllers\SuperAdmin\PersonilController;
 use App\Http\Controllers\SuperAdmin\PangkatPolriController;
 use App\Http\Controllers\SuperAdmin\pangkatPnsPolriController;
-use App\Models\Role;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -161,6 +162,16 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
         Route::post('/update/{id}', [BeritaController::class, 'update'])->name('update.berita');
         Route::delete('/delete/{id}', [BeritaController::class, 'delete'])->name('delete.berita');
         Route::post('{id}/status', [BeritaController::class, 'status'])->name('status.berita');
+    });
+
+    // Event
+    Route::prefix('event')->group(function () {
+        Route::get('/', [EventsController::class, 'index'])->name('view.event');
+        Route::get('/create', [EventsController::class, 'create'])->name('create.event');
+        Route::post('/store', [EventsController::class, 'store'])->name('store.event');
+        Route::get('/edit/{id}', [EventsController::class, 'edit'])->name('edit.event');
+        Route::post('/update/{id}', [EventsController::class, 'update'])->name('update.event');
+        Route::delete('/delete/{id}', [EventsController::class, 'delete'])->name('delete.event');
     });
 });
 

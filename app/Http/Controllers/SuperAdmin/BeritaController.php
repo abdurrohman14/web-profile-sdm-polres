@@ -26,19 +26,19 @@ class BeritaController extends Controller
 
     public function store(Request $request) {
         $validateData = $request->validate([
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120', // Validasi upload foto
             'judul' => 'required|max:100',
             'slug' => 'required|unique:beritas',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120', // Validasi upload foto
             'deskripsi' => 'required',
             'status' =>  'nullable|boolean',
         ]);
 
         // Upload File
-        if ($request->hasFile('foto')) {
-            $image = $request->file('foto');
+        if ($request->hasFile('gambar')) {
+            $image = $request->file('gambar');
             $imageName = time().'.'.$image->getClientOriginalExtension();
             $image->storeAs('public/berita', $imageName);
-            $validateData['foto'] = $imageName;
+            $validateData['gambar'] = $imageName;
         }
 
         // Menyimpan data dalam database
@@ -47,7 +47,7 @@ class BeritaController extends Controller
         $beritas->slug = $validateData['slug'];
         $beritas->deskripsi = $validateData['deskripsi'];
         $beritas->status = $validateData['status'] ?? false;
-        $beritas->foto = $imageName; // Menyimpan foto dalam storage/app
+        $beritas->gambar = $imageName; // Menyimpan foto dalam storage/app
         $beritas->save();
 
         return redirect()->route('view.berita')->with('success', 'Data berhasil ditambahkan');
@@ -71,9 +71,9 @@ class BeritaController extends Controller
 
     public function update(Request $request, $id) {
         $validateData = $request->validate([
-            'foto' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
             'judul' => 'required|max:100',
             'slug' => 'required|unique:beritas,slug,'.$id,
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
             'deskripsi' => 'required',
             'status' =>  'nullable|boolean',
         ]);
@@ -86,15 +86,15 @@ class BeritaController extends Controller
             ]);
         }
 
-        if ($request->hasFile('foto')) {
+        if ($request->hasFile('gambar')) {
             // Hapus foto lama
-            Storage::delete('public/berita'.$beritas->photo);
+            Storage::delete('public/berita'.$beritas->gambar);
 
             // Upload foto baru
-            $image = $request->file('foto');
+            $image = $request->file('gambar');
             $imageName = time().'.'.$image->getClientOriginalExtension();
             $image->storeAs('public/berita', $imageName);
-            $validateData['foto'] = $imageName;
+            $validateData['gambar'] = $imageName;
         }
 
         $beritas->judul = $validateData['judul'];
@@ -102,8 +102,8 @@ class BeritaController extends Controller
         $beritas->deskripsi = $validateData['deskripsi'];
         $beritas->status = $validateData['status'] ?? false;
 
-        if(isset($validateData['foto'])){
-            $beritas->foto = $validateData['foto'];
+        if(isset($validateData['gambar'])){
+            $beritas->gambar = $validateData['gambar'];
         }
 
         $beritas->save();
@@ -113,7 +113,7 @@ class BeritaController extends Controller
 
     public function delete($id) {
         $beritas = Berita::find($id);
-        Storage::delete('public/berita'.$beritas->foto);
+        Storage::delete('public/berita'.$beritas->gambar);
         $beritas->delete();
 
         return redirect()->route('view.berita')->with('success', 'Data berhasil dihapus');

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreign('pangkat_id')->references('id')->on('pangkats');
             $table->foreign('jabatan_id')->references('id')->on('jabatans');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
