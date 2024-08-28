@@ -62,7 +62,7 @@ return new class extends Migration
             $table->date('tmt_masa_dinas');
             $table->string('akte_lahir')->nullable();
             $table->foreign('jabatan_id')->references('id')->on('jabatans');
-            // $table->foreignId('sub_jabatan_id')->constrained('sub_jabatans')->onDelete('cascade');
+            // $table->foreign('sub_jabatan_id')->references('id')->on('sub_jabatans');
             $table->foreign('pangkat_id')->references('id')->on('pangkats');
             $table->foreign('pangkat_pns_polri_id')->references('id')->on('pangkat_pns_polris');
             $table->foreign('user_id')->references('id')->on('users');

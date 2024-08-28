@@ -64,6 +64,7 @@ class RegisteredUserController extends Controller
             case 'personil':
                 return redirect(route('personil', absolute: false));
                 break;
+            
             default :
             return redirect(route('dashboard', absolute: false));
         }

@@ -40,12 +40,14 @@ class PersonilController extends Controller
         $pangkat = Pangkat::all();
         $pangkatPnsPolri = pangkat_pns_polri::all();
         $user = User::all();
+        $roles = Role::all();
         return view('superadmin.personil.create_personil', [
             'jabatan' => $jabatan,
             'subJabatan' => $subJabatan,
             'pangkat' => $pangkat,
             'pangkatPnsPolri' => $pangkatPnsPolri,
             'user' => $user,
+            'roles' => $roles,
             'title' => 'Tambah Personil'
         ]);
     }

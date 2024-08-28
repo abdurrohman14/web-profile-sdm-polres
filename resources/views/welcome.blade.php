@@ -44,9 +44,8 @@
         <div class="row">
           @if($hero)
                 <div class="col-md-6">
-                    <h1>{{ $hero->title }}</h1>
+                    <h1>{{ $hero->judul }}</h1>
                     <p>{{ $hero->deskripsi }}</p>
-                    <a href="#" class="btn btn-dark">Learn More</a>
                 </div>
                 <div class="col-md-6 d-flex justify-content-center">
                     <img src="{{ asset('storage/hero/' . $hero->gambar) }}" alt="Hero Image" width="200px"/>
@@ -96,68 +95,30 @@
       </div>
     </section>
 
-    <section class="hero mt-5">
-        <div class="container">
-          <h2 class="text-center mb-4">Our Services</h2>
-          <p class="text-center mb-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Mauris sit amet lacus ac orci faucibus dapibus. Duis quis sapien sed libero malesuada aliquam.
-          </p>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="card service-card">
-                <div class="card-body">
-                  <i class="bi bi-people-fill fs-1"></i>
-                  <h5 class="card-title">Rekrutmen & Seleksi</h5>
-                  <p class="card-text">Description of service 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  <a href="#">Learn More</a>
-                </div>
+    <section class="news mt-5">
+      <div class="container">
+        <h2 class="text-center mb-4">Events</h2>
+        <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Mauris sit amet lacus ac orci faucibus dapibus. Duis quis sapien sed libero malesuada aliquam. </p>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card news-card">
+              @foreach($event as $evt)
+              <img src="{{ asset('storage/event/' . $evt->gambar) }}" class="card-img-top" alt="News 1" />
+              <div class="card-body">
+                <h5 class="card-title">{{ $evt->judul }}</h5>
+                <p class="card-text">{!! $evt->deskripsi !!}</p>
+                <a href="#" class="btn btn-dark mt-4">Read More</a>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card service-card">
-                <div class="card-body">
-                  <i class="bi bi-clipboard2-check-fill fs-1"></i>
-                  <h5 class="card-title">Pengembangan & Pelatihan</h5>
-                  <p class="card-text">Description of service 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  <a href="#">Learn More</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card service-card">
-                <div class="card-body">
-                    <i class="bi bi-journal-text fs-1"></i>
-                  <h5 class="card-title">Administrasi Personil</h5>
-                  <p class="card-text">Description of service 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  <a href="#">Learn More</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row justify-content-center mt-4">
-            <div class="col-md-4">
-              <div class="card service-card">
-                <div class="card-body">
-                  <i class="bi bi-briefcase-fill fs-1"></i>
-                  <h5 class="card-title">Consulting Services</h5>
-                  <p class="card-text">Description of service 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  <a href="#">Learn More</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card service-card">
-                <div class="card-body">
-                  <i class="bi bi-graph-up-arrow fs-1"></i>
-                  <h5 class="card-title">Performance Management</h5>
-                  <p class="card-text">Description of service 5. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  <a href="#">Learn More</a>
-                </div>
-              </div>
+              @endforeach
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+
+    <div class="d-flex justify-content-center align-items-center mt-5">
+        <button type="submit" class="btn btn-dark">Selengkapnya</button>
+    </div>
       
     <section class="news mt-5">
       <div class="container">
@@ -167,7 +128,7 @@
           <div class="col-md-4">
             <div class="card news-card">
               @foreach($berita as $brt)
-              <img src="{{ asset('storage/berita/' . $brt->foto) }}" class="card-img-top" alt="News 1" />
+              <img src="{{ asset('storage/berita/' . $brt->gambar) }}" class="card-img-top" alt="News 1" />
               <div class="card-body">
                 <h5 class="card-title">{{ $brt->judul }}</h5>
                 <p class="card-text">{!! $brt->deskripsi !!}</p>
@@ -186,7 +147,7 @@
 
     <section class="ourteams mt-5">
       <div class="container">
-          <h2 class="text-center mb-4">Famous Our Team</h2>
+          <h2 class="text-center mb-4">Our Team</h2>
           <p class="text-center mb-5">Meet our esteemed educators who have made significant contributions to our institution.</p>
           @if($ourteams->isNotEmpty())
           <div id="teamCarousel" class="carousel slide" data-bs-ride="carousel">
