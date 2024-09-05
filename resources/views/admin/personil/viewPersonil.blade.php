@@ -35,11 +35,11 @@
                             <div class="d-flex align-items-center">
                                 <a href="{{ route('show.person', $personil->id) }}" class="btn btn-sm btn-info mr-1">View</a>
                                 <a href="{{ route('edit.person', $personil->id) }}" class="btn btn-sm btn-primary mr-1">Edit</a>
-                            <form action="{{ route('delete.person', ['id' => $personil->id]) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                            </form>
+                                <form id="delete-form-{{ $personil->id }}" action="{{ route('delete.personel', ['id' => $personil->id]) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button onclick="confirmDelete(event, {{ $personil->id }})" class="btn btn-sm btn-danger">Hapus</button>
+                                </form>
                             </div>
                         </td>
                     </tr>
