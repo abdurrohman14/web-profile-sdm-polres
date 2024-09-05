@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use App\Models\User;
 use App\Models\Jabatan;
+use App\Models\Pangkat;
 use App\Models\Personel;
+use App\Models\subJabatan;
+use App\Models\subPnsPolri;
 use Illuminate\Http\Request;
+use App\Models\subPangkatPolri;
+use App\Models\pangkat_pns_polri;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -59,9 +66,113 @@ class RoleController extends Controller
 
     public function edit($id) {
         $personel = Personel::findOrFail($id);
+
+        // Ambil data yang diperlukan untuk form edit
+        $jabatan = Jabatan::all();
+        $subJabatan = subJabatan::all();
+        $pangkat = Pangkat::all();
+        $subPangkat = subPangkatPolri::all();
+        $pangkatPnsPolri = pangkat_pns_polri::all();
+        $subPnsPolri = subPnsPolri::all();
+        $user = User::all();
+        $roles = Role::all();
+
         return view('personil.edit', [
             'personel' => $personel,
+            'jabatan' => $jabatan,
+            'subJabatan' => $subJabatan,
+            'pangkat' => $pangkat,
+            'subPangkat' => $subPangkat,
+            'pangkatPnsPolri' => $pangkatPnsPolri,
+            'subPnsPolri' => $subPnsPolri,
+            'user' => $user,
+            'roles' => $roles,
             'title' => 'Edit Personel',
         ]);
+    }
+
+    public function update(Request $request, $id) {
+        $validateData = $request->validate([
+            'jabatan_id' => 'required|exists:jabatans,id',
+            'sub_jabatan_id' => 'nullable|exists:sub_jabatans,id',
+            'pangkat_id' => 'required|exists:pangkats,id',
+            'sub_pangkat_id' => 'nullable|exists:sub_pangkat_polris,id',
+            'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
+            'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',
+            'role_id' => 'required|exists:roles,id',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nama_lengkap' => 'required|string|max:255',
+            'nama_panggilan' => 'nullable|string|max:50',
+            'nrp' => 'required|string|max:20|unique:personels,nrp,' . $id,
+            'tempat_lahir' => 'required|string|max:100',
+            'tanggal_lahir' => 'required|date|before:today',
+            'email_pribadi' => 'required|string|email|max:255|unique:personels,email_pribadi,' . $id,
+            'email_dinas' => 'nullable|string|email|max:255|unique:personels,email_dinas,' . $id,
+            'no_hp' => 'required|string|max:15|unique:personels,no_hp,' . $id,
+            'status' => 'required|string|in:aktif,tidak-aktif',
+            'tmt_status' => 'nullable|date|after_or_equal:tanggal_lahir',
+            'golongan_darah' => 'nullable|string|in:A,B,AB,O',
+            'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
+            'status_pernikahan' => 'required|string|in:Belum Menikah,Menikah,Duda,Janda',
+            'anak_ke' => 'nullable|integer|min:1',
+            'agama' => 'required|string|max:50|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
+            'alamat_personel' => 'nullable|string|max:255',
+            'lkhpn' => 'nullable|string|max:255',
+            'jenis_rambut' => 'nullable|string|max:50',
+            'warna_mata' => 'nullable|string|max:50',
+            'warna_kulit' => 'nullable|string|max:50',
+            'warna_rambut' => 'nullable|string|max:50',
+            'nama_ibu' => 'nullable|string|max:255',
+            'telepon_ortu' => 'nullable|string|max:15',
+            'alamat_ortu' => 'nullable|string|max:255',
+            'tinggi' => 'nullable|integer|min:100|max:250',
+            'berat' => 'nullable|integer|min:30|max:200',
+            'ukuran_topi' => 'nullable|integer|min:1|max:20',
+            'ukuran_celana' => 'nullable|integer|min:1|max:50',
+            'ukuran_sepatu' => 'nullable|integer|min:1|max:50',
+            'ukuran_baju' => 'nullable|integer|min:1|max:50',
+            'sidik_jari_1' => 'nullable|string|max:255',
+            'sidik_jari_2' => 'nullable|string|max:255',
+            'nomor_keputusan_penyidik' => 'nullable|string|max:255',
+            'kta' => 'nullable|string|max:255',
+            'asabri' => 'nullable|string|max:255',
+            'nik' => 'required|string|max:16|unique:personels,nik,' . $id,
+            'npwp' => 'nullable|string|max:20|unique:personels,npwp,' . $id,
+            'bpjs' => 'nullable|string|max:20|unique:personels,bpjs,' . $id,
+            'nomor_kk' => 'nullable|string|max:20|unique:personels,nomor_kk,' . $id,
+            'paspor' => 'nullable|string|max:9|unique:personels,paspor,' . $id,
+            'akte_lahir' => 'nullable|string|max:255|unique:personels,akte_lahir,' . $id,
+            'tmt_masa_dinas' => 'nullable|date|after_or_equal:tanggal_lahir',
+        ]);
+
+        // Handle file upload
+        if ($request->hasFile('gambar')) {
+            $image = $request->file('gambar');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/personil', $imageName);
+            $validateData['gambar'] = $imageName;
+        }
+
+        // Save data to the database
+        try {
+            $personel = Personel::findOrFail($id);
+
+            // Update user details
+            $user = User::findOrFail($personel->user_id);
+            $user->update([
+                'name' => $request->nama_lengkap,
+                'email' => $request->email_pribadi,
+                'role_id' => $request->role_id,
+                'sub_jabatan_id' => $request->sub_jabatan_id,
+                'password' => bcrypt($request->nrp),
+            ]);
+
+            // Update personel details
+            $personel->update($validateData);
+
+            return redirect()->route('personil')->with('success', 'Data berhasil diperbarui');
+        } catch (\Exception $e) {
+            return back()->withErrors('Gagal memperbarui data. Silakan coba lagi.' . $e->getMessage());
+        }
     }
 }

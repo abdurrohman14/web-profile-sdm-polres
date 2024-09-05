@@ -203,7 +203,7 @@ Route::middleware(['auth', 'role:personil'])->group(function () {
     Route::prefix('personil')->group(function () {
         Route::get('/', [RoleController::class, 'personil'])->name('personil');
         Route::get('/{id}', [RoleController::class, 'show'])->name('personil.show');
-        Route::get('/{id}/edit', [RoleController::class, 'edit'])->name('personil.edit');
-        Route::put('/{id}', [RoleController::class, 'update'])->name('personil.update');
+        Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('personil.edit');
+        Route::post('/update/{id}', [RoleController::class, 'update'])->name('personil.update');
     });
 });
