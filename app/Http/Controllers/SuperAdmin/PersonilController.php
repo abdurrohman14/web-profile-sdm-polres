@@ -252,6 +252,7 @@ class PersonilController extends Controller
                 'name' => $request->nama_lengkap,
                 'email' => $request->email_pribadi,
                 'role_id' => $request->role_id,
+                'sub_jabatan_id' => $request->sub_jabatan_id,
                 'password' => bcrypt($request->nrp),
             ]);
 
