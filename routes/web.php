@@ -39,10 +39,17 @@ require __DIR__.'/auth.php';
 // Rute untuk Admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin', [RoleController::class, 'admin'])->name('admin');
+    
 
     // Personel
     Route::prefix('person')->group(function () {
         Route::get('/', [PersonilsController::class, 'index'])->name('index.person');
+        Route::get('/create', [PersonilController::class, 'create'])->name('create.person');
+        Route::post('/store', [PersonilController::class, 'store'])->name('store.person');
+        Route::get('/detail/{id}', [PersonilController::class, 'show'])->name('show.person');
+        Route::get('/edit/{id}', [PersonilController::class, 'edit'])->name('edit.person');
+        Route::post('/update/{id}', [PersonilController::class, 'update'])->name('update.person');
+        Route::delete('/delete/{id}', [PersonilController::class, 'delete'])->name('delete.person');
     });
 });
 
@@ -54,6 +61,11 @@ Route::middleware(['auth', 'role:admin', 'check.subJabatan:subbag binops'])->gro
 // Rute untuk Admin Bagops Subbag dalops
 Route::middleware(['auth', 'role:admin', 'check.subJabatan:subbag dalops'])->group(function () {
     Route::get('/person/dalops', [PersonilsController::class, 'index'])->name('index.dalops');
+});
+
+// Rute untuk Admin Bagops Subbag kerma
+Route::middleware(['auth', 'role:admin', 'check.subJabatan:subbag kerma'])->group(function () {
+    Route::get('/person/kerma', [PersonilsController::class, 'index'])->name('index.kerma');
 });
 
 // Rute untuk Superadmin

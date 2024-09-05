@@ -4,7 +4,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between">
         <h3 class="m-0 font-weight-bold text-primary">Personil</h3>
-        <button type="submit" class="btn btn-primary"><a href="{{ route('create.personel') }}" class="text-white text-decoration-none">Tambah Data</a></button>
+        <button type="submit" class="btn btn-primary"><a href="{{ route('create.person') }}" class="text-white text-decoration-none">Tambah Data</a></button>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -33,9 +33,9 @@
                         <td>{{ $personil->user->role }}</td>
                         <td>
                             <div class="d-flex align-items-center">
-                                <a href="{{ route('show.personel', $personil->id) }}" class="btn btn-sm btn-info mr-1">View</a>
-                                <a href="{{ route('edit.personel', $personil->id) }}" class="btn btn-sm btn-primary mr-1">Edit</a>
-                            <form action="{{ route('delete.personel', ['id' => $personil->id]) }}" method="post">
+                                <a href="{{ route('show.person', $personil->id) }}" class="btn btn-sm btn-info mr-1">View</a>
+                                <a href="{{ route('edit.person', $personil->id) }}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                            <form action="{{ route('delete.person', ['id' => $personil->id]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
