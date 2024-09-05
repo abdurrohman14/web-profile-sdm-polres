@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::table('personels', function (Blueprint $table) {
             $table->foreignId('sub_jabatan_id')->nullable()->after('jabatan_id')->constrained('sub_jabatans')->onDelete('cascade');
+            $table->foreignId('sub_pangkat_id')->nullable()->after('pangkat_id')->constrained('sub_pangkat_polris')->onDelete('cascade');
+            $table->foreignId('sub_pns_polri_id')->nullable()->after('pangkat_pns_polri_id')->constrained('sub_pns_polris')->onDelete('cascade');
         });
     }
 
@@ -24,6 +26,10 @@ return new class extends Migration
         Schema::table('personels', function (Blueprint $table) {
             $table->dropForeign(['sub_jabatan_id']);
             $table->dropColumn('sub_jabatan_id');
+            $table->dropForeign(['sub_pangkat_id']);
+            $table->dropColumn('sub_pangkat_id');
+            $table->dropForeign(['sub_pns_polri_id']);
+            $table->dropColumn('sub_pns_polri_id');
         });
     }
 };

@@ -29,15 +29,15 @@
                         <td>{{ $personil->subJabatan->nama ?? '-'}}</td>
                         <td>{{ $personil->pangkat->nama }}</td>
                         <td>{{ $personil->pangkatPnsPolri->nama }}</td>
-                        <td>{{ $personil->role->name }}</td>
+                        <td>{{ $personil->user->role }}</td>
                         <td>
                             <div class="d-flex align-items-center">
                                 <a href="{{ route('show.personel', $personil->id) }}" class="btn btn-sm btn-info mr-1">View</a>
                                 <a href="{{ route('edit.personel', $personil->id) }}" class="btn btn-sm btn-primary mr-1">Edit</a>
-                            <form action="{{ route('delete.personel', ['id' => $personil->id]) }}" method="post">
+                            <form id="delete-form-{{ $personil->id }}" action="{{ route('delete.personel', ['id' => $personil->id]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                <button onclick="confirmDelete(event, {{ $personil->id }})" class="btn btn-sm btn-danger">Hapus</button>
                             </form>
                             </div>
                         </td>

@@ -43,9 +43,9 @@
                             <div class="value ml-2">{{ $personel->jenis_kelamin }}</div>
                         </div>
                         <div class="info-item d-flex mb-2">
-                            <div class="label" style="min-width: 150px;"><strong>Status Perkawinan</strong></div>
+                            <div class="label" style="min-width: 150px;"><strong>Status Pernikahan</strong></div>
                             <div class="colon">:</div>
-                            <div class="value ml-2">{{ $personel->status_perkawinan }}</div>
+                            <div class="value ml-2">{{ $personel->status_pernikahan }}</div>
                         </div>
                         <div class="info-item d-flex mb-2">
                             <div class="label" style="min-width: 150px;"><strong>Golongan Darah</strong></div>

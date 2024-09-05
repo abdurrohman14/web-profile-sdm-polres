@@ -8,9 +8,13 @@ use App\Models\Jabatan;
 use App\Models\Pangkat;
 use App\Models\Personel;
 use App\Models\subJabatan;
+use App\Models\subPnsPolri;
 use Illuminate\Http\Request;
+use App\Models\subPangkatPolri;
 use App\Models\pangkat_pns_polri;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PersonilController extends Controller
@@ -19,12 +23,12 @@ class PersonilController extends Controller
         $jabatan = $request->input('jabatan');
 
         if($jabatan) {
-            $personels = Personel::with('jabatan', 'subJabatan', 'pangkat', 'pangkatPnsPolri', 'user')
+            $personels = Personel::with('jabatan', 'subJabatan', 'pangkat', 'pangkatPnsPolri', 'user.role')
             ->whereHas('jabatan', function($query) use ($jabatan) {
                 $query->where('nama', $jabatan);
             })->get();
         } else {
-            $personels = Personel::with('jabatan', 'pangkat', 'pangkatPnsPolri', 'user')->get();
+            $personels = Personel::with('jabatan', 'pangkat', 'pangkatPnsPolri', 'user.role')->get();
         }
 
         return view('superadmin.personil.view_personil', [
@@ -38,14 +42,18 @@ class PersonilController extends Controller
         $jabatan = Jabatan::all();
         $subJabatan = subJabatan::all();
         $pangkat = Pangkat::all();
+        $subPangkat = subPangkatPolri::all();
         $pangkatPnsPolri = pangkat_pns_polri::all();
+        $subPnsPolri = subPnsPolri::all();
         $user = User::all();
         $roles = Role::all();
         return view('superadmin.personil.create_personil', [
             'jabatan' => $jabatan,
             'subJabatan' => $subJabatan,
             'pangkat' => $pangkat,
+            'subPangkat' => $subPangkat,
             'pangkatPnsPolri' => $pangkatPnsPolri,
+            'subPnsPolri' => $subPnsPolri,
             'user' => $user,
             'roles' => $roles,
             'title' => 'Tambah Personil'
@@ -57,8 +65,10 @@ class PersonilController extends Controller
             'jabatan_id' => 'required|exists:jabatans,id',
             'sub_jabatan_id' => 'nullable|exists:sub_jabatans,id',
             'pangkat_id' => 'required|exists:pangkats,id',
+            'sub_pangkat_id' => 'nullable|exists:sub_pangkat_polris,id',
             'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
-            'user_id' => 'required|exists:users,id',
+            'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',
+            'role_id' => 'required|exists:roles,id',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama_lengkap' => 'required|string|max:255',
             'nama_panggilan' => 'nullable|string|max:50',
@@ -68,7 +78,7 @@ class PersonilController extends Controller
             'email_pribadi' => 'required|string|email|max:255|unique:personels,email_pribadi,' . $request->id,
             'email_dinas' => 'nullable|string|email|max:255|unique:personels,email_dinas,' . $request->id,
             'no_hp' => 'required|string|max:15|unique:personels,no_hp,' . $request->id,
-            'status' => 'required|string|in:aktif,non-aktif',
+            'status' => 'required|string|in:aktif,tidak-aktif',
             'tmt_status' => 'nullable|date|after_or_equal:tanggal_lahir',
             'golongan_darah' => 'nullable|string|in:A,B,AB,O',
             'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
@@ -118,16 +128,14 @@ class PersonilController extends Controller
                 'name' => $request->nama_lengkap,
                 'email' => $request->email_pribadi,
                 'role_id' => $request->role_id,
+                'sub_jabatan_id' => $request->sub_jabatan_id,
                 'password' => bcrypt($request->nrp),
             ]);
 
-            $user = new User();
-            $user->fill($input);
-            $user->save();
-            
-            $personel = new Personel();
-            $personel->fill($validateData);
-            $personel->save();
+            $user = User::create($input);
+            $validateData['user_id'] = $user->id;
+
+            $personels = Personel::create($validateData);
 
             return redirect()->route('view.personel')->with('success', 'Data berhasil ditambahkan');
         } catch (\Exception $e) {
@@ -145,17 +153,28 @@ class PersonilController extends Controller
     }
 
     public function edit($id) {
-        $personels = Personel::find($id);
-        $jabatans = Jabatan::all();
-        $pangkats = Pangkat::all();
+         // Ambil data personil berdasarkan ID
+        $personels = Personel::findOrFail($id);
+
+        // Ambil data yang diperlukan untuk form edit
+        $jabatan = Jabatan::all();
+        $subJabatan = subJabatan::all();
+        $pangkat = Pangkat::all();
+        $subPangkat = subPangkatPolri::all();
         $pangkatPnsPolri = pangkat_pns_polri::all();
+        $subPnsPolri = subPnsPolri::all();
+        $user = User::all();
         $roles = Role::all();
-        
+
         return view('superadmin.personil.edit_personil', [
             'personels' => $personels,
-            'jabatans' => $jabatans,
-            'pangkats' => $pangkats,
+            'jabatan' => $jabatan,
+            'subJabatan' => $subJabatan,
+            'pangkat' => $pangkat,
+            'subPangkat' => $subPangkat,
             'pangkatPnsPolri' => $pangkatPnsPolri,
+            'subPnsPolri' => $subPnsPolri,
+            'user' => $user,
             'roles' => $roles,
             'title' => 'Edit Personil'
         ]);
@@ -164,25 +183,28 @@ class PersonilController extends Controller
     public function update(Request $request, $id) {
         $validateData = $request->validate([
            'jabatan_id' => 'required|exists:jabatans,id',
+            'sub_jabatan_id' => 'nullable|exists:sub_jabatans,id',
             'pangkat_id' => 'required|exists:pangkats,id',
-            'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id', // nullable jika personel bukan PNS Polri
+            'sub_pangkat_id' => 'nullable|exists:sub_pangkat_polris,id',
+            'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
+            'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',
             'role_id' => 'required|exists:roles,id',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama_lengkap' => 'required|string|max:255',
             'nama_panggilan' => 'nullable|string|max:50',
-            'nrp' => 'required|string|max:20|unique:personels,nrp,' . $request->id,
+            'nrp' => 'required|string|max:20|unique:personels,nrp,' . $id,
             'tempat_lahir' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date|before:today',
-            'email_pribadi' => 'required|string|email|max:255|unique:personels,email_pribadi,' . $request->id,
-            'email_dinas' => 'nullable|string|email|max:255|unique:personels,email_dinas,' . $request->id,
-            'no_hp' => 'required|string|max:15|unique:personels,no_hp,' . $request->id,
-            'status' => 'required|string|in:aktif,non-aktif',
+            'email_pribadi' => 'required|string|email|max:255|unique:personels,email_pribadi,' . $id,
+            'email_dinas' => 'nullable|string|email|max:255|unique:personels,email_dinas,' . $id,
+            'no_hp' => 'required|string|max:15|unique:personels,no_hp,' . $id,
+            'status' => 'required|string|in:aktif,tidak-aktif',
             'tmt_status' => 'nullable|date|after_or_equal:tanggal_lahir',
             'golongan_darah' => 'nullable|string|in:A,B,AB,O',
-            'jenis_kelamin' => 'required|string|in:L,P',
-            'status_pernikahan' => 'required|string|in:single,married,divorced',
+            'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
+            'status_pernikahan' => 'required|string|in:Belum Menikah,Menikah,Duda,Janda',
             'anak_ke' => 'nullable|integer|min:1',
-            'agama' => 'required|string|max:50',
+            'agama' => 'required|string|max:50|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
             'alamat_personel' => 'nullable|string|max:255',
             'lkhpn' => 'nullable|string|max:255',
             'jenis_rambut' => 'nullable|string|max:50',
@@ -194,98 +216,76 @@ class PersonilController extends Controller
             'alamat_ortu' => 'nullable|string|max:255',
             'tinggi' => 'nullable|integer|min:100|max:250',
             'berat' => 'nullable|integer|min:30|max:200',
-            'ukuran_topi' => 'nullable|integer|min:1|max:10',
-            'ukuran_celana' => 'nullable|integer|min:1|max:10',
+            'ukuran_topi' => 'nullable|integer|min:1|max:20',
+            'ukuran_celana' => 'nullable|integer|min:1|max:50',
             'ukuran_sepatu' => 'nullable|integer|min:1|max:50',
-            'ukuran_baju' => 'nullable|integer|min:1|max:10',
+            'ukuran_baju' => 'nullable|integer|min:1|max:50',
             'sidik_jari_1' => 'nullable|string|max:255',
             'sidik_jari_2' => 'nullable|string|max:255',
             'nomor_keputusan_penyidik' => 'nullable|string|max:255',
             'kta' => 'nullable|string|max:255',
             'asabri' => 'nullable|string|max:255',
-            'nik' => 'required|string|max:16|unique:personels,nik,' . $request->id,
-            'npwp' => 'nullable|string|max:20|unique:personels,npwp,' . $request->id,
-            'bpjs' => 'nullable|string|max:20|unique:personels,bpjs,' . $request->id,
-            'nomor_kk' => 'nullable|string|max:20|unique:personels,nomor_kk,' . $request->id,
-            'paspor' => 'nullable|string|max:9|unique:personels,paspor,' . $request->id,
-            'akte_lahir' => 'nullable|string|max:255|unique:personels,akte_lahir,' . $request->id,
+            'nik' => 'required|string|max:16|unique:personels,nik,' . $id,
+            'npwp' => 'nullable|string|max:20|unique:personels,npwp,' . $id,
+            'bpjs' => 'nullable|string|max:20|unique:personels,bpjs,' . $id,
+            'nomor_kk' => 'nullable|string|max:20|unique:personels,nomor_kk,' . $id,
+            'paspor' => 'nullable|string|max:9|unique:personels,paspor,' . $id,
+            'akte_lahir' => 'nullable|string|max:255|unique:personels,akte_lahir,' . $id,
             'tmt_masa_dinas' => 'nullable|date|after_or_equal:tanggal_lahir',
         ]);
 
-        $personels = Personel::find($id);
-
+        // Handle file upload
         if ($request->hasFile('gambar')) {
-            // Hapus foto lama jika ada
-            if ($personels->gambar) {
-                Storage::delete('public/' . $personels->gambar);
-            }
             $image = $request->file('gambar');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('public/personil', $imageName);
-            $validateData['gambar'] =$imageName;
-        }
-        
-        $personels->jabatan_id = $validateData['jabatan_id'];
-        $personels->pangkat_id = $validateData['pangkat_id'];
-        $personels->pangkat_pns_polri_id = $validateData['pangkat_pns_polri_id'];
-        $personels->role_id = $validateData['role_id'];
-        $personels->nama_lengkap = $validateData['nama_lengkap'];
-        $personels->nama_panggilan = $validateData['nama_panggilan'];
-        $personels->nrp = $validateData['nrp'];
-        $personels->tempat_lahir = $validateData['tempat_lahir'];
-        $personels->tanggal_lahir = $validateData['tanggal_lahir'];
-        $personels->email_pribadi = $validateData['email_pribadi'];
-        $personels->email_dinas = $validateData['email_dinas'];
-        $personels->no_hp = $validateData['no_hp'];
-        $personels->status = $validateData['status'];
-        $personels->tmt_status = $validateData['tmt_status'];
-        $personels->golongan_darah = $validateData['golongan_darah'];
-        $personels->jenis_kelamin = $validateData['jenis_kelamin'];
-        $personels->status_pernikahan = $validateData['status_pernikahan'];
-        $personels->anak_ke = $validateData['anak_ke'];
-        $personels->agama = $validateData['agama'];
-        $personels->lkhpn = $validateData['lkhpn'];
-        $personels->jenis_rambut = $validateData['jenis_rambut'];
-        $personels->warna_mata = $validateData['warna_mata'];
-        $personels->warna_kulit = $validateData['warna_kulit'];
-        $personels->warna_rambut = $validateData['warna_rambut'];
-        $personels->nama_ibu = $validateData['nama_ibu'];
-        $personels->telepon_ortu = $validateData['telepon_ortu'];
-        $personels->alamat_ortu = $validateData['alamat_ortu'];
-        $personels->tinggi = $validateData['tinggi'];
-        $personels->berat = $validateData['berat'];
-        $personels->ukuran_topi = $validateData['ukuran_topi'];
-        $personels->ukuran_celana = $validateData['ukuran_celana'];
-        $personels->ukuran_sepatu = $validateData['ukuran_sepatu'];
-        $personels->ukuran_baju = $validateData['ukuran_baju'];
-        $personels->sidik_jari_1 = $validateData['sidik_jari_1'];
-        $personels->sidik_jari_2 = $validateData['sidik_jari_2'];
-        $personels->nomor_keputusan_penyidik = $validateData['nomor_keputusan_penyidik'];
-        $personels->kta = $validateData['kta'];
-        $personels->asabri = $validateData['asabri'];
-        $personels->nik = $validateData['nik'];
-        $personels->npwp = $validateData['npwp'];
-        $personels->bpjs = $validateData['bpjs'];
-        $personels->nomor_kk = $validateData['nomor_kk'];
-        $personels->paspor = $validateData['paspor'];
-        $personels->akte_lahir = $validateData['akte_lahir'];
-        $personels->tmt_masa_dinas = $validateData['tmt_masa_dinas'];
-
-        if(isset($validateData['gambar'])) {
-            $personels->gambar = $validateData['gambar'];
+            $validateData['gambar'] = $imageName;
         }
 
-        $personels->save();
+        // Save data to the database
+        try {
+            $personels = Personel::findOrFail($id);
 
-        return redirect()->route('view.personel')->with('success', 'Data berhasil ditambahkan');
+            // Update user details
+            $user = User::findOrFail($personels->user_id);
+            $user->update([
+                'name' => $request->nama_lengkap,
+                'email' => $request->email_pribadi,
+                'role_id' => $request->role_id,
+                'password' => bcrypt($request->nrp),
+            ]);
+
+            // Update personel details
+            $personels->update($validateData);
+
+            return redirect()->route('view.personel')->with('success', 'Data berhasil diperbarui');
+        } catch (\Exception $e) {
+            return back()->withErrors('Gagal memperbarui data. Silakan coba lagi.' . $e->getMessage());
+        }
     }
 
     public function delete($id) {
+        DB::beginTransaction(); // Memulai transaksi
+
         try {
+            // Temukan data personel dan hapus
             $personel = Personel::findOrFail($id);
+            
+            // Temukan data user terkait dan hapus
+            $user = User::where('id', $personel->user_id)->first();
+
+            // Hapus personel terlebih dahulu
             $personel->delete();
+
+            // Hapus user jika ada
+            if ($user) {
+                $user->delete();
+            }
+
+            DB::commit(); // Menyimpan perubahan jika semuanya berhasil
             return redirect()->route('view.personel')->with('success', 'Data berhasil dihapus');
         } catch (\Exception $e) {
+            DB::rollBack(); // Membatalkan perubahan jika terjadi kesalahan
             return back()->withErrors('Gagal menghapus data. Silakan coba lagi. ' . $e->getMessage());
         }
     }

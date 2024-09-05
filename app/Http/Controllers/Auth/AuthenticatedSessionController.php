@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         // Ambil role pengguna yang telah login
-        $role = auth()->user()->role;
+        $role = Auth::user()->role;
 
         // Redirect sesuai dengan peran pengguna menggunakan if-else
         if ($role === 'admin') {

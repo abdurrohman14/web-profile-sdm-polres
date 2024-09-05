@@ -10,7 +10,7 @@ class Personel extends Model
     use HasFactory;
 
     protected $fillable = [
-        'jabatan_id', 'sub_jabatan_id', 'pangkat_id', 'pangkat_pns_polri_id', 'role_id', 'foto', 'nama_lengkap',
+        'jabatan_id', 'sub_jabatan_id', 'pangkat_id', 'pangkat_pns_polri_id', 'user_id', 'gambar', 'nama_lengkap',
         'nama_panggilan', 'nrp', 'tempat_lahir', 'email_pribadi', 'email_dinas', 'no_hp',
         'status', 'tmt_status', 'golongan_darah', 'jenis_kelamin', 'status_pernikahan', 'anak_ke',
         'agama', 'alamat_personel', 'lkhpn', 'tanggal_lahir', 'jenis_rambut', 'warna_mata',
@@ -39,14 +39,14 @@ class Personel extends Model
     }
 
     public function user() {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function subJabatan() {
-        return $this->belongsTo(subJabatan::class);
+        return $this->belongsTo(subJabatan::class, 'sub_jabatan_id');
     }
 
-    public function Role() {
-        return $this->belongsTo(Role::class);
+    public function role() {
+        return $this->belongsTo(Role::class, 'id');
     }
 }

@@ -1,5 +1,6 @@
 @extends('partials.main')
 @section('content')
+
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between">
         <h3 class="m-0 font-weight-bold text-primary">Personil</h3>
@@ -25,11 +26,11 @@
                     <tr>
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $personil->nama_lengkap }}</td>
-                        <td>{{ $personil->subJabatan->nama }}</td>
+                        <td>{{ $personil->subJabatan->nama ?? '-' }}</td>
                         <td>{{ $personil->jabatan->nama }}</td>
                         <td>{{ $personil->pangkat->nama }}</td>
                         <td>{{ $personil->pangkatPnsPolri->nama }}</td>
-                        <td>{{ $personil->user->name }}</td>
+                        <td>{{ $personil->user->role }}</td>
                         <td>
                             <div class="d-flex align-items-center">
                                 <a href="{{ route('show.personel', $personil->id) }}" class="btn btn-sm btn-info mr-1">View</a>

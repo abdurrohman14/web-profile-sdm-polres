@@ -13,10 +13,15 @@ class subJabatan extends Model
 
     public function jabatan()
     {
-        return $this->belongsTo(Jabatan::class);
+        return $this->belongsTo(Jabatan::class, 'jabatan_id');
     }
 
     public function personel() {
-        return $this->hasMany(Personel::class);
+        return $this->hasMany(Personel::class, 'nama');
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'sub_jabatan_id');
     }
 }

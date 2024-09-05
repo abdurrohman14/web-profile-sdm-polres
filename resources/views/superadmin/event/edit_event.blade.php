@@ -31,6 +31,7 @@
                 <trix-editor input="deskripsi" data-direct-upload-url="{{ route('upload') }}" data-persisted>{!! $event->deskripsi !!}</trix-editor>
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
+		</form>
     </div>
 </div>
 

@@ -125,6 +125,27 @@
         </script>
     @endif
     </script>
+
+    <script>
+        function confirmDelete(event, id) {
+            event.preventDefault(); // Mencegah tindakan default dari tombol
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data ini akan dihapus secara permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna mengonfirmasi, lakukan penghapusan
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            });
+        }
+    </script>
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

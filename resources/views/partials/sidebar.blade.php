@@ -1,5 +1,7 @@
+@auth
 @php
  $user = auth()->user();
+//  $subJabatan = $user->subJabatan;
 
 //  Per-Jabatan Personil
 $jabatans = [
@@ -60,6 +62,8 @@ $subJabatans = [
         'subsikespol' => 'Subsikespol',
     ];
 @endphp
+{{-- @dd($user->subJabatan->nama) --}}
+@endauth
 
 <!-- Sidebar - Brand -->
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
@@ -94,7 +98,7 @@ $subJabatans = [
   <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
          aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-solid fa-folder-open"></i>
           <span>Data Master</span>
       </a>
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -114,7 +118,7 @@ $subJabatans = [
   <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
          aria-expanded="true" aria-controls="collapseThree">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-solid fa-folder"></i>
           <span>Data</span>
       </a>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
@@ -133,7 +137,7 @@ $subJabatans = [
   <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
          aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
+          <i class="fas fa-solid fa-users"></i>
           <span>Personel</span>
       </a>
       <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
@@ -174,9 +178,15 @@ $subJabatans = [
       <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Sub Jabatan</h6>
-              @foreach ($subJabatans as $key => $label)
-              <a class="collapse-item" href="{{ route('index.person', ['subJabatan' => $label]) }}">{{ $label }}</a>
-          @endforeach
+              {{-- @foreach ($subJabatans as $key => $label) --}}
+                @if($user->subJabatan && strtolower($user->subJabatan->nama) === 'subbag binops')
+                    <a class="collapse-item" href="{{ route('index.binops') }}">Subbag Binops</a>
+                @endif
+
+                @if($user->subJabatan && strtolower($user->subJabatan->nama) === 'subbag dalops')
+                    <a class="collapse-item" href="{{ route('index.dalops') }}">Subbag Dalops</a>
+                @endif
+              {{-- @endforeach --}}
           </div>
       </div>
   </li>

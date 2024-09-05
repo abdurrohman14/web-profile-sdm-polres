@@ -6,25 +6,64 @@
         <h6 class="m-0 font-weight-bold text-primary">Detail Informasi Personel</h6>
     </div>
     <div class="card-body">
-        <div class="person d-flex align-items-center mb-3">
-            <div class="person-image mr-3">
-                <img src="{{ asset('storage/personil/' . $personels->gambar) }}" alt="Foto Personel" style="width: 298px; height: auto; border-radius: 8px;">
-            </div>
-            <div class="person-info">
-                <h5>{{ $personels->nama_lengkap }}</h5>
-                <p>Jabatan: {{ $personels->jabatan->nama }}</p>
-                <p>Unit: {{ $personels->role->nama ?? ' - '}}</p>
-                <p>Pangkat Polri: {{ $personels->pangkat->nama }}</p>
-                <p>Pangkat PNS Polri: {{ $personels->pangkatPnsPolri->nama ?? 'N/A' }}</p>
-                <p>Email: {{ $personels->email_pribadi }}</p>
-                <p>Jenis Kelamin: {{ $personels->jenis_kelamin }}</p>
-                <p>Status Perkawinan: {{ $personels->status_pernikahan }}</p>
-                <p>Golongan Darah: {{ $personels->golongan_darah }}</p>
-                <p>Agama: {{ $personels->agama }}</p>
-                <p>Anak ke-: {{ $personels->anak_ke }}</p>
-                <!-- Add more fields as needed -->
-            </div>
-        </div>
+        <table class="table">
+            <tr>
+                <!-- Kolom Foto -->
+                <td class="align-top" style="width: 300px; padding-right: 20px;">
+                    <img src="{{ asset('storage/personil/' . $personels->gambar) }}" alt="Foto Personel" style="width: 100%; max-width: 298px; height: auto; border-radius: 8px;">
+                </td>
+                <!-- Kolom Informasi -->
+                <td class="align-top">
+                    <h5>{{ $personels->nama_lengkap }}</h5>
+                    <!-- Informasi dengan Flexbox untuk rata titik dua -->
+                    <div class="info-item d-flex mb-2">
+                        <div class="label" style="min-width: 150px;"><strong>Jabatan</strong></div>
+                        <div class="colon">:</div>
+                        <div class="value ml-2">{{ $personels->jabatan->nama }}</div>
+                    </div>
+                    <div class="info-item d-flex mb-2">
+                        <div class="label" style="min-width: 150px;"><strong>Pangkat Polri</strong></div>
+                        <div class="colon">:</div>
+                        <div class="value ml-2">{{ $personels->pangkat->nama }}</div>
+                    </div>
+                    <div class="info-item d-flex mb-2">
+                        <div class="label" style="min-width: 150px;"><strong>Pangkat PNS Polri</strong></div>
+                        <div class="colon">:</div>
+                        <div class="value ml-2">{{ $personels->pangkatPnsPolri->nama ?? 'N/A' }}</div>
+                    </div>
+                    <div class="info-item d-flex mb-2">
+                        <div class="label" style="min-width: 150px;"><strong>Email</strong></div>
+                        <div class="colon">:</div>
+                        <div class="value ml-2">{{ $personels->email_pribadi }}</div>
+                    </div>
+                    <div class="info-item d-flex mb-2">
+                        <div class="label" style="min-width: 150px;"><strong>Jenis Kelamin</strong></div>
+                        <div class="colon">:</div>
+                        <div class="value ml-2">{{ $personels->jenis_kelamin }}</div>
+                    </div>
+                    <div class="info-item d-flex mb-2">
+                        <div class="label" style="min-width: 150px;"><strong>Status Pernikahan</strong></div>
+                        <div class="colon">:</div>
+                        <div class="value ml-2">{{ $personels->status_pernikahan }}</div>
+                    </div>
+                    <div class="info-item d-flex mb-2">
+                        <div class="label" style="min-width: 150px;"><strong>Golongan Darah</strong></div>
+                        <div class="colon">:</div>
+                        <div class="value ml-2">{{ $personels->golongan_darah }}</div>
+                    </div>
+                    <div class="info-item d-flex mb-2">
+                        <div class="label" style="min-width: 150px;"><strong>Agama</strong></div>
+                        <div class="colon">:</div>
+                        <div class="value ml-2">{{ $personels->agama }}</div>
+                    </div>
+                    <div class="info-item d-flex mb-2">
+                        <div class="label" style="min-width: 150px;"><strong>Anak ke-</strong></div>
+                        <div class="colon">:</div>
+                        <div class="value ml-2">{{ $personels->anak_ke }}</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="card-footer d-flex justify-content-end">
         <a href="{{ route('view.personel') }}" class="btn btn-secondary">Kembali</a>

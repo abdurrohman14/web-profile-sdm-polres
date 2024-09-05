@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AccessController;
 use App\Http\Controllers\Admin\PersonilsController;
 use App\Http\Controllers\SuperAdmin\HeroController;
 use App\Http\Controllers\SuperAdmin\BeritaController;
@@ -43,6 +44,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::prefix('person')->group(function () {
         Route::get('/', [PersonilsController::class, 'index'])->name('index.person');
     });
+});
+
+// Rute untuk Admin Bagops Subbag binops
+Route::middleware(['auth', 'role:admin', 'check.subJabatan:subbag binops'])->group(function () {
+    Route::get('/person/binops', [PersonilsController::class, 'index'])->name('index.binops');
+});
+
+// Rute untuk Admin Bagops Subbag dalops
+Route::middleware(['auth', 'role:admin', 'check.subJabatan:subbag dalops'])->group(function () {
+    Route::get('/person/dalops', [PersonilsController::class, 'index'])->name('index.dalops');
 });
 
 // Rute untuk Superadmin

@@ -44,11 +44,33 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
+                        <label for="sub_pangkat_id" class="form-label">SubPangkat</label>
+                        <select name="sub_pangkat_id" id="sub_pangkat_id" class="form-control select2" >
+                            <option value="" disabled selected>Pilih SubPangkat</option>
+                            @foreach($subPangkat as $sbP)
+                                <option value="{{ $sbP->id }}">{{ $sbP->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label for="pangkat_pns_polri_id" class="form-label">Pangkat PNS</label>
                         <select name="pangkat_pns_polri_id" id="pangkat_pns_polri_id" class="form-control select2" required>
                             <option value="" disabled selected>Pilih Gol Ruang</option>
                             @foreach($pangkatPnsPolri as $pPns)
                                 <option value="{{ $pPns->id }}">{{ $pPns->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="sub_pns_polri_id" class="form-label">SubPNS</label>
+                        <select name="sub_pns_polri_id" id="sub_pns_polri_id" class="form-control select2" >
+                            <option value="" disabled selected>Pilih SubPNS</option>
+                            @foreach($subPnsPolri as $sbPP)
+                                <option value="{{ $sbPP->id }}">{{ $sbPP->nama }}</option>
                             @endforeach
                         </select>
                     </div>
