@@ -44,12 +44,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Personel
     Route::prefix('person')->group(function () {
         Route::get('/', [PersonilsController::class, 'index'])->name('index.person');
-        Route::get('/create', [PersonilController::class, 'create'])->name('create.person');
-        Route::post('/store', [PersonilController::class, 'store'])->name('store.person');
-        Route::get('/detail/{id}', [PersonilController::class, 'show'])->name('show.person');
-        Route::get('/edit/{id}', [PersonilController::class, 'edit'])->name('edit.person');
-        Route::post('/update/{id}', [PersonilController::class, 'update'])->name('update.person');
-        Route::delete('/delete/{id}', [PersonilController::class, 'delete'])->name('delete.person');
+        Route::get('/create', [PersonilsController::class, 'create'])->name('create.person');
+        Route::post('/store', [PersonilsController::class, 'store'])->name('store.person');
+        Route::get('/detail/{id}', [PersonilsController::class, 'show'])->name('show.person');
+        Route::get('/edit/{id}', [PersonilsController::class, 'edit'])->name('edit.person');
+        Route::post('/update/{id}', [PersonilsController::class, 'update'])->name('update.person');
+        Route::delete('/delete/{id}', [PersonilsController::class, 'delete'])->name('delete.person');
     });
 });
 

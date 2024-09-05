@@ -268,7 +268,7 @@ class PersonilsController extends Controller
             // Update personel details
             $personels->update($validateData);
 
-            return redirect()->route('view.person')->with('success', 'Data berhasil diperbarui');
+            return redirect()->route('index.person')->with('success', 'Data berhasil diperbarui');
         } catch (\Exception $e) {
             return back()->withErrors('Gagal memperbarui data. Silakan coba lagi.' . $e->getMessage());
         }
@@ -293,7 +293,7 @@ class PersonilsController extends Controller
             }
 
             DB::commit(); // Menyimpan perubahan jika semuanya berhasil
-            return redirect()->route('view.person')->with('success', 'Data berhasil dihapus');
+            return redirect()->route('index.person')->with('success', 'Data berhasil dihapus');
         } catch (\Exception $e) {
             DB::rollBack(); // Membatalkan perubahan jika terjadi kesalahan
             return back()->withErrors('Gagal menghapus data. Silakan coba lagi. ' . $e->getMessage());

@@ -6,7 +6,7 @@
         <h3 class="m-0 font-weight-bold text-primary">Tambah Personil</h3>
     </div>
     <div class="card-body">
-        <form action="{{ route('store.personel') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('store.person') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-6">

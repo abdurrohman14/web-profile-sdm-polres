@@ -6,7 +6,7 @@
         <h3 class="m-0 font-weight-bold text-primary">Edit Personil</h3>
     </div>
     <div class="card-body">
-        <form action="{{ route('update.personel', ['id' => $personels->id]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('update.person', ['id' => $personels->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div class="form-group">
