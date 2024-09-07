@@ -8,6 +8,7 @@
     <div class="card-body">
         <form action="{{ route('personil.update', ['id' => $personel->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
+<<<<<<< Updated upstream >>>>>>>>>
             @method('POST')
             <div class="form-group">
                 <label for="jabatan_id">Jabatan</label>
@@ -81,14 +82,16 @@
     
             <div class="form-group">
                 <label for="role_id">Role</label>
-                <select id="role_id" name="role_id" class="form-control">
+                <select id="role_id" name="role_id" class="form-control" disabled>
                     @foreach($roles as $role)
                         <option value="{{ $role->id }}" {{ $personel->role_id == $role->id ? 'selected' : '' }}>
                             {{ $role->name }}
                         </option>
                     @endforeach
                 </select>
+                <input type="hidden" name="role_id" value="{{ $personel->role_id }}">
             </div>
+            
     
             <div class="form-group">
                 <label for="gambar">Gambar</label>
@@ -133,6 +136,228 @@
             <div class="form-group">
                 <label for="email_dinas">Email Dinas</label>
                 <input type="text" id="email_dinas" name="email_dinas" class="form-control" value="{{ old('email_dinas', $personel->email_dinas) }}">
+=======
+            @method('PUT')
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <input type="text" name="status" class="form-control" id="status" value="{{ old('status', $personel->status) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nama_lengkap">Nama Lengkap</label>
+                        <input type="text" name="nama_lengkap" class="form-control" id="nama_lengkap" value="{{ old('nama_lengkap', $personel->nama_lengkap) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nama_panggilan">Nama Panggilan</label>
+                        <input type="text" name="nama_panggilan" class="form-control" id="nama_panggilan" value="{{ old('nama_panggilan', $personel->nama_panggilan) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tempat_lahir">Tempat Lahir</label>
+                        <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir" value="{{ old('tempat_lahir', $personel->tempat_lahir) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="golongan_darah">Golongan Darah</label>
+                        <input type="text" name="golongan_darah" class="form-control" id="golongan_darah" value="{{ old('golongan_darah', $personel->golongan_darah) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jenis_kelamin">Jenis Kelamin</label>
+                        <input type="text" name="jenis_kelamin" class="form-control" id="jenis_kelamin" value="{{ old('jenis_kelamin', $personel->jenis_kelamin) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status_pernikahan">Status Perkawinan</label>
+                        <input type="text" name="status_pernikahan" class="form-control" id="status_pernikahan" value="{{ old('status_pernikahan', $personel->status_pernikahan) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="suku_bangsa">Suku Bangsa</label>
+                        <input type="text" name="suku_bangsa" class="form-control" id="suku_bangsa" value="{{ old('suku_bangsa', $personel->suku_bangsa) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="anak_ke">Anak Ke-</label>
+                        <input type="number" name="anak_ke" class="form-control" id="anak_ke" value="{{ old('anak_ke', $personel->anak_ke) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agama">Agama</label>
+                        <input type="text" name="agama" class="form-control" id="agama" value="{{ old('agama', $personel->agama) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alamat_personel">Alamat Personel</label>
+                        <input type="text" name="alamat_personel" class="form-control" id="alamat_personel" value="{{ old('alamat_personel', $personel->alamat_personel) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lkhpn">LKHPN</label>
+                        <input type="text" name="lkhpn" class="form-control" id="lkhpn" value="{{ old('lkhpn', $personel->lkhpn) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tinggi">Tinggi</label>
+                        <input type="text" name="tinggi" class="form-control" id="tinggi" value="{{ old('tinggi', $personel->tinggi) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ukuran_topi">Ukuran Topi</label>
+                        <input type="text" name="ukuran_topi" class="form-control" id="ukuran_topi" value="{{ old('ukuran_topi', $personel->ukuran_topi) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ukuran_celana">Ukuran Celana</label>
+                        <input type="text" name="ukuran_celana" class="form-control" id="ukuran_celana" value="{{ old('ukuran_celana', $personel->ukuran_celana) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sidik_jari_1">Sidik Jari 1</label>
+                        <input type="text" name="sidik_jari_1" class="form-control" id="sidik_jari_1" value="{{ old('sidik_jari_1', $personel->sidik_jari_1) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nomor_keputusan_penyidik">Nomor Keputusan Penyidik</label>
+                        <input type="text" name="nomor_keputusan_penyidik" class="form-control" id="nomor_keputusan_penyidik" value="{{ old('nomor_keputusan_penyidik', $personel->nomor_keputusan_penyidik) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bpjs">BPJS</label>
+                        <input type="text" name="bpjs" class="form-control" id="bpjs" value="{{ old('bpjs', $personel->bpjs) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="npwp">NPWP</label>
+                        <input type="text" name="npwp" class="form-control" id="npwp" value="{{ old('npwp', $personel->npwp) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nomor_kartu_keluarga">Nomor Kartu Keluarga</label>
+                        <input type="text" name="nomor_kartu_keluarga" class="form-control" id="nomor_kartu_keluarga" value="{{ old('nomor_kartu_keluarga', $personel->nomor_kartu_keluarga) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tmt_masa_dinas_surut">TMT Masa Dinas Surut</label>
+                        <input type="date" name="tmt_masa_dinas_surut" class="form-control" id="tmt_masa_dinas_surut" value="{{ old('tmt_masa_dinas_surut', $personel->tmt_masa_dinas_surut) }}" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="tmt_status">TMT Status</label>
+                        <input type="date" name="tmt_status" class="form-control" id="tmt_status" value="{{ old('tmt_status', $personel->tmt_status) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email_pribadi">Email Pribadi</label>
+                        <input type="email" name="email_pribadi" class="form-control" id="email_pribadi" value="{{ old('email_pribadi', $personel->email_pribadi) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email_dinas">Email Dinas</label>
+                        <input type="email" name="email_dinas" class="form-control" id="email_dinas" value="{{ old('email_dinas', $personel->email_dinas) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="handphone">Handphone</label>
+                        <input type="text" name="handphone" class="form-control" id="handphone" value="{{ old('handphone', $personel->handphone) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tanggal_lahir">Tanggal Lahir</label>
+                        <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir" value="{{ old('tanggal_lahir', $personel->tanggal_lahir) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jenis_rambut">Jenis Rambut</label>
+                        <input type="text" name="jenis_rambut" class="form-control" id="jenis_rambut" value="{{ old('jenis_rambut', $personel->jenis_rambut) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="warna_mata">Warna Mata</label>
+                        <input type="text" name="warna_mata" class="form-control" id="warna_mata" value="{{ old('warna_mata', $personel->warna_mata) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="warna_kulit">Warna Kulit</label>
+                        <input type="text" name="warna_kulit" class="form-control" id="warna_kulit" value="{{ old('warna_kulit', $personel->warna_kulit) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="warna_rambut">Warna Rambut</label>
+                        <input type="text" name="warna_rambut" class="form-control" id="warna_rambut" value="{{ old('warna_rambut', $personel->warna_rambut) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nama_ibu">Nama Ibu</label>
+                        <input type="text" name="nama_ibu" class="form-control" id="nama_ibu" value="{{ old('nama_ibu', $personel->nama_ibu) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telepon_orangtua">Telepon Orang Tua</label>
+                        <input type="text" name="telepon_orangtua" class="form-control" id="telepon_orangtua" value="{{ old('telepon_orangtua', $personel->telepon_orangtua) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alamat_orangtua">Alamat Orang Tua</label>
+                        <input type="text" name="alamat_orangtua" class="form-control" id="alamat_orangtua" value="{{ old('alamat_orangtua', $personel->alamat_orangtua) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="berat">Berat</label>
+                        <input type="text" name="berat" class="form-control" id="berat" value="{{ old('berat', $personel->berat) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ukuran_sepatu">Ukuran Sepatu</label>
+                        <input type="text" name="ukuran_sepatu" class="form-control" id="ukuran_sepatu" value="{{ old('ukuran_sepatu', $personel->ukuran_sepatu) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ukuran_baju">Ukuran Baju</label>
+                        <input type="text" name="ukuran_baju" class="form-control" id="ukuran_baju" value="{{ old('ukuran_baju', $personel->ukuran_baju) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sidik_jari_2">Sidik Jari 2</label>
+                        <input type="text" name="sidik_jari_2" class="form-control" id="sidik_jari_2" value="{{ old('sidik_jari_2', $personel->sidik_jari_2) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kta">KTA</label>
+                        <input type="text" name="kta" class="form-control" id="kta" value="{{ old('kta', $personel->kta) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="asabri">Asabri</label>
+                        <input type="text" name="asabri" class="form-control" id="asabri" value="{{ old('asabri', $personel->asabri) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nik">NIK</label>
+                        <input type="text" name="nik" class="form-control" id="nik" value="{{ old('nik', $personel->nik) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paspor">Paspor</label>
+                        <input type="text" name="paspor" class="form-control" id="paspor" value="{{ old('paspor', $personel->paspor) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="akte_lahir">Akte Lahir</label>
+                        <input type="text" name="akte_lahir" class="form-control" id="akte_lahir" value="{{ old('akte_lahir', $personel->akte_lahir) }}" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group text-right">
+                <a href="{{ route('personil.update', $personel->id) }}" class="btn btn-primary">Simpan</a>
+>>>>>>> Stashed changes
             </div>
             
             <div class="form-group">
