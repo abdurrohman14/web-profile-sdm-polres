@@ -22,18 +22,24 @@ class PersonilsController extends Controller
         $userId = Auth::id();
         $user = User::find($userId);
 
-        $userSubJabatan = $user->subJabatan ? $user->subJabatan->nama : null;
-        // dd($userSubJabatan);
+        // ambil login dari setiap jabatan
+        $userJabatan = $user->jabatan ? $user->jabatan->nama : null;
 
-        $subJabatan = $request->input('subJabatan');
+        // Ambil login dari setiap subJabatan
+        // $userSubJabatan = $user->subJabatan ? $user->subJabatan->nama : null;
+
+        // $subJabatan = $request->input('subJabatan');
+        $subJabatans = SubJabatan::whereHas('jabatan', function ($query) use ($userJabatan) {
+            $query->where('nama', $userJabatan);
+        })->pluck('nama', 'id');
     
-        // ambil semua data subJabatan
-        $subJabatans = SubJabatan::pluck('nama', 'id'); // assuming SubJabatan model has `nama` and `id` fields
+        // asumsi subJabatan berdasarkan kolom nama dan id
+        $subJabatans = SubJabatan::pluck('nama', 'id');
     
-        if($userSubJabatan) {
+        if($userJabatan) {
             $personels = Personel::with('subJabatan', 'pangkat', 'pangkatPnsPolri', 'user')
-                ->whereHas('subJabatan', function($query) use ($userSubJabatan) {
-                    $query->where('nama', $userSubJabatan);
+                ->whereHas('jabatan', function($query) use ($userJabatan) {
+                    $query->where('nama', $userJabatan);
                 })->get();
         } else {
             $personels = Personel::with('subJabatan', 'pangkat', 'pangkatPnsPolri', 'user')->get();
@@ -43,7 +49,7 @@ class PersonilsController extends Controller
             'user' => $user,
             'personels' => $personels,
             'subJabatans' => $subJabatans,
-            'subJabatan' => $subJabatan,
+            // 'subJabatan' => $subJabatan,
             'title' => 'Data Personil'
         ]);
     }

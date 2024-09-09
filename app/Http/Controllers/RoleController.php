@@ -92,6 +92,7 @@ class RoleController extends Controller
     }
 
     public function update(Request $request, $id) {
+
         $validateData = $request->validate([
             'jabatan_id' => 'required|exists:jabatans,id',
             'sub_jabatan_id' => 'nullable|exists:sub_jabatans,id',
@@ -99,7 +100,7 @@ class RoleController extends Controller
             'sub_pangkat_id' => 'nullable|exists:sub_pangkat_polris,id',
             'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
             'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',
-            'role_id' => 'required|exists:roles,id',
+            'role_id' => 'sometimes|exists:roles,id',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama_lengkap' => 'required|string|max:255',
             'nama_panggilan' => 'nullable|string|max:50',
@@ -156,6 +157,10 @@ class RoleController extends Controller
         // Save data to the database
         try {
             $personel = Personel::findOrFail($id);
+            // Jika role adalah 'personil', jangan rubah role_id
+            if($personel->role->name === 'personil') {
+                $request->merge(['role_id' => $personel->role_id]);
+            }
 
             // Update user details
             $user = User::findOrFail($personel->user_id);

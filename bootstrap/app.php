@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
-            'check.subJabatan' => \App\Http\Middleware\CheckSubJabatanAccess::class,
+            'check.jabatan' => \App\Http\Middleware\CheckSubJabatanAccess::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

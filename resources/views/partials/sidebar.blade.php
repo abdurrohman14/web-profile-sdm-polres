@@ -177,15 +177,17 @@ $subJabatans = [
       </a>
       <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Sub Jabatan</h6>
+              <h6 class="collapse-header">Sub Bagops</h6>
               {{-- @foreach ($subJabatans as $key => $label) --}}
-                @if($user->subJabatan && strtolower($user->subJabatan->nama) === 'subbag binops')
+                @if($user->jabatan && strtolower($user->jabatan->nama) === 'bagops')
                     <a class="collapse-item" href="{{ route('index.binops') }}">Subbag Binops</a>
+                    <a class="collapse-item" href="{{ route('index.dalops') }}">Subbag Dalops</a>
+                    <a class="collapse-item" href="{{ route('index.kerma') }}">Subbag Kerma</a>
                 @endif
 
-                @if($user->subJabatan && strtolower($user->subJabatan->nama) === 'subbag dalops')
+                {{-- @if($user->subJabatan && strtolower($user->subJabatan->nama) === 'subbag dalops')
                     <a class="collapse-item" href="{{ route('index.dalops') }}">Subbag Dalops</a>
-                @endif
+                @endif --}}
               {{-- @endforeach --}}
           </div>
       </div>

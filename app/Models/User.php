@@ -21,7 +21,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
-        'sub_jabatan_id',
+        'jabatan_id',
     ];
 
     /**
@@ -60,9 +60,9 @@ class User extends Authenticatable
         return $this->belongsTo(Personel::class);
     }
 
-    public function subJabatan()
+    public function jabatan()
     {
-        return $this->belongsTo(SubJabatan::class, 'sub_jabatan_id');
+        return $this->belongsTo(jabatan::class, 'jabatan_id');
     }
 
     const ROLE_SUPERADMIN = 'superadmin';

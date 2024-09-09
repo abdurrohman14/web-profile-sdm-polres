@@ -14,16 +14,16 @@ class CheckSubJabatanAccess
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $subJabatan): Response
+    public function handle(Request $request, Closure $next, $jabatan): Response
     {
         $user = Auth::user();
 
-        // Cek apakah user memiliki subJabatan yang diizinkan
-        if ($user->subJabatan && strtolower($user->subJabatan->nama) === strtolower($subJabatan)) {
+        // Cek apakah user memiliki jabatan yang diizinkan
+        if ($user->jabatan && strtolower($user->jabatan->nama) === strtolower($jabatan)) {
             return $next($request);
         }
 
-        // Redirect atau abort jika user tidak memiliki akses ke subJabatan tersebut
+        // Redirect atau abort jika user tidak memiliki akses ke jabatan tersebut
         return redirect()->route('admin')->withErrors('Anda tidak memiliki akses ke subbag ini.');
     }
 }

@@ -37,36 +37,26 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 // Rute untuk Admin
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin', 'check.jabatan:bagops'])->group(function () {
     Route::get('/admin', [RoleController::class, 'admin'])->name('admin');
     
-
-    // Personel
-    Route::prefix('person')->group(function () {
-        Route::get('/', [PersonilsController::class, 'index'])->name('index.person');
-        Route::get('/create', [PersonilsController::class, 'create'])->name('create.person');
-        Route::post('/store', [PersonilsController::class, 'store'])->name('store.person');
-        Route::get('/detail/{id}', [PersonilsController::class, 'show'])->name('show.person');
-        Route::get('/edit/{id}', [PersonilsController::class, 'edit'])->name('edit.person');
-        Route::post('/update/{id}', [PersonilsController::class, 'update'])->name('update.person');
-        Route::delete('/delete/{id}', [PersonilsController::class, 'delete'])->name('delete.person');
+    Route::prefix('person/bagops')->group(function () {
+        Route::get('/binops', [PersonilsController::class, 'index'])->name('index.binops');
+        Route::get('/dalops', [PersonilsController::class, 'index'])->name('index.dalops');
+        Route::get('/kerma', [PersonilsController::class, 'index'])->name('index.kerma');
     });
+    // Personel
+    // Route::prefix('person')->group(function () {
+    //     Route::get('/', [PersonilsController::class, 'index'])->name('index.person');
+    //     Route::get('/create', [PersonilsController::class, 'create'])->name('create.person');
+    //     Route::post('/store', [PersonilsController::class, 'store'])->name('store.person');
+    //     Route::get('/detail/{id}', [PersonilsController::class, 'show'])->name('show.person');
+    //     Route::get('/edit/{id}', [PersonilsController::class, 'edit'])->name('edit.person');
+    //     Route::post('/update/{id}', [PersonilsController::class, 'update'])->name('update.person');
+    //     Route::delete('/delete/{id}', [PersonilsController::class, 'delete'])->name('delete.person');
+    // });
 });
 
-// Rute untuk Admin Bagops Subbag binops
-Route::middleware(['auth', 'role:admin', 'check.subJabatan:subbag binops'])->group(function () {
-    Route::get('/person/binops', [PersonilsController::class, 'index'])->name('index.binops');
-});
-
-// Rute untuk Admin Bagops Subbag dalops
-Route::middleware(['auth', 'role:admin', 'check.subJabatan:subbag dalops'])->group(function () {
-    Route::get('/person/dalops', [PersonilsController::class, 'index'])->name('index.dalops');
-});
-
-// Rute untuk Admin Bagops Subbag kerma
-Route::middleware(['auth', 'role:admin', 'check.subJabatan:subbag kerma'])->group(function () {
-    Route::get('/person/kerma', [PersonilsController::class, 'index'])->name('index.kerma');
-});
 
 // Rute untuk Superadmin
 Route::middleware(['auth', 'role:superadmin'])->group(function () {
