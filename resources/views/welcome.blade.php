@@ -25,10 +25,10 @@
               <a class="nav-link" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="{{ route('berita') }}">Berita</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
+              <a class="nav-link" href="/acara">Acara</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
@@ -94,56 +94,6 @@
         @endif
       </div>
     </section>
-
-    <section class="news mt-5">
-      <div class="container">
-        <h2 class="text-center mb-4">Events</h2>
-        <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Mauris sit amet lacus ac orci faucibus dapibus. Duis quis sapien sed libero malesuada aliquam. </p>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card news-card">
-              @foreach($event as $evt)
-              <img src="{{ asset('storage/event/' . $evt->gambar) }}" class="card-img-top" alt="News 1" />
-              <div class="card-body">
-                <h5 class="card-title">{{ $evt->judul }}</h5>
-                <p class="card-text">{!! $evt->deskripsi !!}</p>
-                <a href="#" class="btn btn-dark mt-4">Read More</a>
-              </div>
-              @endforeach
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="d-flex justify-content-center align-items-center mt-5">
-        <button type="submit" class="btn btn-dark">Selengkapnya</button>
-    </div>
-      
-    <section class="news mt-5">
-      <div class="container">
-        <h2 class="text-center mb-4">News</h2>
-        <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Mauris sit amet lacus ac orci faucibus dapibus. Duis quis sapien sed libero malesuada aliquam. </p>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card news-card">
-              @foreach($berita as $brt)
-              <img src="{{ asset('storage/berita/' . $brt->gambar) }}" class="card-img-top" alt="News 1" />
-              <div class="card-body">
-                <h5 class="card-title">{{ $brt->judul }}</h5>
-                <p class="card-text">{!! $brt->deskripsi !!}</p>
-                <a href="#" class="btn btn-dark mt-4">Read More</a>
-              </div>
-              @endforeach
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="d-flex justify-content-center align-items-center mt-5">
-        <button type="submit" class="btn btn-dark">Selengkapnya</button>
-    </div>
 
     <section class="ourteams mt-5">
       <div class="container">

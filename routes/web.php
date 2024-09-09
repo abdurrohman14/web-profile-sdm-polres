@@ -4,6 +4,7 @@ use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LandingPage\LpBeritaController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AccessController;
 use App\Http\Controllers\Admin\PersonilsController;
@@ -18,11 +19,13 @@ use App\Http\Controllers\SuperAdmin\PersonilController;
 use App\Http\Controllers\SuperAdmin\PangkatPolriController;
 use App\Http\Controllers\SuperAdmin\pangkatPnsPolriController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+
 
 Route::get('/', [HeroesController::class, 'index']);
+
+// Route untuk halaman berita
+Route::get('/berita', [LpBeritaController::class, 'index'])->name('berita'); // Pastikan nama route 'berita' sudah didefinisikan
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -55,6 +58,15 @@ Route::middleware(['auth', 'role:admin', 'check.jabatan:bagops'])->group(functio
     //     Route::post('/update/{id}', [PersonilsController::class, 'update'])->name('update.person');
     //     Route::delete('/delete/{id}', [PersonilsController::class, 'delete'])->name('delete.person');
     // });
+});
+
+Route::middleware(['auth', 'role:admin', 'check.jabatan:bagops'])->group(function () {
+    Route::get('/admin', [RoleController::class, 'admin'])->name('admin');
+Route::prefix('person/bagren')->group(function () {
+    Route::get('/renprogar', [PersonilsController::class, 'index'])->name('index.renprogar');
+    Route::get('/dalprogar', [PersonilsController::class, 'index'])->name('index.dalprogar');
+});
+
 });
 
 

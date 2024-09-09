@@ -1,6 +1,8 @@
 @auth
 @php
  $user = auth()->user();
+ $jabatan = $user->jabatan->nama ?? '';  // Ambil nama jabatan, jika ada
+ $subJabatan = $user->subJabatan->nama ?? '';  // Ambil nama subJabatan, jika ada
 //  $subJabatan = $user->subJabatan;
 
 //  Per-Jabatan Personil
@@ -173,7 +175,7 @@ $subJabatans = [
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
          aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Subbag</span>
+          <span>{{ $jabatan ? ' ' . $jabatan : '' }}</span>
       </a>
       <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -183,6 +185,11 @@ $subJabatans = [
                     <a class="collapse-item" href="{{ route('index.binops') }}">Subbag Binops</a>
                     <a class="collapse-item" href="{{ route('index.dalops') }}">Subbag Dalops</a>
                     <a class="collapse-item" href="{{ route('index.kerma') }}">Subbag Kerma</a>
+
+                @elseif ($user->jabatan && strtolower($user->jabatan->nama) === 'bagren')
+                    <a class="collapse-item" href="{{ route('index.renprogar') }}">Subbag Renprogar</a>
+                    <a class="collapse-item" href="{{ route('index.dalprogar') }}">Subbag Dalprogar</a>
+
                 @endif
 
                 {{-- @if($user->subJabatan && strtolower($user->subJabatan->nama) === 'subbag dalops')
