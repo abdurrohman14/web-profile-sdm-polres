@@ -65,6 +65,15 @@ class User extends Authenticatable
         return $this->belongsTo(jabatan::class, 'jabatan_id');
     }
 
+    public function subJabatan()
+    {
+        return $this->belongsTo(subJabatan::class, 'sub_jabatan_id');
+    }
+
+    public function sim() {
+        return $this->hasMany(sim::class);
+    }
+
     const ROLE_SUPERADMIN = 'superadmin';
     const ROLE_ADMIN = 'admin';
     const ROLE_PERSONIL = 'personil';

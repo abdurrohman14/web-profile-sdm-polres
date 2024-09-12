@@ -247,9 +247,8 @@
     </div>
     <div class="card-footer d-flex justify-content-end">
         <a href="{{ route('personil') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('personil.export', $personel->id) }}" class="btn btn-primary ml-2">Export PDF</a>
     </div>
 </div>
-
-
 
 @endsection

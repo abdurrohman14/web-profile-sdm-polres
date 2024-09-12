@@ -34,7 +34,7 @@ class PersonilsController extends Controller
         })->pluck('nama', 'id');
     
         // asumsi subJabatan berdasarkan kolom nama dan id
-        $subJabatans = SubJabatan::pluck('nama', 'id');
+        // $subJabatans = SubJabatan::pluck('nama', 'id');
     
         if($userJabatan) {
             $personels = Personel::with('subJabatan', 'pangkat', 'pangkatPnsPolri', 'user')

@@ -1,12 +1,10 @@
 <?php
 
-use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\LandingPage\LpBeritaController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AccessController;
+use App\Http\Controllers\PdfExportController;
+use App\Http\Controllers\SuperAdmin\SimController;
 use App\Http\Controllers\Admin\PersonilsController;
 use App\Http\Controllers\SuperAdmin\HeroController;
 use App\Http\Controllers\SuperAdmin\BeritaController;
@@ -19,13 +17,7 @@ use App\Http\Controllers\SuperAdmin\PersonilController;
 use App\Http\Controllers\SuperAdmin\PangkatPolriController;
 use App\Http\Controllers\SuperAdmin\pangkatPnsPolriController;
 
-
-
 Route::get('/', [HeroesController::class, 'index']);
-
-// Route untuk halaman berita
-Route::get('/berita', [LpBeritaController::class, 'index'])->name('berita'); // Pastikan nama route 'berita' sudah didefinisikan
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -40,35 +32,124 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 // Rute untuk Admin
-Route::middleware(['auth', 'role:admin', 'check.jabatan:bagops'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin', [RoleController::class, 'admin'])->name('admin');
-    
-    Route::prefix('person/bagops')->group(function () {
+    // bagops
+    Route::middleware(['check.jabatan:bagops'])->prefix('person/bagops')->group(function () {
         Route::get('/binops', [PersonilsController::class, 'index'])->name('index.binops');
         Route::get('/dalops', [PersonilsController::class, 'index'])->name('index.dalops');
         Route::get('/kerma', [PersonilsController::class, 'index'])->name('index.kerma');
     });
+    // bagren
+    Route::middleware(['check.jabatan:bagren'])->prefix('person/bagren')->group(function () {
+        Route::get('/renprogar', [PersonilsController::class, 'index'])->name('index.renprogar');
+        Route::get('/dalprogar', [PersonilsController::class, 'index'])->name('index.dalprogar');
+    });
+    // bagsdm
+    Route::middleware(['check.jabatan:bagsdm'])->prefix('person/bagsdm')->group(function () {
+        Route::get('/binkar', [PersonilsController::class, 'index'])->name('index.binkar');
+        Route::get('/dalpers', [PersonilsController::class, 'index'])->name('index.dalpers');
+        Route::get('/watpers', [PersonilsController::class, 'index'])->name('index.watpers');
+    });
+    // baglog
+    Route::middleware(['check.jabatan:baglog'])->prefix('person/baglog')->group(function () {
+        Route::get('/bekpal', [PersonilsController::class, 'index'])->name('index.bekpal');
+        Route::get('/faskon', [PersonilsController::class, 'index'])->name('index.faskon');
+    });
+    // siwas
+    Route::middleware(['check.jabatan:siwas'])->prefix('person/siwas')->group(function () {
+        Route::get('/subsiopsnal', [PersonilsController::class, 'index'])->name('index.subsiopsnal');
+        Route::get('/subsibin', [PersonilsController::class, 'index'])->name('index.subsibin');
+        Route::get('/subsidumas', [PersonilsController::class, 'index'])->name('index.subsidumas');
+    });
+    // sipromam
+    Route::middleware(['check.jabatan:sipromam'])->prefix('person/sipromam')->group(function () {
+        Route::get('/propam', [PersonilsController::class, 'index'])->name('index.propam');
+        Route::get('/paminal', [PersonilsController::class, 'index'])->name('index.paminal');
+    });
+    // sihumas
+    Route::middleware(['check.jabatan:sihumas'])->prefix('person/sihumas')->group(function () {
+        Route::get('/pidm', [PersonilsController::class, 'index'])->name('index.pidm');
+        Route::get('/penmas', [PersonilsController::class, 'index'])->name('index.penmas');
+    });
+    // sikum
+    Route::middleware(['check.jabatan:sikum'])->prefix('person/sikum')->group(function () {
+        Route::get('/bankum', [PersonilsController::class, 'index'])->name('index.bankum');
+        Route::get('/luhkum', [PersonilsController::class, 'index'])->name('index.luhkum');
+    });
+    // sitik
+    Route::middleware(['check.jabatan:sitik'])->prefix('person/sitik')->group(function () {
+        Route::get('/tekkom', [PersonilsController::class, 'index'])->name('index.tekkom');
+        Route::get('/tekinfo', [PersonilsController::class, 'index'])->name('index.tekinfo');
+    });
+    // sium
+    Route::middleware(['check.jabatan:sium'])->prefix('person/sium')->group(function () {
+        Route::get('/mintu', [PersonilsController::class, 'index'])->name('index.mintu');
+        Route::get('/yanma', [PersonilsController::class, 'index'])->name('index.yanma');
+    });
+    // spkt
+    Route::middleware(['check.jabatan:spkt'])->prefix('person/spkt')->group(function () {
+        Route::get('/spkt', [PersonilsController::class, 'index'])->name('index.spkt');
+    });
+    // satintelkum
+    Route::middleware(['check.jabatan:satintelkum'])->prefix('person/satintelkum')->group(function () {
+        Route::get('/intelkum', [PersonilsController::class, 'index'])->name('index.intelkum');
+    });
+    // satreskim
+    Route::middleware(['check.jabatan:satreskim'])->prefix('person/satreskim')->group(function () {
+        Route::get('/reskim', [PersonilsController::class, 'index'])->name('index.reskim');
+    });
+    // satnarkoba
+    Route::middleware(['check.jabatan:satnarkoba'])->prefix('person/satnarkoba')->group(function () {
+        Route::get('/narkoba', [PersonilsController::class, 'index'])->name('index.narkoba');
+    });
+    // satbinmas
+    Route::middleware(['check.jabatan:satbinmas'])->prefix('person/satbinmas')->group(function () {
+        Route::get('/binmas', [PersonilsController::class, 'index'])->name('index.binmas');
+    });
+    // satsamapta
+    Route::middleware(['check.jabatan:satsamapta'])->prefix('person/satsamapta')->group(function () {
+        Route::get('/samapta', [PersonilsController::class, 'index'])->name('index.samapta');
+    });
+    // satlantas
+    Route::middleware(['check.jabatan:satlantas'])->prefix('person/satlantas')->group(function () {
+        Route::get('/lantas', [PersonilsController::class, 'index'])->name('index.lantas');
+    });
+    // satpamobvit
+    Route::middleware(['check.jabatan:satpamobvit'])->prefix('person/satpamobvit')->group(function () {
+        Route::get('/pamobvit', [PersonilsController::class, 'index'])->name('index.pamobvit');
+    });
+    // satpolairud
+    Route::middleware(['check.jabatan:satpolairud'])->prefix('person/satpolairud')->group(function () {
+        Route::get('/polairud', [PersonilsController::class, 'index'])->name('index.polairud');
+    });
+    // sattahti
+    Route::middleware(['check.jabatan:sattahti'])->prefix('person/sattahti')->group(function () {
+        Route::get('/tahti', [PersonilsController::class, 'index'])->name('index.tahti');
+    });
+    // sikeu
+    Route::middleware(['check.jabatan:sikeu'])->prefix('person/sikeu')->group(function () {
+        Route::get('/gaji', [PersonilsController::class, 'index'])->name('index.gaji');
+        Route::get('/verif', [PersonilsController::class, 'index'])->name('index.verif');
+        Route::get('/apk', [PersonilsController::class, 'index'])->name('index.apk');
+    });
+    // sidokkes
+    Route::middleware(['check.jabatan:sidokkes'])->prefix('person/sidokkes')->group(function () {
+        Route::get('/dokpol', [PersonilsController::class, 'index'])->name('index.dokpol');
+        Route::get('/sikespol', [PersonilsController::class, 'index'])->name('index.sikespol');
+    });
     // Personel
-    // Route::prefix('person')->group(function () {
-    //     Route::get('/', [PersonilsController::class, 'index'])->name('index.person');
-    //     Route::get('/create', [PersonilsController::class, 'create'])->name('create.person');
-    //     Route::post('/store', [PersonilsController::class, 'store'])->name('store.person');
-    //     Route::get('/detail/{id}', [PersonilsController::class, 'show'])->name('show.person');
-    //     Route::get('/edit/{id}', [PersonilsController::class, 'edit'])->name('edit.person');
-    //     Route::post('/update/{id}', [PersonilsController::class, 'update'])->name('update.person');
-    //     Route::delete('/delete/{id}', [PersonilsController::class, 'delete'])->name('delete.person');
-    // });
+    Route::prefix('person')->group(function () {
+        Route::get('/', [PersonilsController::class, 'index'])->name('index.person');
+        Route::get('/create', [PersonilsController::class, 'create'])->name('create.person');
+        Route::post('/store', [PersonilsController::class, 'store'])->name('store.person');
+        Route::get('/detail/{id}', [PersonilsController::class, 'show'])->name('show.person');
+        Route::get('/edit/{id}', [PersonilsController::class, 'edit'])->name('edit.person');
+        Route::post('/update/{id}', [PersonilsController::class, 'update'])->name('update.person');
+        Route::delete('/delete/{id}', [PersonilsController::class, 'delete'])->name('delete.person');
+        Route::get('/export/{id}', [PdfExportController::class, 'export'])->name('export.person');
+    });
 });
-
-Route::middleware(['auth', 'role:admin', 'check.jabatan:bagops'])->group(function () {
-    Route::get('/admin', [RoleController::class, 'admin'])->name('admin');
-Route::prefix('person/bagren')->group(function () {
-    Route::get('/renprogar', [PersonilsController::class, 'index'])->name('index.renprogar');
-    Route::get('/dalprogar', [PersonilsController::class, 'index'])->name('index.dalprogar');
-});
-
-});
-
 
 // Rute untuk Superadmin
 Route::middleware(['auth', 'role:superadmin'])->group(function () {
@@ -172,7 +253,18 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
         Route::get('/detail/{id}', [PersonilController::class, 'show'])->name('show.personel');
         Route::get('/edit/{id}', [PersonilController::class, 'edit'])->name('edit.personel');
         Route::post('/update/{id}', [PersonilController::class, 'update'])->name('update.personel');
-        Route::delete('/delete/{id}', [PersonilController::class, 'delete'])->name('delete.personel');
+        Route::delete('/delete/{id}', [PersonilController::class, 'delete'])->name('delete.personel');      
+        Route::get('/export/{id}', [PdfExportController::class, 'export'])->name('export.personel');
+
+        Route::prefix('sim')->group(function () {
+            Route::get('/', [SimController::class, 'index'])->name('view.sim');
+            Route::get('/data', [SimController::class, 'getSims'])->name('data.sim');
+            Route::get('/create', [SimController::class, 'create'])->name('create.sim');
+            Route::post('/store', [SimController::class, 'store'])->name('store.sim');
+            Route::get('/edit/{id}', [SimController::class, 'edit'])->name('edit.sim');
+            Route::post('/update/{id}', [SimController::class, 'update'])->name('update.sim');
+            Route::delete('/delete/{id}', [SimController::class, 'destroy'])->name('delete.sim');
+        });
     });
 
     // Berita
@@ -205,6 +297,7 @@ Route::middleware(['auth', 'role:personil'])->group(function () {
     Route::prefix('personil')->group(function () {
         Route::get('/', [RoleController::class, 'personil'])->name('personil');
         Route::get('/{id}', [RoleController::class, 'show'])->name('personil.show');
+        Route::get('/{id}/export', [PdfExportController::class, 'export'])->name('personil.export');
         Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('personil.edit');
         Route::post('/update/{id}', [RoleController::class, 'update'])->name('personil.update');
     });

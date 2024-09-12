@@ -175,27 +175,81 @@ $subJabatans = [
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
          aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
-          <span>{{ $jabatan ? ' ' . $jabatan : '' }}</span>
+          <span>{{ $user->jabatan ? ucfirst(strtolower($user->jabatan->nama)) : 'Subbag' }}</span>
       </a>
       <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Sub Bagops</h6>
-              {{-- @foreach ($subJabatans as $key => $label) --}}
-                @if($user->jabatan && strtolower($user->jabatan->nama) === 'bagops')
+            @if($user->jabatan)
+                <h6 class="collapse-header">{{ $user->jabatan->nama }}</h6>
+
+                @php
+                    $jabatanLower = strtolower($user->jabatan->nama)
+                @endphp
+
+                @if($jabatanLower === 'bagops')
                     <a class="collapse-item" href="{{ route('index.binops') }}">Subbag Binops</a>
                     <a class="collapse-item" href="{{ route('index.dalops') }}">Subbag Dalops</a>
                     <a class="collapse-item" href="{{ route('index.kerma') }}">Subbag Kerma</a>
-
-                @elseif ($user->jabatan && strtolower($user->jabatan->nama) === 'bagren')
+                @elseif($jabatanLower === 'bagren')
                     <a class="collapse-item" href="{{ route('index.renprogar') }}">Subbag Renprogar</a>
                     <a class="collapse-item" href="{{ route('index.dalprogar') }}">Subbag Dalprogar</a>
-
+                @elseif($jabatanLower === 'bagsdm')
+                    <a class="collapse-item" href="{{ route('index.binkar') }}">Subbag Binkar</a>
+                    <a class="collapse-item" href="{{ route('index.dalpers') }}">Subbag Dalpers</a>
+                    <a class="collapse-item" href="{{ route('index.watpers') }}">Subbag Watpers</a>
+                @elseif($jabatanLower === 'baglog')
+                    <a class="collapse-item" href="{{ route('index.bekpal') }}">Subbag Bekpal</a>
+                    <a class="collapse-item" href="{{ route('index.faskon') }}">Subbag Faskon</a>
+                @elseif($jabatanLower === 'siwas')
+                    <a class="collapse-item" href="{{ route('index.subsiopsnal') }}">Subsiopsnal</a>
+                    <a class="collapse-item" href="{{ route('index.subsibin') }}">Subsibin</a>
+                    <a class="collapse-item" href="{{ route('index.subsidumas') }}">Subsidumas</a>
+                @elseif($jabatanLower === 'sipromam')
+                    <a class="collapse-item" href="{{ route('index.propam') }}">Unit Propam</a>
+                    <a class="collapse-item" href="{{ route('index.paminal') }}">Unit Paminal</a>
+                @elseif($jabatanLower === 'sihumas')
+                    <a class="collapse-item" href="{{ route('index.pidm') }}">Subsipidm</a>
+                    <a class="collapse-item" href="{{ route('index.penmas') }}">Subsipenmas</a>
+                @elseif($jabatanLower === 'sikum')
+                    <a class="collapse-item" href="{{ route('index.bankum') }}">Subsibankum</a>
+                    <a class="collapse-item" href="{{ route('index.luhkum') }}">Subsiluhkum</a>
+                @elseif($jabatanLower === 'sitik')
+                    <a class="collapse-item" href="{{ route('index.tekkom') }}">Subsitekkom</a>
+                    <a class="collapse-item" href="{{ route('index.tekinfo') }}">Subsitekinfo</a>
+                @elseif($jabatanLower === 'sium')
+                    <a class="collapse-item" href="{{ route('index.mintu') }}">Subsimintu</a>
+                    <a class="collapse-item" href="{{ route('index.yanma') }}">Subsiyanma</a>
+                @elseif($jabatanLower === 'spkt')
+                    <a class="collapse-item" href="{{ route('index.spkt') }}">SPKT</a>
+                @elseif($jabatanLower === 'satintelkum')
+                    <a class="collapse-item" href="{{ route('index.intelkum') }}">Sat Intelkum</a>
+                @elseif($jabatanLower === 'satreskim')
+                    <a class="collapse-item" href="{{ route('index.reskim') }}">Sat Reskim</a>
+                @elseif($jabatanLower === 'satnarkoba')
+                    <a class="collapse-item" href="{{ route('index.narkoba') }}">Sat Narkoba</a>
+                @elseif($jabatanLower === 'satbinmas')
+                    <a class="collapse-item" href="{{ route('index.binmas') }}">Sat Binmas</a>
+                @elseif($jabatanLower === 'satsamapta')
+                    <a class="collapse-item" href="{{ route('index.samapta') }}">Sat Samapta</a>
+                @elseif($jabatanLower === 'satlantas')
+                    <a class="collapse-item" href="{{ route('index.lantas') }}">Sat Lantas</a>
+                @elseif($jabatanLower === 'satpamobvit')
+                    <a class="collapse-item" href="{{ route('index.pamobvit') }}">Sat Pamobvit</a>
+                @elseif($jabatanLower === 'satpolairud')
+                    <a class="collapse-item" href="{{ route('index.polairud') }}">Sat Polairud</a>
+                @elseif($jabatanLower === 'sattahti')
+                    <a class="collapse-item" href="{{ route('index.tahti') }}">Sat Tahti</a>
+                @elseif ($jabatanLower === 'sikeu')
+                    <a class="collapse-item" href="{{ route('index.gaji') }}">Subsigaji</a>
+                    <a class="collapse-item" href="{{ route('index.verif') }}">Subsiverif</a>
+                    <a class="collapse-item" href="{{ route('index.apk') }}">Subsiapk</a>
+                @elseif ($jabatanLower === 'sidokkes')
+                    <a class="collapse-item" href="{{ route('index.dokpol') }}">Subsidokpol</a>
+                    <a class="collapse-item" href="{{ route('index.sikespol') }}">Subsikespol</a>
+                @else
+                    <a class="collapse-item" href="{{ route('index.jabatan', $user->jabatan->id) }}">{{ $user->jabatan->nama }}</a>
                 @endif
-
-                {{-- @if($user->subJabatan && strtolower($user->subJabatan->nama) === 'subbag dalops')
-                    <a class="collapse-item" href="{{ route('index.dalops') }}">Subbag Dalops</a>
-                @endif --}}
-              {{-- @endforeach --}}
+            @endif
           </div>
       </div>
   </li>

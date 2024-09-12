@@ -19,7 +19,8 @@ class CheckSubJabatanAccess
         $user = Auth::user();
 
         // Cek apakah user memiliki jabatan yang diizinkan
-        if ($user->jabatan && strtolower($user->jabatan->nama) === strtolower($jabatan)) {
+        $allowedJabatan = explode(',', $jabatan); // Misalnya 'bagops,bagren'
+        if ($user->jabatan && in_array(strtolower($user->jabatan->nama), array_map('strtolower', $allowedJabatan))) {
             return $next($request);
         }
 

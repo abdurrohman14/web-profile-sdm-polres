@@ -3,7 +3,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between">
         <h3 class="m-0 font-weight-bold text-primary">Personil</h3>
-        <button type="submit" class="btn btn-primary"><a href="{{ route('create.personel') }}" class="text-white text-decoration-none">Tambah Data</a></button>
+        <button type="submit" class="btn btn-success"><a href="{{ route('create.personel') }}" class="text-white text-decoration-none">Tambah Data</a></button>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -32,13 +32,14 @@
                         <td>{{ $personil->user->role }}</td>
                         <td>
                             <div class="d-flex align-items-center">
-                                <a href="{{ route('show.personel', $personil->id) }}" class="btn btn-sm btn-info mr-1">View</a>
-                                <a href="{{ route('edit.personel', $personil->id) }}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                                <a href="{{ route('show.personel', $personil->id) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-solid fa-eye"></i></a>
+                                <a href="{{ route('edit.personel', $personil->id) }}" class="btn btn-sm btn-primary mr-1"><i class="fas fa-solid fa-pen"></i></a>
                             <form id="delete-form-{{ $personil->id }}" action="{{ route('delete.personel', ['id' => $personil->id]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button onclick="confirmDelete(event, {{ $personil->id }})" class="btn btn-sm btn-danger">Hapus</button>
+                                <button onclick="confirmDelete(event, {{ $personil->id }})" class="btn btn-sm btn-danger mr-1"><i class="fas fa-solid fa-trash"></i></button>
                             </form>
+                            <a href="{{ route('export.personel', $personil->id) }}" class="btn btn-sm btn-success"><i class="fas fa-solid fa-download"></i></a>
                             </div>
                         </td>
                     </tr>

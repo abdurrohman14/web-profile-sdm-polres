@@ -91,7 +91,7 @@ class JabatanController extends Controller
         $subJabatan->nama = $validateData['nama'];
         $subJabatan->save();
 
-        return redirect()->route('view.subJabatan')->with('success', 'Sub Jabatan created successfully.');
+        return redirect()->route('view.subJabatan')->with('success', 'Data berhasil ditambahkan.');
     }
 
     public function editSubJabatan($id) {
@@ -114,13 +114,13 @@ class JabatanController extends Controller
         $subJabatan->nama = $validateData['nama'];
         $subJabatan->save();
 
-        return redirect()->route('view.subJabatan')->with('success', 'Sub Jabatan updated successfully.');
+        return redirect()->route('view.subJabatan')->with('success', 'Data berhasil di update.');
     }
 
     public function deleteSubJabatan($id) {
         $subJabatan = subJabatan::find($id);
         $subJabatan->delete();
 
-        return redirect()->route('view.subJabatan')->with('success', 'Sub Jabatan deleted successfully.');
+        return redirect()->route('view.subJabatan')->with('success', 'Data berhasil dihapus.');
     }
 }

@@ -17,7 +17,7 @@ class subJabatan extends Model
     }
 
     public function personel() {
-        return $this->hasMany(Personel::class, 'nama');
+        return $this->hasMany(Personel::class, 'sub_jabatan_id');
     }
 
     public function users()

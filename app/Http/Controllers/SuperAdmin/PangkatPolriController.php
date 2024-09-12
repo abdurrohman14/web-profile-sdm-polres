@@ -89,7 +89,7 @@ class PangkatPolriController extends Controller
         $subPangkat->nama = $validateData['nama'];
         $subPangkat->save();
 
-        return redirect()->route('view.subPangkat')->with('success', 'Sub Pangkat created successfully.');
+        return redirect()->route('view.subPangkat')->with('success', 'Data berhasil ditambahkan.');
     }
 
     public function editSubPangkat($id) {
@@ -113,13 +113,13 @@ class PangkatPolriController extends Controller
         $subPangkat->nama = $validateData['nama'];
         $subPangkat->save();
 
-        return redirect()->route('view.subPangkat')->with('success', 'Sub Pangkat updated successfully.');
+        return redirect()->route('view.subPangkat')->with('success', 'Data berhasil diupdate.');
     }
 
     public function deleteSubPangkat($id) {
         $subPangkat = subPangkatPolri::find($id);
         $subPangkat->delete();
 
-        return redirect()->route('view.subPangkat')->with('success', 'Sub Pangkat deleted successfully.');
+        return redirect()->route('view.subPangkat')->with('success', 'Data berhasil dihapus.');
     }
 }

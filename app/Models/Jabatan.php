@@ -20,11 +20,8 @@ class Jabatan extends Model
         return $this->hasMany(Ourteam::class);
     }
 
-    // public function parent() {
-    //     return $this->belongsTo(Jabatan::class, 'parent_id');
-    // }
+    public function personels() {
+        return $this->hasMany(Personel::class);
+    }
 
-    // public function childre() {
-    //     return $this->hasMany(Jabatan::class, 'parent_id');
-    // }
 }
