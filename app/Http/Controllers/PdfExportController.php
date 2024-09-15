@@ -14,6 +14,6 @@ class PdfExportController extends Controller
 
         $pdf = Pdf::loadView('personil.pdf', compact('personel'));
 
-        return $pdf->download($personel->user->name . '-' . $personel->nrp . '.pdf');
+        return $pdf->stream($personel->user->name . '-' . $personel->nrp . '.pdf');
     }
 }

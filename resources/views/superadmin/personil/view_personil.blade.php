@@ -39,7 +39,7 @@
                                 @method('DELETE')
                                 <button onclick="confirmDelete(event, {{ $personil->id }})" class="btn btn-sm btn-danger mr-1"><i class="fas fa-solid fa-trash"></i></button>
                             </form>
-                            <a href="{{ route('export.personel', $personil->id) }}" class="btn btn-sm btn-success"><i class="fas fa-solid fa-download"></i></a>
+                            <a href="{{ route('export.personel', $personil->id) }}" class="btn btn-sm btn-success" target="_blank"><i class="fas fa-solid fa-download"></i></a>
                             </div>
                         </td>
                     </tr>

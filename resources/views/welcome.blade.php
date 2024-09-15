@@ -25,7 +25,7 @@
               <a class="nav-link" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('berita') }}">Berita</a>
+              <a class="nav-link" href="#">Berita</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/acara">Acara</a>
