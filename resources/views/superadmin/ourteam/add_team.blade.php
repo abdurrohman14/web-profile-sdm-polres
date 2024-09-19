@@ -10,7 +10,7 @@
             @csrf
             <div class="form-group">
                 <label for="nama">Nama</label>
-                <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama Pangkat" required>
+                <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama" required>
                 @error('nama')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

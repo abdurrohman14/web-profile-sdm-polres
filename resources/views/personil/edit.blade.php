@@ -64,7 +64,7 @@
             </div>
             </div>
     
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
             <div class="form-group">
                 <label for="pangkat_pns_polri_id">Gol Ruang</label>
                 <select id="pangkat_pns_polri_id" name="pangkat_pns_polri_id" class="form-control">
@@ -90,7 +90,7 @@
                     @endforeach
                 </select>
             </div>
-            </div>
+            </div> --}}
     
             {{-- <div class="col-md-6">
                 <div class="form-group">
@@ -178,6 +178,13 @@
                 <label for="status">Status</label>
                 <input type="text" id="status" name="status" class="form-control" value="{{ old('status', $personel->status) }}">
             </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="suku">Suku</label>
+                    <input type="text" id="suku" name="suku" class="form-control" value="{{ old('suku', $personels->suku) }}">
+                </div>
             </div>
 
             <div class="col-md-6">

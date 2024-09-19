@@ -179,6 +179,13 @@
                         <input type="text" id="status" name="status" class="form-control" value="{{ old('status', $personels->status) }}">
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="suku">Suku</label>
+                        <input type="text" id="suku" name="suku" class="form-control" value="{{ old('suku', $personels->suku) }}">
+                    </div>
+                </div>
             
                 <div class="col-md-6">
                     <div class="form-group">
