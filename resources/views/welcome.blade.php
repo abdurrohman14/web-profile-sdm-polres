@@ -25,7 +25,11 @@
               <a class="nav-link" href="#">Home</a>
             </li>
             <li class="nav-item">
+<<<<<<< Updated upstream
               <a class="nav-link" href="#">Berita</a>
+=======
+              <a class="nav-link" href="">Berita</a>
+>>>>>>> Stashed changes
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/acara">Acara</a>

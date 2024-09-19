@@ -3,9 +3,22 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between">
-        <h3 class="m-0 font-weight-bold text-primary">Personil</h3>
+        <h3 class="m-0 font-weight-bold text-dark">Personil</h3>
         <button type="submit" class="btn btn-success"><a href="{{ route('create.person') }}" class="text-white text-decoration-none">Tambah Data</a></button>
     </div>
+    {{-- <form method="GET" action="{{ route('index.person') }}">
+        <label for="subJabatan">Filter SubJabatan:</label>
+        <select name="subJabatan" id="subJabatan">
+            <option value="">-- Pilih SubJabatan --</option>
+            @foreach($subJabatans as $id => $nama)
+                <option value="{{ $id }}" {{ $subJabatanId == $id ? 'selected' : '' }}>
+                    {{ $nama }}
+                </option>
+            @endforeach
+        </select>
+        <button type="submit">Filter</button>
+    </form> --}}
+    
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

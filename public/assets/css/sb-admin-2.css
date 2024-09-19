@@ -10458,6 +10458,7 @@ a:focus {
   text-transform: uppercase;
   letter-spacing: 0.05rem;
   z-index: 1;
+  color: #000;
 }
 
 .sidebar .sidebar-brand .sidebar-brand-icon i {
@@ -10678,7 +10679,7 @@ a:focus {
 }
 
 .sidebar-dark .sidebar-brand {
-  color: #fff;
+  color: #000;
 }
 
 .sidebar-dark hr.sidebar-divider {

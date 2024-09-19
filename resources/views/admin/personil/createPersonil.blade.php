@@ -3,7 +3,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h3 class="m-0 font-weight-bold text-primary">Tambah Personil</h3>
+        <h3 class="m-0 font-weight-bold text-dark">Tambah Personil</h3>
     </div>
     <div class="card-body">
         <form action="{{ route('store.person') }}" method="POST" enctype="multipart/form-data">
