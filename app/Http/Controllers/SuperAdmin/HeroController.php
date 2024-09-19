@@ -96,6 +96,7 @@ class HeroController extends Controller
 
     public function delete($id) {
         $heros = Hero::find($id);
+        Storage::delete('public/hero/'.$heros->gambar);
         $heros->delete();
 
         return redirect()->route('index.hero')->with('success', 'Data Berhasil Dihapus!');

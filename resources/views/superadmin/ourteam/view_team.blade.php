@@ -32,11 +32,11 @@
                         <td>
                             <div class="d-flex align-items-center">
                                 <a href="{{ route('edit.team', $teams->id) }}" class="btn btn-sm btn-primary mr-1"><i class="fas fa-solid fa-pen"></i></a>
-                            <form action="{{ route('delete.team', ['id' => $teams->id]) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
-                            </form>
+                                <form id="delete-form-{{ $teams->id }}" action="{{ route('delete.team', ['id' => $teams->id]) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                <button onclick="confirmDelete(event, {{ $teams->id }})" type="submit" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
+                                </form>
                             </div>
                         </td>
                     </tr>

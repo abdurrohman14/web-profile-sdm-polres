@@ -21,15 +21,17 @@
                         <td>{{ $key + 1 }}</td>
                         <td>
                         @if($partner->gambar)
-                            <img src="{{ asset('storage/hero/' . $partner->gambar) }}" alt="" width="100">
+                            <img src="{{ asset('storage/partner/' . $partner->gambar) }}" alt="" width="100">
                         @endif</td>
                         <td>
-                            <a href="{{ route('edit.partner', $partner->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-solid fa-pen"></i></a>
-                            <form action="{{ route('delete.partner', ['id' => $partner->id]) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
-                            </form>
+                            <div class="d-flex align-items-center">
+                                <a href="{{ route('edit.partner', $partner->id) }}" class="btn btn-sm btn-primary mr-1"><i class="fas fa-solid fa-pen"></i></a>
+                                <form id="delete-form-{{ $partner->id }}" action="{{ route('delete.partner', ['id' => $partner->id]) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button onclick="confirmDelete(event, {{ $partner->id }})" type="submit" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     @endforeach

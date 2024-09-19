@@ -12,7 +12,7 @@ class Personel extends Model
     protected $fillable = [
         'jabatan_id', 'sub_jabatan_id', 'pangkat_id', 'pangkat_pns_polri_id', 'user_id', 'role_id', 'gambar', 'nama_lengkap',
         'nama_panggilan', 'nrp', 'tempat_lahir', 'email_pribadi', 'email_dinas', 'no_hp',
-        'status', 'tmt_status', 'golongan_darah', 'jenis_kelamin', 'status_pernikahan', 'anak_ke',
+        'status', 'suku', 'tmt_status', 'golongan_darah', 'jenis_kelamin', 'status_pernikahan', 'anak_ke',
         'agama', 'alamat_personel', 'lkhpn', 'tanggal_lahir', 'jenis_rambut', 'warna_mata',
         'warna_kulit', 'warna_rambut', 'nama_ibu', 'telepon_ortu', 'alamat_ortu', 'tinggi',
         'ukuran_topi', 'ukuran_celana', 'sidik_jari_1', 'nomor_keputusan_penyidik', 'bpjs',

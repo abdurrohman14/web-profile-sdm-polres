@@ -256,8 +256,8 @@
         @endif
     </div>
     <div class="card-footer d-flex justify-content-end">
-        <a href="{{ route('personil') }}" class="btn btn-secondary">Kembali</a>
-        <a href="{{ route('personil.export', $personel->id) }}" class="btn btn-primary ml-2">Export PDF</a>
+        <a href="{{ route('personil') }}" class="btn btn-danger">Kembali</a>
+        <a href="{{ route('personil.export', $personel->id) }}" class="btn btn-primary ml-2" target="_blank">Cetak PDF</a>
     </div>
 </div>
 

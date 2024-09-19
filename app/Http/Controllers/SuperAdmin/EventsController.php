@@ -88,7 +88,7 @@ class EventsController extends Controller
 
     public function delete($id) {
         $event = Event::find($id);
-        Storage::delete('public/event'.$event->gambar);
+        Storage::delete('public/event/'.$event->gambar);
         $event->delete();
 
         return redirect()->route('view.event')->with('success', 'Data berhasil dihapus');

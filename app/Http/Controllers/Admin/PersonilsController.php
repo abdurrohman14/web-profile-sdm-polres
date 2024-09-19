@@ -18,32 +18,32 @@ use Illuminate\Support\Facades\Auth;
 
 class PersonilsController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request,$subJabatan = null) {
         $userId = Auth::id();
         $user = User::find($userId);
 
-        // ambil login dari setiap jabatan
+        // Ambil login dari setiap jabatan
         $userJabatan = $user->jabatan ? $user->jabatan->nama : null;
 
-        // Ambil login dari setiap subJabatan
-        // $userSubJabatan = $user->subJabatan ? $user->subJabatan->nama : null;
+        // Ambil subJabatan dari query string
+        $subJabatanQuery = $request->query('subJabatan');
 
-        // $subJabatan = $request->input('subJabatan');
+        // Ambil subJabatan berdasarkan jabatan pengguna
         $subJabatans = SubJabatan::whereHas('jabatan', function ($query) use ($userJabatan) {
             $query->where('nama', $userJabatan);
         })->pluck('nama', 'id');
-    
-        // asumsi subJabatan berdasarkan kolom nama dan id
-        // $subJabatans = SubJabatan::pluck('nama', 'id');
-    
-        if($userJabatan) {
-            $personels = Personel::with('subJabatan', 'pangkat', 'pangkatPnsPolri', 'user')
-                ->whereHas('jabatan', function($query) use ($userJabatan) {
-                    $query->where('nama', $userJabatan);
-                })->get();
-        } else {
-            $personels = Personel::with('subJabatan', 'pangkat', 'pangkatPnsPolri', 'user')->get();
-        }
+
+        // Filter personel berdasarkan subJabatan dan jabatan pengguna
+        $personels = Personel::with('subJabatan', 'pangkat', 'pangkatPnsPolri', 'user')
+            ->whereHas('subJabatan.jabatan', function ($query) use ($userJabatan) {
+                $query->where('nama', $userJabatan);
+            })
+            ->when($subJabatanQuery, function ($query, $subJabatanQuery) {
+                return $query->whereHas('subJabatan', function ($subQuery) use ($subJabatanQuery) {
+                    $subQuery->where('nama', $subJabatanQuery);
+                });
+            })
+            ->get();
         
         return view('admin.personil.viewPersonil', [
             'user' => $user,
@@ -59,8 +59,8 @@ class PersonilsController extends Controller
         $subJabatan = subJabatan::all();
         $pangkat = Pangkat::all();
         $subPangkat = subPangkatPolri::all();
-        $pangkatPnsPolri = pangkat_pns_polri::all();
-        $subPnsPolri = subPnsPolri::all();
+        // $pangkatPnsPolri = pangkat_pns_polri::all();
+        // $subPnsPolri = subPnsPolri::all();
         $user = User::all();
         $roles = Role::all();
         return view('admin.personil.createPersonil', [
@@ -68,8 +68,8 @@ class PersonilsController extends Controller
             'subJabatan' => $subJabatan,
             'pangkat' => $pangkat,
             'subPangkat' => $subPangkat,
-            'pangkatPnsPolri' => $pangkatPnsPolri,
-            'subPnsPolri' => $subPnsPolri,
+            // 'pangkatPnsPolri' => $pangkatPnsPolri,
+            // 'subPnsPolri' => $subPnsPolri,
             'user' => $user,
             'roles' => $roles,
             'title' => 'Tambah Personil'
@@ -82,8 +82,8 @@ class PersonilsController extends Controller
             'sub_jabatan_id' => 'nullable|exists:sub_jabatans,id',
             'pangkat_id' => 'required|exists:pangkats,id',
             'sub_pangkat_id' => 'nullable|exists:sub_pangkat_polris,id',
-            'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
-            'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',
+            // 'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
+            // 'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',
             'role_id' => 'required|exists:roles,id',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama_lengkap' => 'required|string|max:255',
@@ -94,7 +94,8 @@ class PersonilsController extends Controller
             'email_pribadi' => 'required|string|email|max:255|unique:personels,email_pribadi,' . $request->id,
             'email_dinas' => 'nullable|string|email|max:255|unique:personels,email_dinas,' . $request->id,
             'no_hp' => 'required|string|max:15|unique:personels,no_hp,' . $request->id,
-            'status' => 'required|string|in:aktif,tidak-aktif',
+            'status' => 'required|string',
+            'suku' => 'nullable|string|max:20',
             'tmt_status' => 'nullable|date|after_or_equal:tanggal_lahir',
             'golongan_darah' => 'nullable|string|in:A,B,AB,O',
             'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
@@ -153,14 +154,17 @@ class PersonilsController extends Controller
 
             $personels = Personel::create($validateData);
 
-            return redirect()->route('view.person')->with('success', 'Data berhasil ditambahkan');
+            return redirect()->route($this->getRedirectRoute($personels->jabatan_id))->with('success', 'Data berhasil ditambahkan');
         } catch (\Exception $e) {
     
             return back()->withErrors('Gagal menambahkan data. Silakan coba lagi.' . $e->getMessage());
         }
     }
 
-    public function show($id) {
+    public function show($id, Request $request) {
+        // simpan url sebelumnya ke dalam session
+        session(['previous_url' => url()->previous()]);
+
         $personels = Personel::find($id);
         return view('admin.personil.detailPersonil', [
             'personels' => $personels,
@@ -214,7 +218,8 @@ class PersonilsController extends Controller
             'email_pribadi' => 'required|string|email|max:255|unique:personels,email_pribadi,' . $id,
             'email_dinas' => 'nullable|string|email|max:255|unique:personels,email_dinas,' . $id,
             'no_hp' => 'required|string|max:15|unique:personels,no_hp,' . $id,
-            'status' => 'required|string|in:aktif,tidak-aktif',
+            'status' => 'required|string',
+            'suku' => 'nullable|string|max:20',
             'tmt_status' => 'nullable|date|after_or_equal:tanggal_lahir',
             'golongan_darah' => 'nullable|string|in:A,B,AB,O',
             'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
@@ -275,36 +280,59 @@ class PersonilsController extends Controller
             // Update personel details
             $personels->update($validateData);
 
-            return redirect()->route('index.person')->with('success', 'Data berhasil diperbarui');
+            return redirect()->route($this->getRedirectRoute($personels->jabatan_id))->with('success', 'Data berhasil diperbarui');
         } catch (\Exception $e) {
             return back()->withErrors('Gagal memperbarui data. Silakan coba lagi.' . $e->getMessage());
         }
     }
     
-    public function delete($id) {
+    public function delete($id, Request $request) {
         DB::beginTransaction(); // Memulai transaksi
 
         try {
             // Temukan data personel dan hapus
-            $personel = Personel::findOrFail($id);
+            $personels = Personel::findOrFail($id);
+
+            // Hapus foto personel
+            if (file_exists(public_path('storage/personil/' . $personels->gambar))) {
+                unlink(public_path('storage/personil/' . $personels->gambar));
+            }
             
             // Temukan data user terkait dan hapus
-            $user = User::where('id', $personel->user_id)->first();
+            $user = User::where('id', $personels->user_id)->first();
 
             // Hapus personel terlebih dahulu
-            $personel->delete();
+            $personels->delete();
 
             // Hapus user jika ada
             if ($user) {
                 $user->delete();
             }
 
+            // Ambil URL asal dari parameter request
+            $backUrl = $request->input('back_url', route('index.person'));
+
             DB::commit(); // Menyimpan perubahan jika semuanya berhasil
-            return redirect()->route('index.person')->with('success', 'Data berhasil dihapus');
+            return redirect()->to($backUrl)->with('success', 'Data berhasil dihapus');
         } catch (\Exception $e) {
             DB::rollBack(); // Membatalkan perubahan jika terjadi kesalahan
             return back()->withErrors('Gagal menghapus data. Silakan coba lagi. ' . $e->getMessage());
         }
+    }
+
+    // Mapping route
+    private function getRedirectRoute($jabatan_id) {
+        $routes = [
+            // Bagops
+            1 => 'index.binops',
+            2 => 'index.dalops',
+            3 => 'index.kerma',
+            // Bagren
+            4 => 'index.renprogar',
+            5 => 'index.dalprogar',
+        ];
+
+        return $routes[$jabatan_id] ?? 'index.person';
     }
 }
 

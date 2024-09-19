@@ -15,7 +15,7 @@
                         <th>Jabatan</th>
                         <th>Sub Jabatan</th>
                         <th>Pangkat</th>
-                        <th>Gol Ruang</th>
+                        {{-- <th>Gol Ruang</th> --}}
                         <th>Role</th>
                         <th>Aksi</th>
                     </tr>
@@ -28,7 +28,7 @@
                         <td>{{ $personil->jabatan->nama }}</td>
                         <td>{{ $personil->subJabatan->nama ?? '-'}}</td>
                         <td>{{ $personil->pangkat->nama }}</td>
-                        <td>{{ $personil->pangkatPnsPolri->nama }}</td>
+                        {{-- <td>{{ $personil->pangkatPnsPolri->nama }}</td> --}}
                         <td>{{ $personil->user->role }}</td>
                         <td>
                             <div class="d-flex align-items-center">

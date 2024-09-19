@@ -26,7 +26,7 @@ class BeritaController extends Controller
 
     public function store(Request $request) {
         $validateData = $request->validate([
-            'judul' => 'required|max:100',
+            'judul' => 'required|max:255',
             'slug' => 'required|unique:beritas',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120', // Validasi upload foto
             'deskripsi' => 'required',
@@ -71,7 +71,7 @@ class BeritaController extends Controller
 
     public function update(Request $request, $id) {
         $validateData = $request->validate([
-            'judul' => 'required|max:100',
+            'judul' => 'required|max:255',
             'slug' => 'required|unique:beritas,slug,'.$id,
             'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
             'deskripsi' => 'required',
@@ -113,7 +113,7 @@ class BeritaController extends Controller
 
     public function delete($id) {
         $beritas = Berita::find($id);
-        Storage::delete('public/berita'.$beritas->gambar);
+        Storage::delete('public/berita/'.$beritas->gambar);
         $beritas->delete();
 
         return redirect()->route('view.berita')->with('success', 'Data berhasil dihapus');

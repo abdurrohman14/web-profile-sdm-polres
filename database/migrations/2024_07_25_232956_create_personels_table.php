@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('status_pernikahan');
             $table->integer('anak_ke')->nullable();
             $table->string('agama');
+            $table->string('suku')->nullable();
             $table->text('alamat_personel')->nullable();
             $table->string('lkhpn')->nullable();
             $table->date('tanggal_lahir');

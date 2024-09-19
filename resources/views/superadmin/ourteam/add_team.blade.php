@@ -45,6 +45,7 @@
                 <input type="file" class="form-control" id="gambar" name="gambar" accept=".jpg,.png,.jpeg,.gif" required>
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
     </div>
 </div>
 

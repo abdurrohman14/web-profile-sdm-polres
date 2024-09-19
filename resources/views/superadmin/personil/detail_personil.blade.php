@@ -7,7 +7,6 @@
     </div>
     <div class="card-body mt-3">
         @if ($personels)
-                <tr>
                     <div class="row justify-content-md-center">
                         <div class="col col-lg-2">
                         </div>
@@ -250,12 +249,11 @@
                             </div>
                         </div>
                       </div>
-                </tr>
         @else
             <p>Data tidak ditemukan untuk pengguna ini.</p>
         @endif
     </div>
     <div class="card-footer d-flex justify-content-end">
-        <a href="{{ route('view.personel') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('view.personel') }}" class="btn btn-danger">Kembali</a>
     </div>
 @endsection

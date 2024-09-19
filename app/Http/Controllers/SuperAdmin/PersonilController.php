@@ -43,8 +43,8 @@ class PersonilController extends Controller
         $subJabatan = subJabatan::all();
         $pangkat = Pangkat::all();
         $subPangkat = subPangkatPolri::all();
-        $pangkatPnsPolri = pangkat_pns_polri::all();
-        $subPnsPolri = subPnsPolri::all();
+        // $pangkatPnsPolri = pangkat_pns_polri::all();
+        // $subPnsPolri = subPnsPolri::all();
         $user = User::all();
         $roles = Role::all();
         return view('superadmin.personil.create_personil', [
@@ -52,8 +52,8 @@ class PersonilController extends Controller
             'subJabatan' => $subJabatan,
             'pangkat' => $pangkat,
             'subPangkat' => $subPangkat,
-            'pangkatPnsPolri' => $pangkatPnsPolri,
-            'subPnsPolri' => $subPnsPolri,
+            // 'pangkatPnsPolri' => $pangkatPnsPolri,
+            // 'subPnsPolri' => $subPnsPolri,
             'user' => $user,
             'roles' => $roles,
             'title' => 'Tambah Personil'
@@ -66,8 +66,8 @@ class PersonilController extends Controller
             'sub_jabatan_id' => 'nullable|exists:sub_jabatans,id',
             'pangkat_id' => 'required|exists:pangkats,id',
             'sub_pangkat_id' => 'nullable|exists:sub_pangkat_polris,id',
-            'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
-            'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',
+            // 'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
+            // 'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',
             'role_id' => 'required|exists:roles,id',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama_lengkap' => 'required|string|max:255',
@@ -78,7 +78,8 @@ class PersonilController extends Controller
             'email_pribadi' => 'required|string|email|max:255|unique:personels,email_pribadi,' . $request->id,
             'email_dinas' => 'nullable|string|email|max:255|unique:personels,email_dinas,' . $request->id,
             'no_hp' => 'required|string|max:15|unique:personels,no_hp,' . $request->id,
-            'status' => 'required|string|in:aktif,tidak-aktif',
+            'status' => 'required|string',
+            'suku' => 'nullable|string|max:20',
             'tmt_status' => 'nullable|date|after_or_equal:tanggal_lahir',
             'golongan_darah' => 'nullable|string|in:A,B,AB,O',
             'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
@@ -161,8 +162,8 @@ class PersonilController extends Controller
         $subJabatan = subJabatan::all();
         $pangkat = Pangkat::all();
         $subPangkat = subPangkatPolri::all();
-        $pangkatPnsPolri = pangkat_pns_polri::all();
-        $subPnsPolri = subPnsPolri::all();
+        // $pangkatPnsPolri = pangkat_pns_polri::all();
+        // $subPnsPolri = subPnsPolri::all();
         $user = User::all();
         $roles = Role::all();
 
@@ -172,8 +173,8 @@ class PersonilController extends Controller
             'subJabatan' => $subJabatan,
             'pangkat' => $pangkat,
             'subPangkat' => $subPangkat,
-            'pangkatPnsPolri' => $pangkatPnsPolri,
-            'subPnsPolri' => $subPnsPolri,
+            // 'pangkatPnsPolri' => $pangkatPnsPolri,
+            // 'subPnsPolri' => $subPnsPolri,
             'user' => $user,
             'roles' => $roles,
             'title' => 'Edit Personil'
@@ -186,8 +187,8 @@ class PersonilController extends Controller
             'sub_jabatan_id' => 'nullable|exists:sub_jabatans,id',
             'pangkat_id' => 'required|exists:pangkats,id',
             'sub_pangkat_id' => 'nullable|exists:sub_pangkat_polris,id',
-            'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
-            'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',
+            // 'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
+            // 'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',
             'role_id' => 'required|exists:roles,id',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama_lengkap' => 'required|string|max:255',
@@ -198,7 +199,8 @@ class PersonilController extends Controller
             'email_pribadi' => 'required|string|email|max:255|unique:personels,email_pribadi,' . $id,
             'email_dinas' => 'nullable|string|email|max:255|unique:personels,email_dinas,' . $id,
             'no_hp' => 'required|string|max:15|unique:personels,no_hp,' . $id,
-            'status' => 'required|string|in:aktif,tidak-aktif',
+            'status' => 'required|string',
+            'suku' => 'nullable|string|max:20',
             'tmt_status' => 'nullable|date|after_or_equal:tanggal_lahir',
             'golongan_darah' => 'nullable|string|in:A,B,AB,O',
             'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
@@ -271,6 +273,11 @@ class PersonilController extends Controller
         try {
             // Temukan data personel dan hapus
             $personel = Personel::findOrFail($id);
+
+            // Hapus foto personel
+            if (file_exists(public_path('storage/personil/' . $personel->gambar))) {
+                unlink(public_path('storage/personil/' . $personel->gambar));
+            }
             
             // Temukan data user terkait dan hapus
             $user = User::where('id', $personel->user_id)->first();

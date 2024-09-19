@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class PartnerController extends Controller
 {
@@ -30,7 +31,7 @@ class PartnerController extends Controller
         if ($request->hasFile('gambar')) {
             $gambar = $request->file('gambar');
             $gambarName = time().'.'.$gambar->getClientOriginalExtension();
-            $gambar->storeAs('public/hero', $gambarName);
+            $gambar->storeAs('public/partner', $gambarName);
             $validateData['gambar'] = $gambarName;
         }
 
@@ -55,7 +56,7 @@ class PartnerController extends Controller
         if ($request->hasFile('gambar')) {
             $gambar = $request->file('gambar');
             $gambarName = time().'.'.$gambar->getClientOriginalExtension();
-            $gambar->storeAs('public/hero', $gambarName);
+            $gambar->storeAs('public/partner', $gambarName);
             $validateData['gambar'] = $gambarName;
         }
         
@@ -71,6 +72,7 @@ class PartnerController extends Controller
 
     public function delete($id) {
         $partners = Partner::find($id);
+        Storage::delete('public/partner/'.$partners->gambar);
         $partners->delete();
 
         return redirect()->route('index.partner')->with('success', 'Data Berhasil Dihapus');

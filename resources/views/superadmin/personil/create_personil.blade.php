@@ -53,7 +53,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <div class="form-group">
                         <label for="pangkat_pns_polri_id" class="form-label">Pangkat PNS</label>
                         <select name="pangkat_pns_polri_id" id="pangkat_pns_polri_id" class="form-control select2" required>
@@ -74,7 +74,7 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="role_id" class="form-label">Role</label>
@@ -169,6 +169,15 @@
                         <label for="status">Status</label>
                         <input type="text" class="form-control" id="status" name="status" placeholder="" required>
                         @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="suku">Suku</label>
+                        <input type="text" class="form-control" id="suku" name="suku" placeholder="" required>
+                        @error('suku')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

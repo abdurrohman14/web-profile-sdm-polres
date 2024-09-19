@@ -72,8 +72,8 @@ class RoleController extends Controller
         $subJabatan = subJabatan::all();
         $pangkat = Pangkat::all();
         $subPangkat = subPangkatPolri::all();
-        $pangkatPnsPolri = pangkat_pns_polri::all();
-        $subPnsPolri = subPnsPolri::all();
+        // $pangkatPnsPolri = pangkat_pns_polri::all();
+        // $subPnsPolri = subPnsPolri::all();
         $user = User::all();
         $roles = Role::all();
 
@@ -83,8 +83,8 @@ class RoleController extends Controller
             'subJabatan' => $subJabatan,
             'pangkat' => $pangkat,
             'subPangkat' => $subPangkat,
-            'pangkatPnsPolri' => $pangkatPnsPolri,
-            'subPnsPolri' => $subPnsPolri,
+            // 'pangkatPnsPolri' => $pangkatPnsPolri,
+            // 'subPnsPolri' => $subPnsPolri,
             'user' => $user,
             'roles' => $roles,
             'title' => 'Edit Personel',
@@ -98,8 +98,8 @@ class RoleController extends Controller
             'sub_jabatan_id' => 'nullable|exists:sub_jabatans,id',
             'pangkat_id' => 'required|exists:pangkats,id',
             'sub_pangkat_id' => 'nullable|exists:sub_pangkat_polris,id',
-            'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
-            'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',
+            // 'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
+            // 'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',
             'role_id' => 'sometimes|exists:roles,id',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama_lengkap' => 'required|string|max:255',
@@ -168,7 +168,7 @@ class RoleController extends Controller
                 'name' => $request->nama_lengkap,
                 'email' => $request->email_pribadi,
                 'role_id' => $request->role_id,
-                'sub_jabatan_id' => $request->sub_jabatan_id,
+                'jabatan_id' => $request->jabatan_id,
                 'password' => bcrypt($request->nrp),
             ]);
 

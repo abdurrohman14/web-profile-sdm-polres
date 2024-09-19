@@ -41,10 +41,10 @@
                             <div class="d-flex align-items-center">
                                 <a href="{{ route('show.berita', $berita->id) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-solid fa-eye"></i></a>
                                 <a href="{{ route('edit.berita', $berita->id) }}" class="btn btn-sm btn-primary mr-1"><i class="fas fa-solid fa-pen"></i></a>
-                                <form action="{{ route('delete.berita', ['id' => $berita->id]) }}" method="post">
+                                <form id="delete-form-{{ $berita->id }}" action="{{ route('delete.berita', ['id' => $berita->id]) }}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
+                                <button onclick="confirmDelete(event, {{ $berita->id }})" type="submit" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
                             </form>
                             </div>
                         </td>

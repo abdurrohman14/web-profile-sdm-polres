@@ -35,10 +35,10 @@
                             <div class="d-flex align-items-center">
                                 {{-- <a href="{{ route('show.event', $event->id) }}" class="btn btn-sm btn-info mr-1">View</a> --}}
                                 <a href="{{ route('edit.event', $event->id) }}" class="btn btn-sm btn-primary mr-1"><i class="fas fa-solid fa-pen"></i></a>
-                                <form action="{{ route('delete.event', ['id' => $event->id]) }}" method="post">
+                                <form id="delete-form-{{ $event->id }}" action="{{ route('delete.event', ['id' => $event->id]) }}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
+                                    <button onclick="confrimDelete(event, {{ $event->id }})" type="submit" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
                                 </form>
                             </div>
                         </td>

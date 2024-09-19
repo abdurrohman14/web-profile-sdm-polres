@@ -28,12 +28,14 @@
                             <img src="{{ asset('storage/hero/' . $hero->gambar) }}" alt="{{ $hero->title }}" width="100">
                         @endif</td>
                         <td>
-                            <a href="{{ route('edit.hero', $hero->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-solid fa-pen"></i></a>
-                            <form action="{{ route('delete.hero', ['id' => $hero->id]) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
-                            </form>
+                            <div class="d-flex align-items-center">
+                                <a href="{{ route('edit.hero', $hero->id) }}" class="btn btn-sm btn-primary mr-1"><i class="fas fa-solid fa-pen"></i></a>
+                                <form id="delete-form-{{ $hero->id }}" action="{{ route('delete.hero', ['id' => $hero->id]) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                <button onclick="confirmDelete(event, {{ $hero->id }})" type="submit" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     @endforeach

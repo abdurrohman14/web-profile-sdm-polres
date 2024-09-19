@@ -17,7 +17,7 @@ use App\Http\Controllers\SuperAdmin\PersonilController;
 use App\Http\Controllers\SuperAdmin\PangkatPolriController;
 use App\Http\Controllers\SuperAdmin\pangkatPnsPolriController;
 
-Route::get('/', [HeroesController::class, 'index']);
+// Route::get('/', [HeroesController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+require __DIR__.'/lpWeb.php';
 
 // Rute untuk Admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -196,24 +197,24 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
     });
 
     // Pangkat PNS Polri
-    Route::prefix('pns')->group(function () {
-        Route::get('/', [pangkatPnsPolriController::class, 'index'])->name('view.pns');
-        Route::get('/create', [pangkatPnsPolriController::class, 'create'])->name('create.pns');
-        Route::post('/store', [pangkatPnsPolriController::class, 'store'])->name('store.pns');
-        Route::get('/edit/{id}', [pangkatPnsPolriController::class, 'edit'])->name('edit.pns');
-        Route::post('/update/{id}', [pangkatPnsPolriController::class, 'update'])->name('update.pns');
-        Route::delete('/delete/{id}', [pangkatPnsPolriController::class, 'delete'])->name('delete.pns');
-    });
+    // Route::prefix('pns')->group(function () {
+    //     Route::get('/', [pangkatPnsPolriController::class, 'index'])->name('view.pns');
+    //     Route::get('/create', [pangkatPnsPolriController::class, 'create'])->name('create.pns');
+    //     Route::post('/store', [pangkatPnsPolriController::class, 'store'])->name('store.pns');
+    //     Route::get('/edit/{id}', [pangkatPnsPolriController::class, 'edit'])->name('edit.pns');
+    //     Route::post('/update/{id}', [pangkatPnsPolriController::class, 'update'])->name('update.pns');
+    //     Route::delete('/delete/{id}', [pangkatPnsPolriController::class, 'delete'])->name('delete.pns');
+    // });
     
     // Sub PNS Polri
-    Route::prefix('subpns')->group(function () {
-        Route::get('/', [pangkatPnsPolriController::class, 'viewSubPns'])->name('view.subPns');
-        Route::get('/create', [pangkatPnsPolriController::class, 'createSubPns'])->name('create.subPns');
-        Route::post('/store', [pangkatPnsPolriController::class, 'storeSubPns'])->name('store.subPns');
-        Route::get('/edit/{id}', [pangkatPnsPolriController::class, 'editSubPns'])->name('edit.subPns');
-        Route::post('/update/{id}', [pangkatPnsPolriController::class, 'updateSubPns'])->name('update.subPns');
-        Route::delete('/delete/{id}', [pangkatPnsPolriController::class, 'deleteSubPns'])->name('delete.subPns');
-    });
+    // Route::prefix('subpns')->group(function () {
+    //     Route::get('/', [pangkatPnsPolriController::class, 'viewSubPns'])->name('view.subPns');
+    //     Route::get('/create', [pangkatPnsPolriController::class, 'createSubPns'])->name('create.subPns');
+    //     Route::post('/store', [pangkatPnsPolriController::class, 'storeSubPns'])->name('store.subPns');
+    //     Route::get('/edit/{id}', [pangkatPnsPolriController::class, 'editSubPns'])->name('edit.subPns');
+    //     Route::post('/update/{id}', [pangkatPnsPolriController::class, 'updateSubPns'])->name('update.subPns');
+    //     Route::delete('/delete/{id}', [pangkatPnsPolriController::class, 'deleteSubPns'])->name('delete.subPns');
+    // });
 
     // Hero
     Route::prefix('hero')->group(function () {

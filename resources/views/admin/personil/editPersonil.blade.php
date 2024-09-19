@@ -108,12 +108,12 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="gambar">Gambar</label>
+                        <input type="file" id="gambar" name="gambar" class="form-control">
                         @if($personels->gambar)
                             <div>
                                 <img src="{{ asset('storage/personil/' . $personels->gambar) }}" alt="Gambar Personil" width="100">
                             </div>
                         @endif
-                        <input type="file" id="gambar" name="gambar" class="form-control">
                     </div>
                 </div>
             
@@ -200,7 +200,6 @@
                     </div>
                 </div>
             
-    
             <!-- Jenis Kelamin -->
             <div class="col-md-6">
             <div class="form-group">

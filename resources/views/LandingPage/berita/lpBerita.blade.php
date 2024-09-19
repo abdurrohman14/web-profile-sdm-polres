@@ -1,3 +1,5 @@
+@extends('partials.landingPage.main')
+@section('content')
 <section class="news mt-5">
     <div class="container">
       <h2 class="text-center mb-4">News</h2>
@@ -9,7 +11,8 @@
             <img src="{{ asset('storage/berita/' . $brt->gambar) }}" class="card-img-top" alt="News 1" />
             <div class="card-body">
               <h5 class="card-title">{{ $brt->judul }}</h5>
-              <p class="card-text">{!! $brt->deskripsi !!}</p>
+              {{-- <p class="card-text">{!! $brt->deskripsi !!}</p> --}}
+              <p class="card-text">{{ $brt->created_at->locale('id')->translatedFormat('l, d F Y') }}</p>
               <a href="#" class="btn btn-dark mt-4">Read More</a>
             </div>
             @endforeach
@@ -18,3 +21,4 @@
       </div>
     </div>
   </section>
+@endsection

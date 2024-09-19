@@ -7,6 +7,7 @@ use App\Models\Ourteam;
 use App\Models\Pangkat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class OurteamController extends Controller
 {
@@ -101,6 +102,7 @@ class OurteamController extends Controller
 
     public function delete($id) {
         $ourteams = Ourteam::find($id);
+        Storage::delete('public/team/'.$ourteams->gambar);
         $ourteams->delete();
         
         return redirect()->route('index.team')->with('success', 'Data berhasil dihapus');

@@ -7,7 +7,6 @@
     </div>
     <div class="container">
         @if ($personels)
-                <tr>
                     <div class="row justify-content-md-center">
                         <div class="col col-lg-2">
                         </div>
@@ -249,14 +248,13 @@
                                 <div class="value ml-2">{{ $personels->akte_lahir }}</div>
                             </div>
                         </div>
-                      </div>
-                </tr>
+                    </div>
         @else
             <p>Data tidak ditemukan untuk pengguna ini.</p>
         @endif
     </div>
     <div class="card-footer d-flex justify-content-end">
-        <a href="{{ route('index.person') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ session('previous_url') ?? route('index.person') }}" class="btn btn-danger">Kembali</a>
     </div>
 </div>
 

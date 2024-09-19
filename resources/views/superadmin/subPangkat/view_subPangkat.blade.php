@@ -8,9 +8,9 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            @if($subPangkat->isEmpty())
-            <p>Tidak ada data</p>
-            @else
+            {{-- @if($subPangkat->isEmpty())
+            <p class="text-center">Tidak ada data</p>
+            @else --}}
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -40,7 +40,7 @@
                     @endforeach
                 </tbody>
             </table>
-            @endif
+            {{-- @endif --}}
         </div>
     </div>
 </div>

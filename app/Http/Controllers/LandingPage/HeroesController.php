@@ -18,7 +18,7 @@ class HeroesController extends Controller
         $ourteams = Ourteam::all();
         $berita = Berita::all();
         $event = Event::all();
-        return view('welcome', [
+        return view('partials.landingPage.main', [
             'hero' => $hero,
             'partners' => $partners,
             'ourteams' => $ourteams,
