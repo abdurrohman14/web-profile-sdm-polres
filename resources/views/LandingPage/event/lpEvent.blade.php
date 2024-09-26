@@ -16,28 +16,31 @@
           </div>
         </form>
         <div class="row">
-          @if($event->isNotEmpty())
-          @foreach($event as $evt)
-          <div class="col-md-4">
-            <div class="card news-card">
-              <a href="{{ route('lp.event.show', $evt->id) }}">
-              <img src="{{ asset('storage/event/' . $evt->gambar) }}" class="card-img-top" alt="News 1" />
-            </a>
-              <div class="card-body">
-                <a href="{{ route('lp.event.show', $evt->id) }}" class="text-decoration-none">
-                  <h5 class="card-title">{{ $evt->judul }}</h5>
-                </a>
-                {{-- <p class="card-text">{!! $evt->deskripsi !!}</p> --}}
-                <p class="card-text">{{ $evt->created_at->locale('id')->translatedFormat('l, d F Y') }}</p>
-              </div>
+            @if($event->isNotEmpty())
+            @foreach($event as $evt)
+            <div class="col-md-4 mb-4">
+                <div class="card news-card">
+                    <div class="image-container" style="position: relative;">
+                        <a href="{{ route('lp.event.show', $evt->id) }}" class="text-decoration-none">
+                            <img src="{{ asset('storage/event/' . $evt->gambar) }}" class="card-img-top" alt="{{ $evt->judul }}" />
+                        </a>
+                        <p class="date-overlay" style="position: absolute; bottom: 10px; right: 10px; background-color: rgba(0, 0, 0, 0.6); color: white; padding: 5px; border-radius: 3px;">
+                            {{ $evt->created_at->locale('id')->translatedFormat('l, d F Y') }}
+                        </p>
+                    </div>
+                    <div class="card-body bg-warning">
+                        <a href="{{ route('lp.event.show', $evt->id) }}" class="text-decoration-none">
+                            <h5 class="card-title">{{ $evt->judul }}</h5>
+                        </a>
+                    </div>
+                </div>
             </div>
-          </div>
-          @endforeach
-          @else
-          <div class="col-md-12 text-center">
-            <p>belum ada event tersedia</p>
-          </div>
-          @endif
+            @endforeach
+            @else
+            <div class="col-md-12 text-center">
+                <p>Belum ada acara tersedia.</p>
+            </div>
+            @endif
         </div>
         {{-- pagination --}}
         <div class="row justify-content-center mt-3">
@@ -45,22 +48,5 @@
         </div>
     </div>
 </section>
-<script>
-  $(document).ready(function() {
-      $('#search').on('keyup', function() {
-          var query = $(this).val();
 
-          // AJAX request untuk pencarian event
-          $.ajax({
-              url: "{{ route('lp.event.search') }}",
-              type: "GET",
-              data: {query: query},
-              success: function(data) {
-                  // Mengganti konten event dengan hasil pencarian
-                  $('#news-container').html(data);
-              }
-          });
-      });
-  });
-</script>
 @endsection

@@ -33,10 +33,10 @@
                 </div>
             </div>
 
-            <!-- Kolom 2: event Terkait -->
+            <!-- Kolom 2: Event Terkait -->
             <div class="col-md-4">
                 <div class="related-news">
-                    <h4>event Terkait</h4>
+                    <h4>Acara Terkait</h4>
                     @if($eventTerkait->isNotEmpty())
                         @foreach($eventTerkait as $related)
                             <div class="related-news-item mb-4">

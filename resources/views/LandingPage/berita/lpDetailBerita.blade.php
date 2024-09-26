@@ -16,7 +16,7 @@
                         <!-- Tanggal dan waktu pembuatan berita -->
                         <p class="card-text">
                             <small class="text-muted">
-                                Dipublikasikan pada: {{ $berita->created_at->locale('id')->translatedFormat('l, d F Y, H:i') }}
+                                Dipublikasikan pada : {{ $berita->created_at->locale('id')->translatedFormat('l, d F Y, H:i') }}
                             </small>
                         </p>
 
