@@ -13,9 +13,9 @@
                     <div class="form-group">
                         <label for="jabatan_id" class="form-label">Jabatan</label>
                         <select name="jabatan_id" id="jabatan_id" class="form-control select2" required>
-                            <option value="" disabled selected>Pilih Jabatan</option>
+                            <option value="" disabled {{ old('jabatan_id') == null ? 'selected' : '' }}>Pilih Jabatan</option>
                             @foreach($jabatan as $jabatan)
-                                <option value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>
+                                <option value="{{ $jabatan->id }} {{ old('jabatan_id') == $jabatan->id ? 'selected' : '' }}">{{ $jabatan->nama }}</option>
                             @endforeach
                         </select>
                     </div>

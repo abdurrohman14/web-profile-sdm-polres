@@ -32,11 +32,11 @@
                         <div class="colon">:</div>
                         <div class="value ml-2">{{ $personels->pangkat->nama }}</div>
                     </div>
-                    <div class="info-item d-flex mb-2">
+                    {{-- <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Pangkat PNS Polri</strong></div>
                         <div class="colon">:</div>
                         <div class="value ml-2">{{ $personels->pangkatPnsPolri->nama ?? 'N/A' }}</div>
-                    </div>
+                    </div> --}}
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Status</strong></div>
                         <div class="colon">:</div>
@@ -46,6 +46,11 @@
                         <div class="label" style="min-width: 220px;"><strong>Nama Panggilan</strong></div>
                         <div class="colon">:</div>
                         <div class="value ml-2">{{ $personels->nama_panggilan }}</div>
+                    </div>
+                    <div class="info-item d-flex mb-2">
+                        <div class="label" style="min-width: 220px;"><strong>NRP</strong></div>
+                        <div class="colon">:</div>
+                        <div class="value ml-2">{{ $personels->nrp }}</div>
                     </div>
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Tempat Lahir</strong></div>
@@ -70,7 +75,7 @@
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Suku Bangsa</strong></div>
                         <div class="colon">:</div>
-                        <div class="value ml-2">{{ $personels->suku_bangsa }}</div>
+                        <div class="value ml-2">{{ $personels->suku }}</div>
                     </div>
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Anak ke-</strong></div>
@@ -127,17 +132,17 @@
                         <div class="colon">:</div>
                         <div class="value ml-2">{{ $personels->npwp }}</div>
                     </div>
-                </div>
-                <div class="col-lg-6">
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Nomor Kartu Keluarga</strong></div>
                         <div class="colon">:</div>
-                        <div class="value ml-2">{{ $personels->nomor_kartu_keluarga }}</div>
+                        <div class="value ml-2">{{ $personels->nomor_kk }}</div>
                     </div>
+                </div>
+                <div class="col-lg-6">
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>TMT Masa Dinas Surut</strong></div>
                         <div class="colon">:</div>
-                        <div class="value ml-2">{{ $personels->tmt_masa_dinas_surut }}</div>
+                        <div class="value ml-2">{{ $personels->tmt_masa_dinas }}</div>
                     </div>
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>TMT Status</strong></div>
@@ -157,7 +162,7 @@
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Handphone</strong></div>
                         <div class="colon">:</div>
-                        <div class="value ml-2">{{ $personels->handphone }}</div>
+                        <div class="value ml-2">{{ $personels->no_hp }}</div>
                     </div>
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Tanggal Lahir</strong></div>
@@ -192,12 +197,12 @@
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Telepon Orang Tua</strong></div>
                         <div class="colon">:</div>
-                        <div class="value ml-2">{{ $personels->telepon_orangtua }}</div>
+                        <div class="value ml-2">{{ $personels->telepon_ortu }}</div>
                     </div>
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>alamat Orang Tua</strong></div>
                         <div class="colon">:</div>
-                        <div class="value ml-2">{{ $personels->alamat_orangtua }}</div>
+                        <div class="value ml-2">{{ $personels->alamat_ortu }}</div>
                     </div>
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Berat</strong></div>

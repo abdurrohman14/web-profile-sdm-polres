@@ -28,11 +28,11 @@
                         <div class="colon">:</div>
                         <div class="value ml-2">{{ $personel->pangkat->nama }}</div>
                     </div>
-                    <div class="info-item d-flex mb-2">
+                    {{-- <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 150px;"><strong>Pangkat PNS Polri</strong></div>
                         <div class="colon">:</div>
                         <div class="value ml-2">{{ $personel->pangkatPnsPolri->nama ?? 'N/A' }}</div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         @else
