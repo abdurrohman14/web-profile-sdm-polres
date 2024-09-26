@@ -26,7 +26,7 @@ class EventsController extends Controller
     public function store(Request $request) {
         $validateData = $request->validate([
             'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120'
         ]);
 
@@ -59,7 +59,7 @@ class EventsController extends Controller
     public function update(Request $request, $id) {
         $validateData = $request->validate([
             'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
             'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:512'
         ]);
 

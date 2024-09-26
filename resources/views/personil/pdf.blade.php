@@ -91,7 +91,7 @@
                             <div class="info-item">
                                 <div class="label">Foto Personel:</div>
                                 <div class="value">
-                                    <img src="{{ asset('storage/personil/' . $personel->gambar) }}" alt="Foto Personel">
+                                    <img src="{{ public_path('storage/personil/' . $personel->gambar) }}" alt="Foto Personel">
                                 </div>
                             </div>
                         </td>
