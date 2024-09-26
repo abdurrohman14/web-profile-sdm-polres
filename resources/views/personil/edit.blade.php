@@ -183,7 +183,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="suku">Suku</label>
-                    <input type="text" id="suku" name="suku" class="form-control" value="{{ old('suku', $personels->suku) }}">
+                    <input type="text" id="suku" name="suku" class="form-control" value="{{ old('suku', $personel->suku) }}">
                 </div>
             </div>
 

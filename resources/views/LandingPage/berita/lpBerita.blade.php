@@ -42,6 +42,10 @@
         </div>
         @endif
       </div>
+      <!-- Paginate links -->
+      <div class="row justify-content-center mt-3">
+        {{ $berita->links('pagination::bootstrap-5') }}
+      </div>
     </div>
 </section>
 <script>

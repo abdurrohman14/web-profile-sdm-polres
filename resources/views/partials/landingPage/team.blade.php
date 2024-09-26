@@ -1,8 +1,6 @@
 <section class="ourteams mt-5" style="height: 500px">
     <div class="container text-center mx-auto">
-        <h2 class="text-center mb-4">Our Team</h2>
-        <p class="text-center mb-5">Meet our esteemed educators who have made significant contributions to our
-            institution.</p>
+        <h2 class="text-center mb-4">Tim Kami</h2>
         @if ($ourteams->isNotEmpty())
             <div id="teamCarousel" class="carousel slide mx-auto" data-bs-ride="carousel">
                 <div class="carousel-inner">
@@ -41,7 +39,7 @@
             </div>
         @else
             <div class="text-center">
-                <h3>Belum Ada Team</h3>
+                <h3>Belum Ada Tim</h3>
                 <p>Data untuk team belum tersedia.</p>
             </div>
         @endif

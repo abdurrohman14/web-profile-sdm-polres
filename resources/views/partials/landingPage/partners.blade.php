@@ -1,9 +1,6 @@
 <section class="partners mt-5" style="height: 500px; display: flex; align-items: center;">
     <div class="container text-center mx-auto">
-        <h2 class="text-center mb-4">Our Partners</h2>
-        <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio
-            vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Mauris sit amet lacus ac orci faucibus
-            dapibus. Duis quis sapien sed libero malesuada aliquam. </p>
+        <h2 class="text-center mb-4">Mitra</h2>
         @if ($partners->isNotEmpty())
             <div id="partnersCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
@@ -31,7 +28,7 @@
             </div>
         @else
             <div class="text-center">
-                <h3>Belum Ada Partner</h3>
+                <h3>Belum Ada Mitra</h3>
                 <p>Data untuk partner belum tersedia.</p>
             </div>
         @endif

@@ -9,7 +9,7 @@ use App\Models\Berita;
 class LpBeritaController extends Controller
 {
     public function index() {
-        $berita = Berita::where('status', 1 )->get();
+        $berita = Berita::where('status', 1 )->paginate(5);
         return view('LandingPage.berita.lpBerita', [
             'berita' => $berita,
             'title' => 'Berita',
@@ -26,7 +26,7 @@ class LpBeritaController extends Controller
                     ->orWhere('deskripsi', 'LIKE', "%{$query}%")
                     ->where('status', 1)
                     ->latest()
-                    ->get();
+                    ->paginate(5);
     
     // Kembalikan hasil pencarian ke view lpBerita.blade.php
     return view('LandingPage.berita.lpBerita', [

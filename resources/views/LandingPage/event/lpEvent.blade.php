@@ -5,7 +5,7 @@
     <div class="container">
         <h2 class="text-center mb-4">Acara</h2>
         <!-- Form Search -->
-        <form action="{{ route('lp.berita.search') }}" method="GET" class="mb-4">
+        <form action="{{ route('lp.event.search') }}" method="GET" class="mb-4">
           <div class="row justify-content-center">
               <div class="col-md-6">
                   <div class="input-group">
@@ -38,6 +38,10 @@
             <p>belum ada event tersedia</p>
           </div>
           @endif
+        </div>
+        {{-- pagination --}}
+        <div class="row justify-content-center mt-3">
+            {{ $event->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </section>

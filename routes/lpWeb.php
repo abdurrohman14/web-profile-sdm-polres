@@ -13,7 +13,7 @@ Route::prefix('lp')->group(function () {
 
     // Events
     Route::get('/event', [LpEventController::class, 'index'])->name('lp.event');
-    Route::get('/event/search', [LpBeritaController::class, 'search'])->name('lp.event.search');
-    Route::get('/event/detail/{slug}', [LpBeritaController::class, 'show'])->name('lp.event.show');
+    Route::get('/event/search', [LpEventController::class, 'search'])->name('lp.event.search');
+    Route::get('/event/detail/{id}', [LpEventController::class, 'show'])->name('lp.event.show');
 
 });

@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class LpEventController extends Controller
 {
     public function index() {
-        $event = Event::all();
+        $event = Event::paginate(5);
         return view('LandingPage.event.lpEvent', [
             'event' => $event,
             'title' => 'Event',
@@ -24,7 +24,7 @@ class LpEventController extends Controller
         $event = Event::where('judul', 'LIKE', "%{$query}%")
                         ->orWhere('deskripsi', 'LIKE', "%{$query}%")
                         ->latest()
-                        ->get();
+                        ->paginate(5);
         
         // Kembalikan hasil pencarian ke view lpEvent.blade.php
         return view('LandingPage.event.lpEvent', [
