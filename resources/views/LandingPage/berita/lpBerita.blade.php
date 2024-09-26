@@ -27,11 +27,10 @@
                   {{ $brt->created_at->locale('id')->translatedFormat('l, d F Y') }}
                 </p>
               </div>
-              <div class="card-body">
+              <div class="card-body bg-warning">
                 <a href="{{ route('lp.berita.show', $brt->slug) }}" class="text-decoration-none">
                   <h5 class="card-title">{{ $brt->judul }}</h5>
                 </a>
-                <p class="card-text">{!! $brt->deskripsi !!}</p>
               </div>
             </div>
           </div>

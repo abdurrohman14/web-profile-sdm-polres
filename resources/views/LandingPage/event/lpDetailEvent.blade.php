@@ -3,47 +3,47 @@
 <section class="news-detail mt-5">
     <div class="container">
         <div class="row">
-            <!-- Kolom 1: Detail Berita -->
+            <!-- Kolom 1: Detail Event -->
             <div class="col-md-8">
                 <div class="card">
-                    <!-- Menampilkan gambar berita -->
-                    <img src="{{ asset('storage/berita/' . $berita->gambar) }}" class="card-img-top" alt="{{ $berita->judul }}" />
+                    <!-- Menampilkan gambar event -->
+                    <img src="{{ asset('storage/event/' . $event->gambar) }}" class="card-img-top" alt="{{ $event->judul }}" />
 
                     <div class="card-body">
-                        <!-- Judul berita -->
-                        <h1 class="card-title">{{ $berita->judul }}</h1>
+                        <!-- Judul event -->
+                        <h1 class="card-title">{{ $event->judul }}</h1>
 
-                        <!-- Tanggal dan waktu pembuatan berita -->
+                        <!-- Tanggal dan waktu pembuatan event -->
                         <p class="card-text">
                             <small class="text-muted">
-                                Dipublikasikan pada : {{ $berita->created_at->locale('id')->translatedFormat('l, d F Y, H:i') }}
+                                Dipublikasikan pada : {{ $event->created_at->locale('id')->translatedFormat('l, d F Y, H:i') }}
                             </small>
                         </p>
 
-                        <!-- Isi deskripsi berita -->
+                        <!-- Isi deskripsi event -->
                         <div class="card-text">
-                            {!! $berita->deskripsi !!}
+                            {!! $event->deskripsi !!}
                         </div>
 
-                        <!-- Kembali ke halaman berita -->
+                        <!-- Kembali ke halaman event -->
                         <div class="mt-4">
-                            <a href="{{ route('lp.berita') }}" class="btn btn-secondary">Kembali ke Berita</a>
+                            <a href="{{ route('lp.event') }}" class="btn btn-secondary">Kembali ke Acara</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Kolom 2: Berita Terkait -->
+            <!-- Kolom 2: Event Terkait -->
             <div class="col-md-4">
                 <div class="related-news">
-                    <h4>Berita Terkait</h4>
-                    @if($beritaTerkait->isNotEmpty())
-                        @foreach($beritaTerkait as $related)
+                    <h4>Acara Terkait</h4>
+                    @if($eventTerkait->isNotEmpty())
+                        @foreach($eventTerkait as $related)
                             <div class="related-news-item mb-4">
-                                <!-- Link ke detail berita terkait -->
-                                <a href="{{ route('lp.berita.show', $related->slug) }}" class="text-decoration-none">
+                                <!-- Link ke detail event terkait -->
+                                <a href="{{ route('lp.event.show', $related->id) }}" class="text-decoration-none">
                                     <div class="card">
-                                        <img src="{{ asset('storage/berita/' . $related->gambar) }}" class="card-img-top" alt="{{ $related->judul }}" />
+                                        <img src="{{ asset('storage/event/' . $related->gambar) }}" class="card-img-top" alt="{{ $related->judul }}" />
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $related->judul }}</h5>
                                             <p class="card-text">
@@ -57,7 +57,7 @@
                             </div>
                         @endforeach
                     @else
-                        <p>Tidak ada berita terkait.</p>
+                        <p>Tidak ada acara terkait.</p>
                     @endif
                 </div>
             </div>

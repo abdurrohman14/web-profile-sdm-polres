@@ -1,6 +1,6 @@
 <section class="partners mt-5" style="height: 500px; display: flex; align-items: center;">
     <div class="container text-center mx-auto">
-        <h2 class="text-center mb-4">Our Partners</h2>
+        <h2 class="text-center mb-4">Partnership</h2>
         <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio
             vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Mauris sit amet lacus ac orci faucibus
             dapibus. Duis quis sapien sed libero malesuada aliquam. </p>
