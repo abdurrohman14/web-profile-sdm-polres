@@ -47,6 +47,13 @@ class subJabatanSeeder extends Seeder
             // Sium
             ['jabatan_id' => 12, 'nama' => 'Subsimintu', 'created_at' => now(), 'updated_at' => now()],
             ['jabatan_id' => 12, 'nama' => 'Subsiyanma', 'created_at' => now(), 'updated_at' => now()],
+            // Sikeu
+            ['jabatan_id' => 23, 'nama' => 'Subsigaji', 'created_at' => now(), 'updated_at' => now()],
+            ['jabatan_id' => 23, 'nama' => 'Subsiverif', 'created_at' => now(), 'updated_at' => now()],
+            ['jabatan_id' => 23, 'nama' => 'Subsiapk', 'created_at' => now(), 'updated_at' => now()],
+            // Sidokkes
+            ['jabatan_id' => 24, 'nama' => 'Subsidokpol', 'created_at' => now(), 'updated_at' => now()],
+            ['jabatan_id' => 24, 'nama' => 'Subsikespol', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

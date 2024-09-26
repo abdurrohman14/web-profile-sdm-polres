@@ -15,7 +15,15 @@ use App\Http\Controllers\SuperAdmin\OurteamController;
 use App\Http\Controllers\SuperAdmin\PartnerController;
 use App\Http\Controllers\SuperAdmin\PersonilController;
 use App\Http\Controllers\SuperAdmin\PangkatPolriController;
+use App\Http\Controllers\SuperAdmin\PendidikanUmumController;
+use App\Http\Controllers\SuperAdmin\RiwayatJabatanController;
+use App\Http\Controllers\SuperAdmin\RiwayatPangkatController;
+use App\Http\Controllers\SuperAdmin\KemampuanBahasaController;
 use App\Http\Controllers\SuperAdmin\pangkatPnsPolriController;
+use App\Http\Controllers\SuperAdmin\TandaKehormatanController;
+use App\Http\Controllers\SuperAdmin\PendidikanKepolisianController;
+use App\Http\Controllers\SuperAdmin\PengembanganPelatihanController;
+use App\Http\Controllers\SuperAdmin\PenugasanLuarStrukturController;
 
 // Route::get('/', [HeroesController::class, 'index']);
 
@@ -290,6 +298,88 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
         Route::get('/edit/{id}', [EventsController::class, 'edit'])->name('edit.event');
         Route::post('/update/{id}', [EventsController::class, 'update'])->name('update.event');
         Route::delete('/delete/{id}', [EventsController::class, 'delete'])->name('delete.event');
+    });
+
+    // Pendidikan Kepolisian
+    Route::prefix('pendidikan-kepolisian')->group(function() {
+        Route::get('/', [PendidikanKepolisianController::class, 'index'])->name('view.pendidikan-kepolisian');
+        Route::get('/create', [PendidikanKepolisianController::class, 'create'])->name('create.pendidikan-kepolisian');
+        Route::post('/store', [PendidikanKepolisianController::class, 'store'])->name('store.pendidikan-kepolisian');
+        Route::get('/edit/{id}', [PendidikanKepolisianController::class, 'edit'])->name('edit.pendidikan-kepolisian');
+        Route::post('/update/{id}', [PendidikanKepolisianController::class, 'update'])->name('update.pendidikan-kepolisian');
+        Route::get('/detail/{id}', [PendidikanKepolisianController::class, 'show'])->name('detail.pendidikan-kepolisian');
+        Route::delete('/delete/{id}', [PendidikanKepolisianController::class, 'delete'])->name('delete.pendidikan-kepolisian');
+    });
+
+    // Pendidikan Umum
+    Route::prefix('pendidikan-umum')->group(function() {
+        Route::get('/', [PendidikanUmumController::class, 'index'])->name('view.pendidikan-umum');
+        Route::get('/create', [PendidikanUmumController::class, 'create'])->name('create.pendidikan-umum');
+        Route::post('/store', [PendidikanUmumController::class, 'store'])->name('store.pendidikan-umum');
+        Route::get('/edit/{id}', [PendidikanUmumController::class, 'edit'])->name('edit.pendidikan-umum');
+        Route::post('/update/{id}', [PendidikanUmumController::class, 'update'])->name('update.pendidikan-umum');
+        Route::get('/detail/{id}', [PendidikanUmumController::class, 'show'])->name('detail.pendidikan-umum');
+        Route::delete('/delete/{id}', [PendidikanUmumController::class, 'delete'])->name('delete.pendidikan-umum');
+    });
+
+    // Riwayat Pangkat
+    Route::prefix('riwayat-pangkat')->group(function () {
+        Route::get('/', [RiwayatPangkatController::class, 'index'])->name('view.riwayat-pangkat');
+        Route::get('/create', [RiwayatPangkatController::class, 'create'])->name('create.riwayat-pangkat');
+        Route::post('/store', [RiwayatPangkatController::class, 'store'])->name('store.riwayat-pangkat');
+        Route::get('/edit/{id}', [RiwayatPangkatController::class, 'edit'])->name('edit.riwayat-pangkat');
+        Route::post('/update/{id}', [RiwayatPangkatController::class, 'update'])->name('update.riwayat-pangkat');
+        Route::delete('/delete/{id}', [RiwayatPangkatController::class, 'delete'])->name('delete.riwayat-pangkat');
+    });
+
+    // Riwayat Jabatan
+    Route::prefix('riwayat-jabatan')->group(function () {
+        Route::get('/', [RiwayatJabatanController::class, 'index'])->name('view.riwayat-jabatan');
+        Route::get('/create', [RiwayatJabatanController::class, 'create'])->name('create.riwayat-jabatan');
+        Route::post('/store', [RiwayatJabatanController::class, 'store'])->name('store.riwayat-jabatan');
+        Route::get('/edit/{id}', [RiwayatJabatanController::class, 'edit'])->name('edit.riwayat-jabatan');
+        Route::post('/update/{id}', [RiwayatJabatanController::class, 'update'])->name('update.riwayat-jabatan');
+        Route::delete('/delete/{id}', [RiwayatJabatanController::class, 'delete'])->name('delete.riwayat-jabatan');
+    });
+
+    // Pendidikan Pengembangan & Pelatihan
+    Route::prefix('pengembangan-pelatihan')->group(function () {
+        Route::get('/', [PengembanganPelatihanController::class, 'index'])->name('view.pengembangan-pelatihan');
+        Route::get('/create', [PengembanganPelatihanController::class, 'create'])->name('create.pengembangan-pelatihan');
+        Route::post('/store', [PengembanganPelatihanController::class, 'store'])->name('store.pengembangan-pelatihan');
+        Route::get('/edit/{id}', [PengembanganPelatihanController::class, 'edit'])->name('edit.pengembangan-pelatihan');
+        Route::post('/update/{id}', [PengembanganPelatihanController::class, 'update'])->name('update.pengembangan-pelatihan');
+        Route::delete('/delete/{id}', [PengembanganPelatihanController::class, 'delete'])->name('delete.pengembangan-pelatihan');
+    });
+
+    // Tanda Kehormatan
+    Route::prefix('tanda-kehormatan')->group(function () {
+        Route::get('/', [TandaKehormatanController::class, 'index'])->name('view.tanda-kehormatan');
+        Route::get('/create', [TandaKehormatanController::class, 'create'])->name('create.tanda-kehormatan');
+        Route::post('/store', [TandaKehormatanController::class, 'store'])->name('store.tanda-kehormatan');
+        Route::get('/edit/{id}', [TandaKehormatanController::class, 'edit'])->name('edit.tanda-kehormatan');
+        Route::post('/update/{id}', [TandaKehormatanController::class, 'update'])->name('update.tanda-kehormatan');
+        Route::delete('/delete/{id}', [TandaKehormatanController::class, 'delete'])->name('delete.tanda-kehormatan');
+    });
+
+    // Kemampuan Bahasa
+    Route::prefix('kemampuan-bahasa')->group(function () {
+        Route::get('/', [KemampuanBahasaController::class, 'index'])->name('view.kemampuan-bahasa');
+        Route::get('/create', [KemampuanBahasaController::class, 'create'])->name('create.kemampuan-bahasa');
+        Route::post('/store', [KemampuanBahasaController::class, 'store'])->name('store.kemampuan-bahasa');
+        Route::get('/edit/{id}', [KemampuanBahasaController::class, 'edit'])->name('edit.kemampuan-bahasa');
+        Route::post('/update/{id}', [KemampuanBahasaController::class, 'update'])->name('update.kemampuan-bahasa');
+        Route::delete('/delete/{id}', [KemampuanBahasaController::class, 'delete'])->name('delete.kemampuan-bahasa');
+    });
+
+    // Penugasan Luar Struktur
+    Route::prefix('penugasan-luar-struktur')->group(function () {
+        Route::get('/', [PenugasanLuarStrukturController::class, 'index'])->name('view.penlu');
+        Route::get('/create', [PenugasanLuarStrukturController::class, 'create'])->name('create.penlu');
+        Route::post('/store', [PenugasanLuarStrukturController::class, 'store'])->name('store.penlu');
+        Route::get('/edit/{id}', [PenugasanLuarStrukturController::class, 'edit'])->name('edit.penlu');
+        Route::post('/update/{id}', [PenugasanLuarStrukturController::class, 'update'])->name('update.penlu');
+        Route::delete('/delete/{id}', [PenugasanLuarStrukturController::class, 'delete'])->name('delete.penlu');
     });
 });
 

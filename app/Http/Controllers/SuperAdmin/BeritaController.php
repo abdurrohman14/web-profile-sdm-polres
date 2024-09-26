@@ -29,7 +29,7 @@ class BeritaController extends Controller
             'judul' => 'required|max:255',
             'slug' => 'required|unique:beritas',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120', // Validasi upload foto
-            'deskripsi' => 'required',
+            'deskripsi' => 'required|string',
             'status' =>  'nullable|boolean',
         ]);
 
@@ -74,7 +74,7 @@ class BeritaController extends Controller
             'judul' => 'required|max:255',
             'slug' => 'required|unique:beritas,slug,'.$id,
             'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
-            'deskripsi' => 'required',
+            'deskripsi' => 'required|string',
             'status' =>  'nullable|boolean',
         ]);
 
@@ -88,7 +88,7 @@ class BeritaController extends Controller
 
         if ($request->hasFile('gambar')) {
             // Hapus foto lama
-            Storage::delete('public/berita'.$beritas->gambar);
+            Storage::delete('public/berita/'.$beritas->gambar);
 
             // Upload foto baru
             $image = $request->file('gambar');

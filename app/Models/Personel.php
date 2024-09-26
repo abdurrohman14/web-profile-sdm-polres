@@ -38,15 +38,58 @@ class Personel extends Model
         return $this->belongsTo(pangkat_pns_polri::class, 'pangkat_pns_polri_id');
     }
 
+    // relasi ke model user
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    // relasi ke model subJabatan
     public function subJabatan() {
         return $this->belongsTo(subJabatan::class, 'sub_jabatan_id');
     }
 
+    // relasi ke model role
     public function role() {
         return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    // relasi ke model pendidikan kepolisian
+    public function PendidikanKepolisian() {
+        return $this->hasMany(PendidikanKepolisian::class);
+    }
+
+    // relasi ke model pendidikan umum
+    public function PendidikanUmum() {
+        return $this->hasMany(PendidikanUmum::class);
+    }
+
+    // relasi ke model riwayat pangkat
+    public function RiwayatPangkat() {
+        return $this->hasMany(RiwayatPangkat::class);
+    }
+
+    // relasi ke model riwayat jabatan
+    public function RiwayatJabatan() {
+        return $this->hasMany(RiwayatJabatan::class);
+    }
+
+    // relasi ke model pendidikan pengembangan & pelatihan
+    public function PengembanganPelatihan() {
+        return $this->hasMany(PengembanganPelatihan::class);
+    }
+
+    // relasi ke model tanda kehormatan
+    public function TandaKehormatan() {
+        return $this->hasMany(TandaKehormatan::class);
+    }
+
+    // relasi ke model kemampuan bahasa
+    public function KemampuanBahasa() {
+        return $this->hasMany(KemampuanBahasa::class);
+    }
+    
+    // relasi ke model penugasan luar struktur
+    public function PenugasanLuarStruktur() {
+        return $this->hasMany(PenugasanLuarStruktur::class);
     }
 }

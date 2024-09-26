@@ -53,14 +53,18 @@ class PartnerController extends Controller
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        
+        $partners = Partner::find($id);
+
         if ($request->hasFile('gambar')) {
+            // Hapus foto lama
+            Storage::delete('public/partner/' . $partners->gambar);
             $gambar = $request->file('gambar');
             $gambarName = time().'.'.$gambar->getClientOriginalExtension();
             $gambar->storeAs('public/partner', $gambarName);
             $validateData['gambar'] = $gambarName;
         }
         
-        $partners = Partner::find($id);
         if(isset($validateData['gambar'])) {
             $partners->gambar = $validateData['gambar'];
         }

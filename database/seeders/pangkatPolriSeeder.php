@@ -14,12 +14,15 @@ class pangkatPolriSeeder extends Seeder
     public function run(): void
     {
         DB::table('pangkats')->insert([
-            ['nama' => 'Perwira Tinggi', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => 'Perwira Menengah', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => 'Perwira Pertama', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => 'Bintara Tinggi', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => 'Bintara', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => 'Tamtama', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => 'Gol IV', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => 'Gol III', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => 'Gol II', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => 'Gol I', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

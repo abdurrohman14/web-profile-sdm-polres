@@ -66,7 +66,7 @@ class EventsController extends Controller
         $event = Event::find($id);
 
         if($request->hasFile('gambar')) {
-            Storage::delete('public/event'.$event->gambar);
+            Storage::delete('public/event/'.$event->gambar);
 
             $image = $request->file('gambar');
             $imageName = time() . '.' . $image->getClientOriginalExtension();

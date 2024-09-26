@@ -69,7 +69,7 @@ $jabatans = [
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
          aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-solid fa-folder-open text-dark"></i>
-          <span class="text-dark">Data Master</span>
+          <span class="text-dark">Master</span>
       </a>
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -88,8 +88,8 @@ $jabatans = [
   <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
          aria-expanded="true" aria-controls="collapseThree">
-          <i class="fas fa-solid fa-folder text-dark"></i>
-          <span class="text-dark">Data</span>
+          <i class="fas fa-solid fa-home text-dark"></i>
+          <span class="text-dark">Home</span>
       </a>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -99,6 +99,27 @@ $jabatans = [
               <a class="collapse-item" href="{{ route('index.team') }}">OurTeam</a>
               <a class="collapse-item" href="{{ route('view.berita') }}">Berita</a>
               <a class="collapse-item" href="{{ route('view.event') }}">Events</a>
+          </div>
+      </div>
+  </li>
+
+  <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+         aria-expanded="true" aria-controls="collapseFour">
+          <i class="fas fa-solid fa-school text-dark"></i>
+          <span class="text-dark">Pendidikan</span>
+      </a>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Custom Components:</h6>
+              <a class="collapse-item" href="{{ route('view.pendidikan-kepolisian') }}">Pendidikan Kepolisian</a>
+              <a class="collapse-item" href="{{ route('view.pendidikan-umum') }}">Pendidikan Umum</a>
+              <a class="collapse-item" href="{{ route('view.riwayat-pangkat') }}">Riwayat Pangkat</a>
+              <a class="collapse-item" href="{{ route('view.riwayat-jabatan') }}">Riwayat Jabatan</a>
+              <a class="collapse-item" href="{{ route('view.pengembangan-pelatihan') }}">Pengembangan</a>
+              <a class="collapse-item" href="{{ route('view.tanda-kehormatan') }}">Tanda Kehormatan</a>
+              <a class="collapse-item" href="{{ route('view.kemampuan-bahasa') }}">Kemampuan Bahasa</a>
+              <a class="collapse-item" href="{{ route('view.penlu') }}">Penugasan Luar Struktur</a>
           </div>
       </div>
   </li>
@@ -142,7 +163,7 @@ $jabatans = [
   <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
          aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder text-dark"></i>
+          <i class="fas fa-solid fa-user-nurse text-dark"></i>
           <span class="text-dark">{{ $user->jabatan ? ucfirst(strtolower($user->jabatan->nama)) : 'Subbag' }}</span>
       </a>
       <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">

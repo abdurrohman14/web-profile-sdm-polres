@@ -235,18 +235,20 @@ class PersonilController extends Controller
             'akte_lahir' => 'nullable|string|max:255|unique:personels,akte_lahir,' . $id,
             'tmt_masa_dinas' => 'nullable|date|after_or_equal:tanggal_lahir',
         ]);
+        
+        $personels = Personel::findOrFail($id);
 
         // Handle file upload
         if ($request->hasFile('gambar')) {
+            Storage::delete('public/personil/'.$personels->gambar);
             $image = $request->file('gambar');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/personil', $imageName);
+            $image->storeAs('public/personil/', $imageName);
             $validateData['gambar'] = $imageName;
         }
 
         // Save data to the database
         try {
-            $personels = Personel::findOrFail($id);
 
             // Update user details
             $user = User::findOrFail($personels->user_id);

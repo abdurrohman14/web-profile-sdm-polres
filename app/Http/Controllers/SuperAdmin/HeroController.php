@@ -76,7 +76,7 @@ class HeroController extends Controller
         if ($request->hasFile('gambar')) {
             // Hapus gambar lama jika ada
             if ($heros->gambar) {
-                Storage::delete('public/' . $heros->gambar);
+                Storage::delete('public/hero/' . $heros->gambar);
             }
             $gambar = $request->file('gambar');
             $gambarName = time().'.'.$gambar->getClientOriginalExtension();

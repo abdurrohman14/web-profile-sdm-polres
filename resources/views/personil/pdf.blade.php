@@ -1,3 +1,6 @@
+@php
+use Carbon\Carbon;
+@endphp
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,7 +105,7 @@
                             </div>
                             <div class="info-item">
                                 <div class="label">Jabatan:</div>
-                                <div class="value">{{ $personel->jabatan->nama }}</div>
+                                <div class="value">{{ $personel->jabatan->nama }} / {{ $personel->subJabatan->nama }}</div>
                             </div>
                             <div class="info-item">
                                 <div class="label">Tempat, Tanggal Lahir:</div>
@@ -117,12 +120,68 @@
                                 <div class="value">{{ $personel->agama }}</div>
                             </div>
                             <div class="info-item">
+                                <div class="label">Suku:</div>
+                                <div class="value">{{ $personel->suku }}</div>
+                            </div>
+                            <div class="info-item">
                                 <div class="label">Status Personel:</div>
                                 <div class="value">{{ $personel->status }}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">Lama Jabatan:</div>
+                                <div class="value">{{ $lamaJabatan }}</div>
                             </div>
                         </td>
                     </tr>
                 </table>
+                <h2>Pendidikan Kepolisian</h2>
+            <ul>
+                @foreach ($personel->pendidikanKepolisian as $pendidikan)
+                    <li>{{ $pendidikan->tingkat }} ({{ $pendidikan->tahun }})</li>
+                @endforeach
+            </ul>
+            <h2>Pendidikan Umum</h2>
+            <ul>
+                @foreach($personel->pendidikanUmum as $pendikum)
+                <li>{{ $pendikum->tingkat }} ({{ $pendikum->nama_institusi }}) ({{ $pendikum->tahun}})
+                @endforeach
+            </ul>
+            <h2>Riwayat Pangkat</h2>
+            <ul>
+                @foreach($personel->riwayatPangkat as $ripat)
+                <li>{{ $ripat->pangkat }} {{ Carbon::parse($ripat->tmt)->format('d-m-Y') }}
+                @endforeach
+            </ul>
+            <h2>Riwayat Jabatan</h2>
+            <ul>
+                @foreach($personel->riwayatJabatan as $rijab)
+                <li>{{ $rijab->jabatan }} {{ Carbon::parse($rijab->tmt)->format('d-m-Y') }}
+                @endforeach
+            </ul>
+            <h2>Pengembangan Pelatihan</h2>
+            <ul>
+                @foreach($personel->pengembanganPelatihan as $penlat)
+                <li>{{ $penlat->dikbang }} {{ $penlat->tahun }}
+                @endforeach
+            </ul>
+            <h2>Tanda Kehormatan</h2>
+            <ul>
+                @foreach($personel->tandaKehormatan as $tanker)
+                <li>{{ $tanker->tanda_kehormatan }} {{ $tanker->tahun }}
+                @endforeach
+            </ul>
+            <h2>Kemampuan Bahasa</h2>
+            <ul>
+                @foreach($personel->kemampuanBahasa as $mamba)
+                <li>{{ $mamba->bahasa }} {{ $mamba->status }}
+                @endforeach
+            </ul>
+            <h2>Penugasan Luar Struktur</h2>
+            <ul>
+                @foreach($personel->penugasanLuarStruktur as $penlu)
+                <li>{{ $penlu->penugasan }} {{ $penlu->lokasi }}
+                @endforeach
+            </ul>
             @else
                 <p>Data tidak ditemukan untuk pengguna ini.</p>
             @endif

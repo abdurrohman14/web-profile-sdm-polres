@@ -79,6 +79,9 @@ class OurteamController extends Controller
 
         $ourteams = Ourteam::find($id);
         if ($request->hasFile('gambar')) {
+            // hapus foto lama
+            Storage::delete('public/team/'.$ourteams->gambar);
+            
             $gambar = $request->file('gambar');
             $gambarName = time().'.'.$gambar->getClientOriginalExtension();
             $gambar->storeAs('public/team', $gambarName);

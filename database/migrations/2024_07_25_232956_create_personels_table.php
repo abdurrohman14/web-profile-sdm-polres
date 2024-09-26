@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('jabatan_id');
             // $table->unsignedBigInteger('sub_jabatan_id');
             $table->unsignedBigInteger('pangkat_id');
-            $table->unsignedBigInteger('pangkat_pns_polri_id');
+            // $table->unsignedBigInteger('pangkat_pns_polri_id');
             $table->unsignedBigInteger('user_id');
             $table->string('gambar')->nullable();
             $table->string('nama_lengkap');
@@ -65,7 +65,7 @@ return new class extends Migration
             $table->foreign('jabatan_id')->references('id')->on('jabatans');
             // $table->foreign('sub_jabatan_id')->references('id')->on('sub_jabatans');
             $table->foreign('pangkat_id')->references('id')->on('pangkats');
-            $table->foreign('pangkat_pns_polri_id')->references('id')->on('pangkat_pns_polris');
+            // $table->foreign('pangkat_pns_polri_id')->references('id')->on('pangkat_pns_polris');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
