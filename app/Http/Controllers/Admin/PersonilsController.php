@@ -62,7 +62,7 @@ class PersonilsController extends Controller
         // $pangkatPnsPolri = pangkat_pns_polri::all();
         // $subPnsPolri = subPnsPolri::all();
         $user = User::all();
-        $roles = Role::all();
+        $roles = Role::whereIn('name',['admin','personil'])->get(); // Filter hanya menampilkan role 'admin' dan 'personil'
         return view('admin.personil.createPersonil', [
             'jabatan' => $jabatan,
             'subJabatan' => $subJabatan,
@@ -184,7 +184,7 @@ class PersonilsController extends Controller
         $pangkatPnsPolri = pangkat_pns_polri::all();
         $subPnsPolri = subPnsPolri::all();
         $user = User::all();
-        $roles = Role::all();
+        $roles = Role::whereIn('name',['admin','personil'])->get();
 
         return view('admin.personil.editPersonil', [
             'personels' => $personels,

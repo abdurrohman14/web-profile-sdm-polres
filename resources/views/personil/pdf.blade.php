@@ -286,7 +286,7 @@ use Carbon\Carbon;
                         @foreach($personel->tandaKehormatan as $tanker)
                             <tr>
                                 <td style="border: 1px solid #D4AC0D; padding: 8px;">{{ $tanker->tanda_kehormatan }}</td>
-                                <td style="border: 1px solid #D4AC0D; padding: 8px;">{{ $tanker->tahun }}</td>
+                                <td style="border: 1px solid #D4AC0D; padding: 8px;">{{ $tanker->tmt }}</td>
                             </tr>
                         @endforeach
                     </tbody>
