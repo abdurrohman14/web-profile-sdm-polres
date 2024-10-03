@@ -9,7 +9,7 @@
             <div class="col-md-6">
                 <div class="input-group">
                     <input type="text" name="query" class="form-control" placeholder="Cari berita..." value="{{ request()->input('query') }}">
-                    <button class="btn btn-primary" type="submit">Cari</button>
+                    <button class="btn btn-secondary" type="submit"><i class="bi bi-search"></i></button>
                 </div>
             </div>
         </div>
