@@ -31,8 +31,16 @@ class RoleController extends Controller
 
     public function superadmin()
     {
+        $totalPersonel = Personel::count();
+        $personelAktif = Personel::where('status', 'aktif')->count();
+        $personelTidakAktif = Personel::where('status', '!=', 'aktif')->count();
+        $personelPenghargaan = Personel::whereHas('TandaKehormatan')->count();
         return view('superadmin.superadmin', [
             'title' => 'Super Admin',
+            'totalPersonel' => $totalPersonel,
+            'personelAktif' => $personelAktif,
+            'personelTidakAktif' => $personelTidakAktif,
+            'personelPenghargaan' => $personelPenghargaan,
         ]);
     }
 
