@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Personel extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'jabatan_id', 'sub_jabatan_id', 'pangkat_id', 'pangkat_pns_polri_id', 'user_id', 'role_id', 'gambar', 'nama_lengkap',

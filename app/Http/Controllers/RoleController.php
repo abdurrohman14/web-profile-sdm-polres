@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Models\subPangkatPolri;
 use App\Models\pangkat_pns_polri;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 
 class RoleController extends Controller
@@ -35,12 +36,27 @@ class RoleController extends Controller
         $personelAktif = Personel::where('status', 'aktif')->count();
         $personelTidakAktif = Personel::where('status', '!=', 'aktif')->count();
         $personelPenghargaan = Personel::whereHas('TandaKehormatan')->count();
+
+        // Personel yang akan segera pensiun (misalnya dalam 1 tahun ke depan)
+        $personelPensiun = Personel::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= ?', [57])->count();
+        
+        // Personel yang sudah terlalu lama di satu jabatan (misalnya lebih dari 5 tahun)
+        $personelJabatanLama = Personel::whereRaw('TIMESTAMPDIFF(YEAR, tmt_masa_dinas, CURDATE()) > ?', [5])->count();
+
+        // Personel yang belum mengikuti pelatihan wajib
+        $personelBelumPelatihan = Personel::whereDoesntHave('PengembanganPelatihan', function($query) {
+            $query->where('dikbang', 'Pelatihan Wajib');
+        })->count();
+
         return view('superadmin.superadmin', [
             'title' => 'Super Admin',
             'totalPersonel' => $totalPersonel,
             'personelAktif' => $personelAktif,
             'personelTidakAktif' => $personelTidakAktif,
             'personelPenghargaan' => $personelPenghargaan,
+            'personelPensiun' => $personelPensiun,
+            'personelJabatanLama' => $personelJabatanLama,
+            'personelBelumPelatihan' => $personelBelumPelatihan,
         ]);
     }
 
