@@ -11,7 +11,9 @@ use App\Models\subJabatan;
 use App\Models\subPnsPolri;
 use Illuminate\Http\Request;
 use App\Models\subPangkatPolri;
+use App\Mail\PensiunNotification;
 use App\Models\pangkat_pns_polri;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -38,7 +40,20 @@ class RoleController extends Controller
         $personelPenghargaan = Personel::whereHas('TandaKehormatan')->count();
 
         // Personel yang akan segera pensiun (misalnya dalam 1 tahun ke depan)
-        $personelPensiun = Personel::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= ?', [57])->count();
+        $personelPensiun = Personel::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= ?', [57])->get();
+        
+        foreach ($personelPensiun as $personel) {
+            if($personel !== null && $personel->email_pribadi !== null) {
+                try {
+                    Mail::to($personel->email_pribadi)->send(new PensiunNotification($personel));
+                    Log::info("Email sent to {$personel->email_pribadi}");
+                } catch (\Exception $e) {
+                    Log::error("Error sending email to {$personel->email_pribadi}: {$e->getMessage()}");
+                }
+            } else {
+                Log::info("Personel {$personel->nama_lengkap} does not have an email address.");
+            }
+        }
         
         // Personel yang sudah terlalu lama di satu jabatan (misalnya lebih dari 5 tahun)
         $personelJabatanLama = Personel::whereRaw('TIMESTAMPDIFF(YEAR, tmt_masa_dinas, CURDATE()) > ?', [5])->count();
@@ -54,7 +69,7 @@ class RoleController extends Controller
             'personelAktif' => $personelAktif,
             'personelTidakAktif' => $personelTidakAktif,
             'personelPenghargaan' => $personelPenghargaan,
-            'personelPensiun' => $personelPensiun,
+            'personelPensiun' => $personelPensiun->count(),
             'personelJabatanLama' => $personelJabatanLama,
             'personelBelumPelatihan' => $personelBelumPelatihan,
         ]);
