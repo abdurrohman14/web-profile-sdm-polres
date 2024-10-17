@@ -4,8 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PdfExportController;
+use App\Http\Controllers\Personil\PenumController;
+use App\Http\Controllers\Personil\RijabController;
 use App\Http\Controllers\SuperAdmin\SimController;
 use App\Http\Controllers\Admin\PersonilsController;
+use App\Http\Controllers\Personil\PenpolController;
+use App\Http\Controllers\Personil\RipangController;
 use App\Http\Controllers\SuperAdmin\HeroController;
 use App\Http\Controllers\SuperAdmin\BeritaController;
 use App\Http\Controllers\SuperAdmin\EventsController;
@@ -391,5 +395,22 @@ Route::middleware(['auth', 'role:personil'])->group(function () {
         Route::get('/{id}/export', [PdfExportController::class, 'export'])->name('personil.export');
         Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('personil.edit');
         Route::post('/update/{id}', [RoleController::class, 'update'])->name('personil.update');
+    
+        // Pendidikan Kepolisian
+        Route::get('/personil/pendidikanKepolisian', [PenpolController::class, 'index'])->name('personil.penpol.index');
+        Route::get('/personil/penpol-create', [PenpolController::class, 'create'])->name('personil.penpol.create');
+        Route::post('/penpol-store', [PenpolController::class, 'store'])->name('personil.penpol.store');
+        // Pendidikan Umum
+        Route::get('/personil/pendidikanUmum', [PenumController::class, 'index'])->name('personil.penum.index');
+        Route::get('/personil/penum-create', [PenumController::class, 'create'])->name('personil.penum.create');
+        Route::post('/penum-store', [PenumController::class, 'store'])->name('personil.penum.store');
+        // Riwayat Pangkat
+        Route::get('/personil/riwayatPangkat', [RipangController::class, 'index'])->name('personil.ripang.index');
+        Route::get('/personil/ripang-create', [RipangController::class, 'create'])->name('personil.ripang.create');
+        Route::post('/ripang-store', [RipangController::class, 'store'])->name('personil.ripang.store');
+        // Riwayat Jabatan
+        Route::get('/personil/riwayatJabatan', [RijabController::class, 'index'])->name('personil.rijab.index');
+        Route::get('/personil/rijab-create', [RijabController::class, 'create'])->name('personil.rijab.create');
+        Route::post('/rijab-store', [RijabController::class, 'store'])->name('personil.rijab.store');
     });
 });

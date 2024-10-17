@@ -132,6 +132,11 @@
                         <div class="colon">:</div>
                         <div class="value ml-2">{{ $personel->npwp }}</div>
                     </div>
+                    <div class="info-item d-flex mb-2">
+                        <div class="label" style="min-width: 220px;"><strong>Tanggal Pensiun</strong></div>
+                        <div class="colon">:</div>
+                        <div class="value ml-2">{{ $personel->tanggal_pensiun }}</div>
+                    </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="info-item d-flex mb-2">

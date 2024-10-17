@@ -57,7 +57,7 @@ class User extends Authenticatable
     }
 
     public function personel() {
-        return $this->belongsTo(Personel::class);
+        return $this->hasOne(Personel::class);
     }
 
     public function jabatan()

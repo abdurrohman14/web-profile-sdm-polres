@@ -2,6 +2,20 @@
 @section('content')
 
 <!-- Basic Card Example -->
+@if($notifications->isNotEmpty())
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <strong>Notifikasi:</strong>
+        <ul>
+            @foreach($notifications as $notification)
+                <li>{{ $notification->pesan }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
 
 <div class="card shadow mb-2">
     <div class="card-header d-flex justify-content-between py-3">

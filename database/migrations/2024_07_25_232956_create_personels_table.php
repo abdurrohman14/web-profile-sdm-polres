@@ -61,6 +61,7 @@ return new class extends Migration
             $table->string('nik')->unique();
             $table->string('paspor')->unique()->nullable();
             $table->date('tmt_masa_dinas')->nullable();
+            $table->date('tanggal_pensiun')->nullable();
             $table->string('akte_lahir')->nullable();
             $table->foreign('jabatan_id')->references('id')->on('jabatans');
             // $table->foreign('sub_jabatan_id')->references('id')->on('sub_jabatans');

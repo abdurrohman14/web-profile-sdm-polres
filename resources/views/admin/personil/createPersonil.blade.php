@@ -167,9 +167,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <input type="text" class="form-control" id="status" name="status" placeholder="" required>
+                        <select name="status" id="status" class="form-control" required>
+                            <option value="">Pilih Status</option>
+                            <option value="Aktif" {{ old('status') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                            <option value="Tidak Aktif" {{ old('status') == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                        </select>
                         @error('status')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>

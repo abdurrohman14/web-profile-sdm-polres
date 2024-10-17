@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Personel extends Model
 {
@@ -18,7 +19,7 @@ class Personel extends Model
         'warna_kulit', 'warna_rambut', 'nama_ibu', 'telepon_ortu', 'alamat_ortu', 'tinggi',
         'ukuran_topi', 'ukuran_celana', 'sidik_jari_1', 'nomor_keputusan_penyidik', 'bpjs',
         'npwp', 'nomor_kk', 'berat', 'ukuran_sepatu', 'ukuran_baju', 'sidik_jari_2', 'kta',
-        'asabri', 'nik', 'paspor', 'tmt_masa_dinas', 'akte_lahir'
+        'asabri', 'nik', 'paspor', 'tmt_masa_dinas', 'tanggal_pensiun', 'akte_lahir'
     ];
 
     // relasi ke model Jabatan
@@ -92,5 +93,13 @@ class Personel extends Model
     // relasi ke model penugasan luar struktur
     public function PenugasanLuarStruktur() {
         return $this->hasMany(PenugasanLuarStruktur::class);
+    }
+
+    // menghitung tanggal pensiun dari tanggal lahir
+    public function getTanggalPensiunAtribute() {
+        if($this->tanggal_lahir) {
+            return Carbon::parse($this->tanggal_lahir)->addYears(57)->format('Y-m-d');
+        }
+        return null;
     }
 }

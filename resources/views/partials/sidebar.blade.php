@@ -252,6 +252,27 @@ $jabatans = [
       </a>
   </li>
 
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+       aria-expanded="true" aria-controls="collapseFour">
+        <i class="fas fa-solid fa-school text-dark"></i>
+        <span class="text-dark">Pendidikan</span>
+    </a>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Components:</h6>
+            <a class="collapse-item" href="{{ route('personil.penpol.index') }}">Pendidikan Kepolisian</a>
+            <a class="collapse-item" href="{{ route('personil.penum.index') }}">Pendidikan Umum</a>
+            <a class="collapse-item" href="{{ route('personil.ripang.index') }}">Riwayat Pangkat</a>
+            <a class="collapse-item" href="{{ route('personil.rijab.index') }}">Riwayat Jabatan</a>
+            <a class="collapse-item" href="">Pengembangan</a>
+            <a class="collapse-item" href="">Tanda Kehormatan</a>
+            <a class="collapse-item" href="">Kemampuan Bahasa</a>
+            <a class="collapse-item" href="">Penugasan Luar Struktur</a>
+        </div>
+    </div>
+</li>
+
 <!-- Nav Item - Tables -->
 <li class="nav-item">
   <a class="nav-link" href="{{ route('personil.edit', $personel->id) }}">

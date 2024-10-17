@@ -24,7 +24,7 @@
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $rijabs->personel->nama_lengkap }}</td>
                         <td>{{ $rijabs->jabatan }}</td>
-                        <td>{{ $rijabs->tmt }}</td>
+                        <td>{{ \Carbon\Carbon::parse($rijabs->tmt)->format('d-m-Y') }}</td>
                         <td>
                             <div class="d-flex align-items-center">
                                 {{-- <a href="{{ route('detail.pendidikan-umum', $rijabs->id) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-solid fa-eye"></i></a> --}}

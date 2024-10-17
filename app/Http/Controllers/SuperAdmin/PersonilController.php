@@ -78,7 +78,7 @@ class PersonilController extends Controller
             'email_pribadi' => 'required|string|email|max:255|unique:personels,email_pribadi,' . $request->id,
             'email_dinas' => 'nullable|string|email|max:255|unique:personels,email_dinas,' . $request->id,
             'no_hp' => 'required|string|max:15|unique:personels,no_hp,' . $request->id,
-            'status' => 'required|string',
+            'status' => 'required|string|in:Aktif,Tidak Aktif',
             'suku' => 'nullable|string|max:20',
             'tmt_status' => 'nullable|date|after_or_equal:tanggal_lahir',
             'golongan_darah' => 'nullable|string|in:A,B,AB,O',
@@ -114,6 +114,12 @@ class PersonilController extends Controller
             'akte_lahir' => 'nullable|string|max:255|unique:personels,akte_lahir,' . $request->id,
             'tmt_masa_dinas' => 'nullable|date|after_or_equal:tanggal_lahir',
         ]);
+
+        // Hitung tanggal pensiun dari tanggal lahir lalu ditambah satu bulan
+        if ($request->tanggal_lahir) {
+            $tanggal_pensiun = \Carbon\Carbon::parse($request->tanggal_lahir)->addYears(57)->addMonth(1);
+            $validateData['tanggal_pensiun'] = $tanggal_pensiun;
+        }
         
         // Handle file upload
         if ($request->hasFile('gambar')) {
@@ -199,7 +205,7 @@ class PersonilController extends Controller
             'email_pribadi' => 'required|string|email|max:255|unique:personels,email_pribadi,' . $id,
             'email_dinas' => 'nullable|string|email|max:255|unique:personels,email_dinas,' . $id,
             'no_hp' => 'required|string|max:15|unique:personels,no_hp,' . $id,
-            'status' => 'required|string',
+            'status' => 'required|string|in:Aktif,Tidak Aktif',
             'suku' => 'nullable|string|max:20',
             'tmt_status' => 'nullable|date|after_or_equal:tanggal_lahir',
             'golongan_darah' => 'nullable|string|in:A,B,AB,O',

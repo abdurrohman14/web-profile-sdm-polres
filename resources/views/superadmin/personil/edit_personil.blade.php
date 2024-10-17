@@ -176,7 +176,11 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <input type="text" id="status" name="status" class="form-control" value="{{ old('status', $personels->status) }}">
+                        <select id="status" name="status" class="form-control">
+                            <option value="">-- Pilih Status --</option>
+                            <option value="Aktif" {{ $personels->status == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                            <option value="Tidak Aktif" {{ $personels->status == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                        </select>
                     </div>
                 </div>
 

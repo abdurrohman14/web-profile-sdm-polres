@@ -16,6 +16,7 @@ use App\Models\pangkat_pns_polri;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Models\notifikasi;
 
 
 class RoleController extends Controller
@@ -35,12 +36,21 @@ class RoleController extends Controller
     public function superadmin()
     {
         $totalPersonel = Personel::count();
-        $personelAktif = Personel::where('status', 'aktif')->count();
-        $personelTidakAktif = Personel::where('status', '!=', 'aktif')->count();
+        $personelMan = Personel::where('jenis_kelamin', 'Laki-laki')->count();
+        $personelGirl = Personel::where('jenis_kelamin', 'Perempuan')->count();
         $personelPenghargaan = Personel::whereHas('TandaKehormatan')->count();
 
         // Personel yang akan segera pensiun (misalnya dalam 1 tahun ke depan)
-        $personelPensiun = Personel::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= ?', [57])->get();
+        // $personelPensiun = Personel::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= ?', [57])->get();
+        $personelPensiun = Personel::where(function ($query) {
+            $query->whereHas('Pangkat', function ($query) {
+                $query->whereIn('nama', ['Bintara', 'Tamtama']);
+            })->whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= ?', [58]);
+        })->orWhere(function ($query) {
+            $query->whereHas('Pangkat', function ($query) {
+                $query->where('nama', 'Perwira Pertama', 'Perwira Menengah');
+            })->whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= ?', [60]);
+        })->get();
         
         foreach ($personelPensiun as $personel) {
             if($personel !== null && $personel->email_pribadi !== null) {
@@ -52,6 +62,21 @@ class RoleController extends Controller
                 }
             } else {
                 Log::info("Personel {$personel->nama_lengkap} does not have an email address.");
+            }
+
+            // Simpan notifikasi ke dalam database, Periksa apakah notifikasi sudah ada
+            $notifikasi = notifikasi::where('personel_id', $personel->id)
+                ->where('tipe', 'pensiun')
+                ->first();
+
+            if (!$notifikasi) {
+                // Simpan notifikasi ke dalam database
+                notifikasi::create([
+                    'personel_id' => $personel->id,
+                    'tipe' => 'pensiun',
+                    'pesan' => 'Anda akan pensiun dalam waktu kurang dari 1 tahun.',
+                    'sedang_dibaca' => false,
+                ]);
             }
         }
         
@@ -66,8 +91,8 @@ class RoleController extends Controller
         return view('superadmin.superadmin', [
             'title' => 'Super Admin',
             'totalPersonel' => $totalPersonel,
-            'personelAktif' => $personelAktif,
-            'personelTidakAktif' => $personelTidakAktif,
+            'personelMan' => $personelMan,
+            'personelGirl' => $personelGirl,
             'personelPenghargaan' => $personelPenghargaan,
             'personelPensiun' => $personelPensiun->count(),
             'personelJabatanLama' => $personelJabatanLama,
@@ -81,15 +106,24 @@ class RoleController extends Controller
         $userId = Auth::id();
         // Ambil data personel yang terkait dengan pengguna
         $personel = Personel::where('user_id', $userId)->first();
-        // dd($personel);
         
         // Periksa apakah data personel ditemukan
         if (!$personel) {
             return redirect()->back()->with('error', 'Data tidak ditemukan untuk pengguna ini.');
         };
+
+        // Ambil notifikasi yang belum dibaca untuk personil yang sedang login
+        $notifications = notifikasi::where('personel_id', $personel->id)
+                                        ->where('sedang_dibaca', false)
+                                        ->get();
+
+        // Tandai semua notifikasi sebagai telah dibaca setelah ditampilkan
+        notifikasi::where('personel_id', $personel->id)->update(['sedang_dibaca' => true]);
+
         
         return view('personil.personil', [
             'personel' => $personel,
+            'notifications' => $notifications,
             'title' => 'Dashboard'
         ]);
     }
@@ -149,7 +183,7 @@ class RoleController extends Controller
             'email_pribadi' => 'required|string|email|max:255|unique:personels,email_pribadi,' . $id,
             'email_dinas' => 'nullable|string|email|max:255|unique:personels,email_dinas,' . $id,
             'no_hp' => 'required|string|max:15|unique:personels,no_hp,' . $id,
-            'status' => 'required|string',
+            'status' => 'required|string|in:Aktif,Tidak Aktif',
             'suku' => 'nullable|string|max:20',
             'tmt_status' => 'nullable|date|after_or_equal:tanggal_lahir',
             'golongan_darah' => 'nullable|string|in:A,B,AB,O',

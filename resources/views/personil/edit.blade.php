@@ -174,10 +174,14 @@
             </div>
 
             <div class="col-md-6">
-            <div class="form-group">
-                <label for="status">Status</label>
-                <input type="text" id="status" name="status" class="form-control" value="{{ old('status', $personel->status) }}">
-            </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" class="form-control">
+                        <option value="">-- Pilih Status --</option>
+                        <option value="Aktif" {{ $personel->status == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                        <option value="Tidak Aktif" {{ $personel->status == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                    </select>
+                </div>
             </div>
 
             <div class="col-md-6">

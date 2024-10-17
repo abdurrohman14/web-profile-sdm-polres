@@ -249,6 +249,11 @@
                         <div class="colon">:</div>
                         <div class="value ml-2">{{ $personels->akte_lahir }}</div>
                     </div>
+                    <div class="info-item d-flex mb-2">
+                        <div class="label" style="min-width: 220px;"><strong>Tanggal Pensiun</strong></div>
+                        <div class="colon">:</div>
+                        <div class="value ml-2">{{ $personels->tanggal_pensiun }}</div>
+                    </div>
                 </div>
             </div>
         @else

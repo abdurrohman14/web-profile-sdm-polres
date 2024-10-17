@@ -24,7 +24,7 @@
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $riwpat->personel->nama_lengkap }}</td>
                         <td>{{ $riwpat->pangkat }}</td>
-                        <td>{{ $riwpat->tmt }}</td>
+                        <td>{{ \Carbon\Carbon::parse($riwpat->tmt)->format('d-m-Y') }}</td>
                         <td>
                             <div class="d-flex align-items-center">
                                 {{-- <a href="{{ route('detail.pendidikan-umum', $riwpat->id) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-solid fa-eye"></i></a> --}}
