@@ -243,6 +243,27 @@ $jabatans = [
       </div>
   </li>
 
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+       aria-expanded="true" aria-controls="collapseFour">
+        <i class="fas fa-solid fa-school text-dark"></i>
+        <span class="text-dark">Pendidikan</span>
+    </a>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Components:</h6>
+            <a class="collapse-item" href="{{ route('index.dikpol') }}">Pendidikan Kepolisian</a>
+            <a class="collapse-item" href="{{ route('index.dikum') }}">Pendidikan Umum</a>
+            <a class="collapse-item" href="{{ route('index.yatpang') }}">Riwayat Pangkat</a>
+            <a class="collapse-item" href="{{ route('index.yatjab') }}">Riwayat Jabatan</a>
+            <a class="collapse-item" href="{{ route('index.penglat') }}">Pengembangan Pelatihan</a>
+            <a class="collapse-item" href="{{ route('index.tanmat') }}">Tanda Kehormatan</a>
+            <a class="collapse-item" href="{{ route('index.kemhas') }}">Kemampuan Bahasa</a>
+            <a class="collapse-item" href="{{ route('index.penlus') }}">Penugasan Luar Struktur</a>
+        </div>
+    </div>
+</li>
+
 @elseif($user->role === \App\Models\User::ROLE_PERSONIL)
   <!-- Nav Item - Dashboard -->
   <li class="nav-item active">

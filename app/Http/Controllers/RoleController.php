@@ -28,8 +28,75 @@ class RoleController extends Controller
 
     public function admin()
     {
+        $jabatan_id = auth()->user()->jabatan_id;
+        $totalPersonelBag = Personel::where('jabatan_id', $jabatan_id)->count();
+        $personelMan = Personel::where('jabatan_id', $jabatan_id)->where('jenis_kelamin', 'Laki-laki')->count();
+        $personelGirl = Personel::where('jabatan_id', $jabatan_id)->where('jenis_kelamin', 'Perempuan')->count();
+        $personelPenghargaan = Personel::whereHas('TandaKehormatan')->count();
+
+        // Personel yang akan segera pensiun (misalnya dalam 1 tahun ke depan)
+        // $personelPensiun = Personel::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= ?', [57])->get();
+        $personelPensiun = Personel::where(function ($query) {
+            $query->whereHas('Pangkat', function ($query) {
+                $query->whereIn('nama', ['Bintara', 'Tamtama']);
+            })->whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= ?', [58]);
+        })->orWhere(function ($query) {
+            $query->whereHas('Pangkat', function ($query) {
+                $query->whereIn('nama', ['Perwira Pertama', 'Perwira Menengah']);
+            })->whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= ?', [60]);
+        })->get(); // Gunakan get() untuk mengambil semua data
+        
+        foreach ($personelPensiun as $personel) {
+            // Sekarang Anda bisa menggunakan foreach untuk melakukan loop
+            echo $personel->nama;
+        }        
+        
+        foreach ($personelPensiun as $personel) {
+            if($personel !== null && $personel->email_pribadi !== null) {
+                try {
+                    Mail::to($personel->email_pribadi)->send(new PensiunNotification($personel));
+                    Log::info("Email sent to {$personel->email_pribadi}");
+                } catch (\Exception $e) {
+                    Log::error("Error sending email to {$personel->email_pribadi}: {$e->getMessage()}");
+                }
+            } else {
+                Log::info("Personel {$personel->nama_lengkap} does not have an email address.");
+            }
+
+            // Simpan notifikasi ke dalam database, Periksa apakah notifikasi sudah ada
+            $notifikasi = notifikasi::where('personel_id', $personel->id)
+                ->where('tipe', 'pensiun')
+                ->first();
+
+            if (!$notifikasi) {
+                // Simpan notifikasi ke dalam database
+                notifikasi::create([
+                    'personel_id' => $personel->id,
+                    'tipe' => 'pensiun',
+                    'pesan' => 'Anda akan pensiun dalam waktu kurang dari 1 tahun.',
+                    'sedang_dibaca' => false,
+                ]);
+            }
+        }
+        
+        // Personel yang sudah terlalu lama di satu jabatan (misalnya lebih dari 5 tahun)
+        $personelJabatanLama = Personel::where('jabatan_id', $jabatan_id)->whereRaw('TIMESTAMPDIFF(YEAR, tmt_masa_dinas, CURDATE()) > ?', [5])->count();
+
+        // Personel yang belum mengikuti pelatihan wajib
+        $personelBelumPelatihan = Personel::where('jabatan_id', $jabatan_id)
+    ->whereDoesntHave('PengembanganPelatihan', function($query) {
+        $query->where('dikbang', 'Pelatihan Wajib');
+    })->count();
+
         return view('admin.admin', [
             'title' => 'Admin',
+            'totalPersonelBag' => $totalPersonelBag,
+            'personelMan' => $personelMan,
+            'personelGirl' => $personelGirl,
+            'personelPenghargaan' => $personelPenghargaan,
+            'personelPensiun' => $personelPensiun->count(),
+            'personelJabatanLama' => $personelJabatanLama,
+            'personelBelumPelatihan' => $personelBelumPelatihan,
         ]);
     }
 

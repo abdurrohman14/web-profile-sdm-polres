@@ -9,7 +9,7 @@ use App\Models\Berita;
 class LpBeritaController extends Controller
 {
     public function index() {
-        $berita = Berita::where('status', 1 )->paginate(5);
+        $berita = Berita::where('status', 1 )->paginate(3);
         return view('LandingPage.berita.lpBerita', [
             'berita' => $berita,
             'title' => 'Berita',

@@ -4,6 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PdfExportController;
+use App\Http\Controllers\Admin\DikUmController;
+use App\Http\Controllers\Admin\DikPolController;
+use App\Http\Controllers\Admin\KemHasController;
+use App\Http\Controllers\Admin\PenLusController;
+use App\Http\Controllers\Admin\TanMatController;
+use App\Http\Controllers\Admin\YatJabController;
+use App\Http\Controllers\Admin\PengLatController;
+use App\Http\Controllers\Admin\YatPangController;
 use App\Http\Controllers\Personil\PenumController;
 use App\Http\Controllers\Personil\RijabController;
 use App\Http\Controllers\SuperAdmin\SimController;
@@ -166,6 +174,33 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/update/{id}', [PersonilsController::class, 'update'])->name('update.person');
         Route::delete('/delete/{id}', [PersonilsController::class, 'delete'])->name('delete.person');
         Route::get('/export/{id}', [PdfExportController::class, 'export'])->name('export.person');
+    });
+
+    Route::prefix('dikpol')->group(function () {
+        Route::get('/', [DikPolController::class, 'index'])->name('index.dikpol');
+        Route::get('/detail/{id}', [DikPolController::class, 'show'])->name('show.dikpol');
+    });
+    Route::prefix('dikum')->group(function () {
+        Route::get('/', [DikUmController::class, 'index'])->name('index.dikum');
+        Route::get('/detail/{id}', [DikUmController::class, 'show'])->name('show.dikum');
+    });
+    Route::prefix('yatpang')->group(function () {
+        Route::get('/', [YatPangController::class, 'index'])->name('index.yatpang');
+    });
+    Route::prefix('yatjab')->group(function () {
+        Route::get('/', [YatJabController::class, 'index'])->name('index.yatjab');
+    });
+    Route::prefix('penglat')->group(function () {
+        Route::get('/', [PengLatController::class, 'index'])->name('index.penglat');
+    });
+    Route::prefix('tanmat')->group(function () {
+        Route::get('/', [TanMatController::class, 'index'])->name('index.tanmat');
+    });
+    Route::prefix('kemhas')->group(function () {
+        Route::get('/', [KemHasController::class, 'index'])->name('index.kemhas');
+    });
+    Route::prefix('penlus')->group(function () {
+        Route::get('/', [PenLusController::class, 'index'])->name('index.penlus');
     });
 });
 
