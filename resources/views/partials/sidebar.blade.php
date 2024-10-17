@@ -265,20 +265,22 @@ $jabatans = [
             <a class="collapse-item" href="{{ route('personil.penum.index') }}">Pendidikan Umum</a>
             <a class="collapse-item" href="{{ route('personil.ripang.index') }}">Riwayat Pangkat</a>
             <a class="collapse-item" href="{{ route('personil.rijab.index') }}">Riwayat Jabatan</a>
-            <a class="collapse-item" href="">Pengembangan</a>
-            <a class="collapse-item" href="">Tanda Kehormatan</a>
-            <a class="collapse-item" href="">Kemampuan Bahasa</a>
-            <a class="collapse-item" href="">Penugasan Luar Struktur</a>
+            <a class="collapse-item" href="{{ route('personil.pengpel.index') }}">Pengembangan</a>
+            <a class="collapse-item" href="{{ route('personil.tankeh.index') }}">Tanda Kehormatan</a>
+            <a class="collapse-item" href="{{ route('personil.kembhs.index') }}">Kemampuan Bahasa</a>
+            <a class="collapse-item" href="{{ route('personil.pls.index') }}">Penugasan Luar Struktur</a>
         </div>
     </div>
 </li>
 
 <!-- Nav Item - Tables -->
 <li class="nav-item">
+    @if($personel)
   <a class="nav-link" href="{{ route('personil.edit', $personel->id) }}">
       <i class="fas fa-fw fa-table text-dark"></i>
       <span class="text-dark">Ubah Biodata</span>
   </a>
+  @endif
 </li>
 @endif
 

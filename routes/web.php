@@ -28,6 +28,11 @@ use App\Http\Controllers\SuperAdmin\TandaKehormatanController;
 use App\Http\Controllers\SuperAdmin\PendidikanKepolisianController;
 use App\Http\Controllers\SuperAdmin\PengembanganPelatihanController;
 use App\Http\Controllers\SuperAdmin\PenugasanLuarStrukturController;
+use App\Http\Controllers\Personil\PengpelController;
+use App\Http\Controllers\Personil\TankehController;
+use App\Http\Controllers\Personil\KembhsController;
+use App\Http\Controllers\Personil\PlsController;
+
 
 // Route::get('/', [HeroesController::class, 'index']);
 
@@ -412,5 +417,21 @@ Route::middleware(['auth', 'role:personil'])->group(function () {
         Route::get('/personil/riwayatJabatan', [RijabController::class, 'index'])->name('personil.rijab.index');
         Route::get('/personil/rijab-create', [RijabController::class, 'create'])->name('personil.rijab.create');
         Route::post('/rijab-store', [RijabController::class, 'store'])->name('personil.rijab.store');
+        // Riwayat Pengembangan
+        Route::get('/personil/pengembanganPelatihan', [PengpelController::class, 'index'])->name('personil.pengpel.index');
+        Route::get('/personil/pengpel-create', [PengpelController::class, 'create'])->name('personil.pengpel.create');
+        Route::post('/pengpel-store', [PengpelController::class, 'store'])->name('personil.pengpel.store');
+        // Riwayat Tanda Kehormatan
+        Route::get('/personil/tandaKehormatan', [TankehController::class, 'index'])->name('personil.tankeh.index');
+        Route::get('/personil/tankeh-create', [TankehController::class, 'create'])->name('personil.tankeh.create');
+        Route::post('/tankeh-store', [TankehController::class, 'store'])->name('personil.tankeh.store');
+        // Kemampuan Bahasa
+        Route::get('/personil/kemampuanBahasa', [KembhsController::class, 'index'])->name('personil.kembhs.index');
+        Route::get('/personil/kembhs-create', [KembhsController::class, 'create'])->name('personil.kembhs.create');
+        Route::post('/kembhs-store', [KembhsController::class, 'store'])->name('personil.kembhs.store');
+        // Penugasan Luar Struktur
+        Route::get('/personil/penugasanLuarStruktur', [PlsController::class, 'index'])->name('personil.pls.index');
+        Route::get('/personil/pls-create', [PlsController::class, 'create'])->name('personil.pls.create');
+        Route::post('/pls-store', [PlsController::class, 'store'])->name('personil.pls.store');
     });
 });
