@@ -27,7 +27,7 @@
                             <tbody>
                                 @foreach($pendidikanUmum as $penum)
                                 <tr>
-                                    <td>{{ $penum->tingkat }}</td>
+                                    <td>{{ $penum->jenjang->nama }}</td>
                                     <td>{{ $penum->nama_institusi }}</td>
                                     <td>{{ $penum->tahun }}</td>
                                 </tr>

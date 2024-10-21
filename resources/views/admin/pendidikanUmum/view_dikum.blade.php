@@ -29,7 +29,7 @@
                         <td>{{ $penum->tahun }}</td>
                         <td>
                             <div class="d-flex align-items-center">
-                                <a href="{{ route('show.pendidikan-umum', $dikum>id) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-solid fa-eye"></i></a>
+                                <a href="{{ route('show.dikum', $penum->id) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-solid fa-eye"></i></a>
                                 {{-- <a href="{{ route('edit.pendidikan-umum', $penum->id) }}" class="btn btn-sm btn-primary mr-1"><i class="fas fa-solid fa-pen"></i></a>
                                 <form id="delete-form-{{ $penum->id }}" action="{{ route('delete.pendidikan-umum', $penum->id) }}" method="post">
                                     @csrf

@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
     <title>{{ $title }}</title>
+    <link rel="icon" href="{{ asset('assets1/image/sdm.png') }}" type="image/x-icon">
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">

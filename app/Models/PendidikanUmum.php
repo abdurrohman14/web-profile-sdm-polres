@@ -21,4 +21,8 @@ class PendidikanUmum extends Model
     {
         return $this->belongsTo(Personel::class);
     }
+
+    public function jenjang() {
+        return $this->belongsTo(JenjangPendidikan::class);
+    }
 }

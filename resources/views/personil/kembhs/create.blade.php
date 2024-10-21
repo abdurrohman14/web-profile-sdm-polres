@@ -21,7 +21,11 @@
             <!-- Tahun -->
             <div class="form-group">
                 <label for="status">Status</label>
-                <input type="text" name="status" class="form-control @error('status') is-invalid @enderror" value="{{ old('status') }}">
+                <select name="status" id="status" class="form-control" required>
+                    <option value="">Pilih Status</option>
+                    <option value="Aktif" {{ old('status') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                    <option value="Pasif" {{ old('status') == 'Pasif' ? 'selected' : '' }}>Pasif</option>
+                </select>
                 @error('status')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

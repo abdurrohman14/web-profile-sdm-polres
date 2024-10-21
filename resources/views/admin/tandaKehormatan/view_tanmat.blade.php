@@ -15,7 +15,7 @@
                         <th>Nama</th>
                         <th>Tanda Kehormatan</th>
                         <th>TMT</th>
-                        <th>Aksi</th>
+                        {{-- <th>Aksi</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -25,9 +25,9 @@
                         <td>{{ $tankers->personel->nama_lengkap }}</td>
                         <td>{{ $tankers->tanda_kehormatan }}</td>
                         <td>{{ $tankers->tahun }}</td>
-                        <td>
+                        {{-- <td>
                             <div class="d-flex align-items-center">
-                                {{-- <a href="{{ route('detail.pendidikan-umum', $tankers->id) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-solid fa-eye"></i></a> --}}
+                                <a href="{{ route('detail.pendidikan-umum', $tankers->id) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-solid fa-eye"></i></a>
                                 <a href="{{ route('edit.tanda-kehormatan', $tankers->id) }}" class="btn btn-sm btn-primary mr-1"><i class="fas fa-solid fa-pen"></i></a>
                                 <form id="delete-form-{{ $tankers->id }}" action="{{ route('delete.tanda-kehormatan', $tankers->id) }}" method="post">
                                     @csrf
@@ -35,7 +35,7 @@
                                 <button onclick="confirmDelete(event, {{ $tankers->id }})" type="submit" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
                             </form>
                             </div>
-                        </td>
+                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>

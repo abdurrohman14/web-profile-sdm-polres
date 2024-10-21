@@ -79,7 +79,7 @@ $jabatans = [
               {{-- <a class="collapse-item" href="{{ route('view.pns') }}">PNS Polri</a> --}}
               <a class="collapse-item" href="{{ route('view.subJabatan') }}">Sub Jabatan</a>
               <a class="collapse-item" href="{{ route('view.subPangkat') }}">Sub Pangkat</a>
-              {{-- <a class="collapse-item" href="{{ route('view.subPns') }}">Sub PNS</a> --}}
+              <a class="collapse-item" href="{{ route('view.jenjang') }}">Jenjang Pendidikan</a>
           </div>
       </div>
   </li>

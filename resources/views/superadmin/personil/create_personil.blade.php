@@ -548,6 +548,24 @@
     </div>    
 </div>
 
+<!-- Modal Pop-up Gambar-->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLabel">Pratinjau Gambar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body text-center">
+          <img id="modalImage" src="" alt="Gambar SIM" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
 <!-- Modal Tambah Data SIM -->
 <div class="modal fade" id="tambahDataSimModal" tabindex="-1" aria-labelledby="tambahDataSimLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -561,6 +579,15 @@
             <div class="modal-body">
                 <form id="createSimForm" method="POST" action="{{ route('store.sim') }}" enctype="multipart/form-data">
                     @csrf
+                    <div class="form-group">
+                        <label for="user_id" class="form-label">Personel</label>
+                        <select name="user_id" id="user_id" class="form-control" >
+                            <option value="" disabled selected>Pilih Personel</option>
+                            @foreach($user as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="jenis">Jenis SIM</label>
                         <input type="text" class="form-control" id="jenis" name="jenis">
@@ -611,7 +638,6 @@
         </div>
     </div>
 </div>
-
 <script>
     // list data
     $(document).ready(function() {
@@ -626,7 +652,9 @@
             { data: 'jenis', name: 'jenis' },
             { data: 'nomor', name: 'nomor' },
             { data: 'file', name: 'file', render: function(data, type, row) {
-                return `<a href="{{ url('storage/') }}/${data}" target="_blank"><i class="fas fa-solid fa-eye"></i></a>`;
+                return `<a href="javascript:void(0)" onclick="showImageModal('${data}')">
+                    <i class="fas fa-solid fa-eye"></i>
+                </a>`;
             }},
             { data: 'id', name: 'aksi', render: function(data, type, row) {
                 return `
@@ -704,6 +732,12 @@
         });
     });
 });
+
+function showImageModal(imagePath) {
+    const imageUrl = `{{ url('storage/') }}/${imagePath}`;
+    $('#modalImage').attr('src', imageUrl);
+    $('#imageModal').modal('show');
+}
 
 // edit data
 function editSim(id) {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\Sim;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -20,13 +21,15 @@ class SimController extends Controller
     }
 
     public function create() {
-        return view('superadmin.personil.create_personil');
+        $user = User::all();
+        return view('superadmin.personil.create_personil', compact('user'));
     }
 
     public function store(Request $request)
     {
         // Validasi data
         $request->validate([
+            'user_id' => 'required|exists:users,id',
             'jenis' => 'required|string|max:255',
             'nomor' => 'required|string|max:255|unique:sims,nomor',
             'file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
@@ -40,7 +43,7 @@ class SimController extends Controller
 
         // Menambahkan data sim
         SIM::create([
-            'user_id' => Auth::id(),
+            'user_id' => $request->user_id,
             'jenis' => $request->jenis,
             'nomor' => $request->nomor,
             'file' => $filePath,

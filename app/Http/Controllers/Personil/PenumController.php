@@ -6,6 +6,7 @@ use App\Models\Personel;
 use Illuminate\Http\Request;
 use App\Models\PendidikanUmum;
 use App\Http\Controllers\Controller;
+use App\Models\JenjangPendidikan;
 use Illuminate\Support\Facades\Auth;
 
 class PenumController extends Controller
@@ -22,7 +23,7 @@ class PenumController extends Controller
 
     public function create() {
         $personel = Personel::find(Auth::id());
-        $tingkatPendidikanUmum = ['SD', 'SMP', 'SMA', 'SMK', 'D1', 'D2', 'D3', 'Sarjana', 'Magister', 'Doktor'];
+        $tingkatPendidikanUmum = JenjangPendidikan::all();
         return view('personil.pendidikanUmum.create', [
             'title' => 'Tambah Pendidikan',
             'tingkatPendidikanUmum' => $tingkatPendidikanUmum,
@@ -32,7 +33,7 @@ class PenumController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'tingkat' => 'required|string',
+            'jenjang_id' => 'required|exists:jenjang_pendidikans,id',
             'nama_institusi' => 'required|string',
             'tahun' => 'required|integer',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -48,7 +49,7 @@ class PenumController extends Controller
         // Save data to database (assuming you have a Pendidikan model)
         $pendidikan = new PendidikanUmum();
         $pendidikan->personel_id = Auth::user()->personel->id;
-        $pendidikan->tingkat = $request->tingkat;
+        $pendidikan->jenjang_id = $request->jenjang_id;
         $pendidikan->nama_institusi = $request->nama_institusi;
         $pendidikan->tahun = $request->tahun;
         $pendidikan->gambar = $imageName;

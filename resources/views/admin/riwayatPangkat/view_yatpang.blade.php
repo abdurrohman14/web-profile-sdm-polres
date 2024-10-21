@@ -15,7 +15,7 @@
                         <th>Nama</th>
                         <th>Pangkat</th>
                         <th>TMT</th>
-                        <th>Aksi</th>
+                        {{-- <th>Aksi</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -25,9 +25,9 @@
                         <td>{{ $riwpat->personel->nama_lengkap }}</td>
                         <td>{{ $riwpat->pangkat }}</td>
                         <td>{{ \Carbon\Carbon::parse($riwpat->tmt)->format('d-m-Y') }}</td>
-                        <td>
+                        {{-- <td>
                             <div class="d-flex align-items-center">
-                                {{-- <a href="{{ route('detail.pendidikan-umum', $riwpat->id) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-solid fa-eye"></i></a> --}}
+                                <a href="{{ route('detail.pendidikan-umum', $riwpat->id) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-solid fa-eye"></i></a>
                                 <a href="{{ route('edit.riwayat-pangkat', $riwpat->id) }}" class="btn btn-sm btn-primary mr-1"><i class="fas fa-solid fa-pen"></i></a>
                                 <form id="delete-form-{{ $riwpat->id }}" action="{{ route('delete.riwayat-pangkat', $riwpat->id) }}" method="post">
                                     @csrf
@@ -35,7 +35,7 @@
                                 <button onclick="confirmDelete(event, {{ $riwpat->id }})" type="submit" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
                             </form>
                             </div>
-                        </td>
+                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>

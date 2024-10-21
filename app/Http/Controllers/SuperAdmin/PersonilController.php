@@ -117,7 +117,7 @@ class PersonilController extends Controller
 
         // Hitung tanggal pensiun dari tanggal lahir lalu ditambah satu bulan
         if ($request->tanggal_lahir) {
-            $tanggal_pensiun = \Carbon\Carbon::parse($request->tanggal_lahir)->addYears(57)->addMonth(1);
+            $tanggal_pensiun = \Carbon\Carbon::parse($request->tanggal_lahir)->addYears(58)->addMonth(1)->firstOfMonth();
             $validateData['tanggal_pensiun'] = $tanggal_pensiun;
         }
         
@@ -152,7 +152,7 @@ class PersonilController extends Controller
     }
 
     public function show($id) {
-        $personels = Personel::find($id);
+        $personels = Personel::with('pendidikanUmum')->find($id);
         return view('superadmin.personil.detail_personil', [
             'personels' => $personels,
             'title' => 'Detail personil'

@@ -202,7 +202,7 @@ use Carbon\Carbon;
                             <tbody>
                                 @foreach($personel->pendidikanUmum as $pendikum)
                                     <tr>
-                                        <td style="border: 1px solid #D4AC0D; padding: 8px;">{{ $pendikum->tingkat }}</td>
+                                        <td style="border: 1px solid #D4AC0D; padding: 8px;">{{ $pendikum->jenjang->nama }}</td>
                                         <td style="border: 1px solid #D4AC0D; padding: 8px;">{{ $pendikum->nama_institusi }}</td>
                                         <td style="border: 1px solid #D4AC0D; padding: 8px;">{{ $pendikum->tahun }}</td>
                                     </tr>

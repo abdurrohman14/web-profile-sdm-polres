@@ -12,7 +12,7 @@ class Personel extends Model
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'jabatan_id', 'sub_jabatan_id', 'pangkat_id', 'pangkat_pns_polri_id', 'user_id', 'role_id', 'gambar', 'nama_lengkap',
+        'jabatan_id', 'sub_jabatan_id', 'pangkat_id', 'sub_pangkat_id', 'user_id', 'role_id', 'gambar', 'nama_lengkap',
         'nama_panggilan', 'nrp', 'tempat_lahir', 'email_pribadi', 'email_dinas', 'no_hp',
         'status', 'suku', 'tmt_status', 'golongan_darah', 'jenis_kelamin', 'status_pernikahan', 'anak_ke',
         'agama', 'alamat_personel', 'lkhpn', 'tanggal_lahir', 'jenis_rambut', 'warna_mata',
@@ -32,6 +32,11 @@ class Personel extends Model
     public function pangkat()
     {
         return $this->belongsTo(Pangkat::class);
+    }
+
+    // relasi ek model subPangkat
+    public function subPangkat() {
+        return $this->belongsTo(subPangkatPolri::class, 'sub_pangkat_id');
     }
 
     // relasi ke model PangkatPnsPolri
@@ -101,5 +106,20 @@ class Personel extends Model
             return Carbon::parse($this->tanggal_lahir)->addYears(57)->format('Y-m-d');
         }
         return null;
+    }
+
+    public function getLamaJabatan()
+    {
+        // Asumsi bahwa 'tmt_masa_dinas' adalah kolom di tabel personels yang menyimpan tanggal mulai jabatan
+        if ($this->tmt_masa_dinas) {
+            $tmt = Carbon::parse($this->tmt_masa_dinas);
+            $sekarang = Carbon::now();
+
+            // Hitung lama masa jabatan dalam tahun
+            return round($tmt->diffInDays($sekarang) / 365.25);
+        }
+
+        // Jika tidak ada TMT atau nilainya null
+        return 0;
     }
 }

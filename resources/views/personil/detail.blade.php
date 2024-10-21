@@ -30,7 +30,7 @@
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Pangkat Polri</strong></div>
                         <div class="colon">:</div>
-                        <div class="value ml-2">{{ $personel->pangkat->nama }}</div>
+                        <div class="value ml-2">{{ $personel->pangkat->nama }} / {{ $personel->subPangkat->nama }}</div>
                     </div>
                     {{-- <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Pangkat PNS Polri</strong></div>

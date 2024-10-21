@@ -24,7 +24,7 @@ class HeroesController extends Controller
             'ourteams' => $ourteams,
             'berita' => $berita,
             'event' => $event,
-            'title' => 'SDM Polres'
+            'title' => 'SDM Polresta Banyuwangi'
         ]);
     }
 }

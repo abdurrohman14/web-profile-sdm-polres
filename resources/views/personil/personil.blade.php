@@ -16,6 +16,19 @@
     </div>
 @endif
 
+@if(!empty($promotionNotifications))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Notifikasi Kenaikan Pangkat:</strong>
+        <ul>
+            @foreach($promotionNotifications as $promotionNotification)
+                <li>{{ $promotionNotification['message'] }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
 
 <div class="card shadow mb-2">
     <div class="card-header d-flex justify-content-between py-3">

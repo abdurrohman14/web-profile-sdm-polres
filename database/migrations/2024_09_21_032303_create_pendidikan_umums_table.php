@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pendidikan_umums', function (Blueprint $table) {
             $table->id();
             $table->foreignId('personel_id')->references('id')->on('personels')->onDelete('cascade');
-            $table->string('tingkat');
+            $table->foreignId('jenjang_id')->references('id')->on('jenjang_pendidikans')->onDelete('cascade');
             $table->string('nama_institusi');
             $table->year('tahun');
             $table->string('gambar')->nullable();

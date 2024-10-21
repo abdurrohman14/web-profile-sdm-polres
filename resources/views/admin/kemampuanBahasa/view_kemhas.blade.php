@@ -15,7 +15,7 @@
                         <th>Nama</th>
                         <th>Bahasa</th>
                         <th>Status</th>
-                        <th>Aksi</th>
+                        {{-- <th>Aksi</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -25,9 +25,9 @@
                         <td>{{ $mambas->personel->nama_lengkap }}</td>
                         <td>{{ $mambas->bahasa }}</td>
                         <td>{{ $mambas->status }}</td>
-                        <td>
+                        {{-- <td>
                             <div class="d-flex align-items-center">
-                                {{-- <a href="{{ route('detail.pendidikan-umum', $mambas->id) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-solid fa-eye"></i></a> --}}
+                                <a href="{{ route('detail.pendidikan-umum', $mambas->id) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-solid fa-eye"></i></a>
                                 <a href="{{ route('edit.kemampuan-bahasa', $mambas->id) }}" class="btn btn-sm btn-primary mr-1"><i class="fas fa-solid fa-pen"></i></a>
                                 <form id="delete-form-{{ $mambas->id }}" action="{{ route('delete.kemampuan-bahasa', $mambas->id) }}" method="post">
                                     @csrf
@@ -35,7 +35,7 @@
                                 <button onclick="confirmDelete(event, {{ $mambas->id }})" type="submit" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
                             </form>
                             </div>
-                        </td>
+                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>

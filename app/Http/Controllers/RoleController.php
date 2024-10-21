@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\notifikasi;
+use App\Http\Controllers\SuperAdmin\PangkatController;
 
 
 class RoleController extends Controller
@@ -28,7 +29,7 @@ class RoleController extends Controller
 
     public function admin()
     {
-        $jabatan_id = auth()->user()->jabatan_id;
+        $jabatan_id = Auth::user()->jabatan_id;
         $totalPersonelBag = Personel::where('jabatan_id', $jabatan_id)->count();
         $personelMan = Personel::where('jabatan_id', $jabatan_id)->where('jenis_kelamin', 'Laki-laki')->count();
         $personelGirl = Personel::where('jabatan_id', $jabatan_id)->where('jenis_kelamin', 'Perempuan')->count();
@@ -106,6 +107,57 @@ class RoleController extends Controller
         $personelMan = Personel::where('jenis_kelamin', 'Laki-laki')->count();
         $personelGirl = Personel::where('jenis_kelamin', 'Perempuan')->count();
         $personelPenghargaan = Personel::whereHas('TandaKehormatan')->count();
+        // Personel yang sudah terlalu lama di satu jabatan (misalnya lebih dari 5 tahun)
+        $personelJabatanLama = Personel::whereRaw('TIMESTAMPDIFF(YEAR, tmt_masa_dinas, CURDATE()) > ?', [5])->count();
+        // Personel yang belum mengikuti pelatihan wajib
+        $personelBelumPelatihan = Personel::whereDoesntHave('PengembanganPelatihan', function($query) {
+            $query->where('dikbang', 'Pelatihan Wajib');
+        })->count();
+
+        // Panggil controller Pangkat untuk cek kenaikan pangkat
+        $pangkatController = new PangkatController();
+
+        // Cek kenaikan pangkat untuk setiap personel
+        $personels = Personel::with('pangkat')->get();
+        $lamaJabatanData = [];
+        foreach ($personels as $personel) {
+            $lamaJabatan = $personel->getLamaJabatan();
+            // logika untuk notifikasi kenaikan pangkat
+            if ($lamaJabatan >= 3) {
+                $notifikasi = Notifikasi::where('personel_id', $personel->id)
+                ->where('tipe', 'kenaikan pangkat')
+                ->first();
+
+                if (!$notifikasi) {
+                    Notifikasi::create([
+                        'personel_id' => $personel->id,
+                        'tipe' => 'kenaikan pangkat',
+                        'pesan' => 'Anda sudah 3 tahun di jabatan ini. Pertimbangkan untuk mengajukan kenaikan pangkat.',
+                    ]);
+                }
+            }
+            // Ambil notifikasi kelayakan kenaikan pangkat
+            $promotionNotification = $this->getPromotionNotifications($personel);
+            if (!empty($promotionNotification)) {
+                $notifikasi = Notifikasi::where('personel_id', $personel->id)
+                    ->where('tipe', 'promosi')
+                    ->first();
+
+                if (!$notifikasi) {
+                    Notifikasi::create([
+                        'personel_id' => $personel->id,
+                        'tipe' => 'promosi',
+                        'pesan' => $promotionNotification['message'],
+                        'sedang_dibaca' => false,
+                    ]);
+                }
+            }
+            $lamaJabatanData[] = [
+                'nama' => $personel->nama_lengkap,
+                'lama_jabatan' => $personel->getLamaJabatan(),
+                'pangkat' => $personel->subPangkat ? $personel->subPangkat->nama : 'Tidak ada pangkat',
+            ];
+        }
 
         // Personel yang akan segera pensiun (misalnya dalam 1 tahun ke depan)
         // $personelPensiun = Personel::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= ?', [57])->get();
@@ -146,14 +198,6 @@ class RoleController extends Controller
                 ]);
             }
         }
-        
-        // Personel yang sudah terlalu lama di satu jabatan (misalnya lebih dari 5 tahun)
-        $personelJabatanLama = Personel::whereRaw('TIMESTAMPDIFF(YEAR, tmt_masa_dinas, CURDATE()) > ?', [5])->count();
-
-        // Personel yang belum mengikuti pelatihan wajib
-        $personelBelumPelatihan = Personel::whereDoesntHave('PengembanganPelatihan', function($query) {
-            $query->where('dikbang', 'Pelatihan Wajib');
-        })->count();
 
         return view('superadmin.superadmin', [
             'title' => 'Super Admin',
@@ -164,6 +208,7 @@ class RoleController extends Controller
             'personelPensiun' => $personelPensiun->count(),
             'personelJabatanLama' => $personelJabatanLama,
             'personelBelumPelatihan' => $personelBelumPelatihan,
+            'lamaJabatanData' => $lamaJabatanData,
         ]);
     }
 
@@ -187,21 +232,41 @@ class RoleController extends Controller
         // Tandai semua notifikasi sebagai telah dibaca setelah ditampilkan
         notifikasi::where('personel_id', $personel->id)->update(['sedang_dibaca' => true]);
 
-        
+        // Periksa kelayakan kenaikan pangkat
+        $promotionNotifications = $this->getPromotionNotifications($personel);
         return view('personil.personil', [
             'personel' => $personel,
             'notifications' => $notifications,
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'promotionNotifications' => $promotionNotifications,
         ]);
     }
 
     public function show($id) {
         $personel = Personel::with('jabatan', 'pangkat', 'pangkatPnsPolri')->findOrFail($id);
-
         return view('personil.detail', [
             'personel' => $personel,
             'title' => 'Detail Personel',
         ]);
+    }
+
+    private function getPromotionNotifications($personel) {
+        // logika untuk mengecek kelayakan kenaikan pangkat
+        $promotionEligible = false;
+
+        // Misalkan jika pangkat saat ini adalah 'Bintara' dan telah 3 tahun,
+        // berikan notifikasi kenaikan pangkat
+        if ($personel->pangkat->nama === 'Bintara' && $this->hasBeenInPositionForYears($personel, 3)) {
+            $promotionEligible = true;
+        }
+
+        return $promotionEligible ? ['message' => 'Selamat! Anda memenuhi syarat untuk kenaikan pangkat.'] : [];
+    }
+
+    // Contoh metode untuk memeriksa waktu dalam jabatan
+    private function hasBeenInPositionForYears($personel, $years) {
+        $tmt = new \Carbon\Carbon($personel->tmt_status); // Asumsi tmt_status ada di model Personel
+        return $tmt->diffInYears(now()) >= $years;
     }
 
     public function edit($id) {

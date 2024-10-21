@@ -10,15 +10,19 @@ use App\Http\Controllers\Admin\KemHasController;
 use App\Http\Controllers\Admin\PenLusController;
 use App\Http\Controllers\Admin\TanMatController;
 use App\Http\Controllers\Admin\YatJabController;
+use App\Http\Controllers\Personil\PlsController;
 use App\Http\Controllers\Admin\PengLatController;
 use App\Http\Controllers\Admin\YatPangController;
 use App\Http\Controllers\Personil\PenumController;
 use App\Http\Controllers\Personil\RijabController;
 use App\Http\Controllers\SuperAdmin\SimController;
 use App\Http\Controllers\Admin\PersonilsController;
+use App\Http\Controllers\Personil\KembhsController;
 use App\Http\Controllers\Personil\PenpolController;
 use App\Http\Controllers\Personil\RipangController;
+use App\Http\Controllers\Personil\TankehController;
 use App\Http\Controllers\SuperAdmin\HeroController;
+use App\Http\Controllers\Personil\PengpelController;
 use App\Http\Controllers\SuperAdmin\BeritaController;
 use App\Http\Controllers\SuperAdmin\EventsController;
 use App\Http\Controllers\LandingPage\HeroesController;
@@ -30,16 +34,13 @@ use App\Http\Controllers\SuperAdmin\PangkatPolriController;
 use App\Http\Controllers\SuperAdmin\PendidikanUmumController;
 use App\Http\Controllers\SuperAdmin\RiwayatJabatanController;
 use App\Http\Controllers\SuperAdmin\RiwayatPangkatController;
+use App\Http\Controllers\SuperAdmin\JenjangPendikumController;
 use App\Http\Controllers\SuperAdmin\KemampuanBahasaController;
 use App\Http\Controllers\SuperAdmin\pangkatPnsPolriController;
 use App\Http\Controllers\SuperAdmin\TandaKehormatanController;
 use App\Http\Controllers\SuperAdmin\PendidikanKepolisianController;
 use App\Http\Controllers\SuperAdmin\PengembanganPelatihanController;
 use App\Http\Controllers\SuperAdmin\PenugasanLuarStrukturController;
-use App\Http\Controllers\Personil\PengpelController;
-use App\Http\Controllers\Personil\TankehController;
-use App\Http\Controllers\Personil\KembhsController;
-use App\Http\Controllers\Personil\PlsController;
 
 
 // Route::get('/', [HeroesController::class, 'index']);
@@ -248,15 +249,15 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
         Route::delete('/delete/{id}', [PangkatPolriController::class,'deleteSubPangkat'])->name('delete.subPangkat');
     });
 
-    // Pangkat PNS Polri
-    // Route::prefix('pns')->group(function () {
-    //     Route::get('/', [pangkatPnsPolriController::class, 'index'])->name('view.pns');
-    //     Route::get('/create', [pangkatPnsPolriController::class, 'create'])->name('create.pns');
-    //     Route::post('/store', [pangkatPnsPolriController::class, 'store'])->name('store.pns');
-    //     Route::get('/edit/{id}', [pangkatPnsPolriController::class, 'edit'])->name('edit.pns');
-    //     Route::post('/update/{id}', [pangkatPnsPolriController::class, 'update'])->name('update.pns');
-    //     Route::delete('/delete/{id}', [pangkatPnsPolriController::class, 'delete'])->name('delete.pns');
-    // });
+    // Jenjang Pendidikan Umum
+    Route::prefix('jenjang')->group(function () {
+        Route::get('/', [JenjangPendikumController::class, 'index'])->name('view.jenjang');
+        Route::get('/create', [JenjangPendikumController::class, 'create'])->name('create.jenjang');
+        Route::post('/store', [JenjangPendikumController::class, 'store'])->name('store.jenjang');
+        Route::get('/edit/{id}', [JenjangPendikumController::class, 'edit'])->name('edit.jenjang');
+        Route::post('/update/{id}', [JenjangPendikumController::class, 'update'])->name('update.jenjang');
+        Route::delete('/delete/{id}', [JenjangPendikumController::class, 'delete'])->name('delete.jenjang');
+    });
     
     // Sub PNS Polri
     // Route::prefix('subpns')->group(function () {

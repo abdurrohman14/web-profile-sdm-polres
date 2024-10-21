@@ -31,7 +31,7 @@ class KembhsController extends Controller
     public function store(Request $request) {
         $request->validate([
             'bahasa' => 'required|string',
-            'status' => 'required|string',
+            'status' => 'required|string|in:Pasif,Aktif',
         ]);
     
         // Save data to database (assuming you have a Pendidikan model)

@@ -10,14 +10,14 @@
             @csrf
             @method('post')
             <div class="form-group">
-                <label for="tingkat">Tingkat Pendidikan</label>
-                <select name="tingkat" class="form-control @error('tingkat') is-invalid @enderror">
-                    <option value="">-- Pilih Tingkat Pendidikan --</option>
+                <label for="jenjang_id">Jenjang Pendidikan</label>
+                <select name="jenjang_id" class="form-control @error('jenjang_id') is-invalid @enderror">
+                    <option value="">-- Pilih Jenjang Pendidikan --</option>
                     @foreach ($tingkatPendidikanUmum as $tingkat)
-                        <option value="{{ $tingkat }}">{{ $tingkat }}</option>
+                        <option value="{{ $tingkat->id }}">{{ $tingkat->nama }}</option>
                     @endforeach
                 </select>
-                @error('personel_id')
+                @error('jenjang_id')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

@@ -27,7 +27,7 @@
                         <td>{{ $personil->nama_lengkap }}</td>
                         <td>{{ $personil->jabatan->nama }}</td>
                         <td>{{ $personil->subJabatan->nama ?? '-'}}</td>
-                        <td>{{ $personil->pangkat->nama }}</td>
+                        <td>{{ $personil->subPangkat->nama ?? '-'}}</td>
                         {{-- <td>{{ $personil->pangkatPnsPolri->nama }}</td> --}}
                         <td>{{ $personil->user->role }}</td>
                         <td>

@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="card-footer">
-        <a href="{{ route('view.pendidikan-kepolisian') }}" class="btn btn-danger">
+        <a href="{{ route('index.dikpol') }}" class="btn btn-danger">
             <i class="fas fa-arrow-left mr-1"></i>Kembali</a>
     </div>
 </div>
