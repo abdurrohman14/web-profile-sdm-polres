@@ -10,11 +10,11 @@ use App\Models\Personel;
 
 class TankehController extends Controller
 {
-    public function index()  {
+    public function index() {
         $personel = Auth::user()->personel;
         $tankeh = TandaKehormatan::where('personel_id', $personel->id)->get();
         return view('personil.tankeh.index', [
-            'title'=>'Data Pendidikan',
+            'title' => 'Data Tanda Kehormatan',
             'tankeh' => $tankeh,
             'personel' => $personel,
         ]);
@@ -23,7 +23,7 @@ class TankehController extends Controller
     public function create() {
         $personel = Personel::find(Auth::id());
         return view('personil.tankeh.create', [
-            'title'=>'Tambah Pendidikan',
+            'title' => 'Tambah Tanda Kehormatan',
             'personel' => $personel,
         ]);
     }
@@ -35,22 +35,24 @@ class TankehController extends Controller
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        // Inisialisasi variabel gambar
+        $imageName = null;
+
         if ($request->hasFile('gambar')) {
             $image = $request->file('gambar');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/pendidikanKepolisian', $imageName);
-            $validateData['gambar'] = $imageName;
+            $image->storeAs('public/tandaKehormatan', $imageName); // Perbaiki nama folder penyimpanan
         }
-    
-        // Save data to database (assuming you have a Pendidikan model)
+
+        // Simpan data ke database
         $tankeh = new TandaKehormatan();
         $tankeh->personel_id = Auth::user()->personel->id;
         $tankeh->tanda_kehormatan = $request->tanda_kehormatan;
         $tankeh->tmt = $request->tmt;
-        $tankeh->gambar = $imageName;
-    
+        $tankeh->gambar = $imageName; // Pastikan ini tidak menyebabkan error jika gambar kosong
+
         $tankeh->save();
-    
-        return redirect()->route('personil.tankeh.index')->with('success', 'Pengembangan berhasil ditambahkan');
+
+        return redirect()->route('personil.tankeh.index')->with('success', 'Tanda Kehormatan berhasil ditambahkan');
     }
 }

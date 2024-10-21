@@ -30,7 +30,7 @@
             <!-- Gambar -->
             <div class="form-group">
                 <label for="gambar">Foto Surat</label>
-                <input type="file" class="form-control" id="gambar" name="gambar" accept=".jpg,.png,.jpeg,.gif" required>
+                <input type="file" class="form-control" id="gambar" name="gambar" accept=".jpg,.png,.jpeg,.gif" multiple>
                 <img id="photo-preview" src="#" alt="Pratinjau" style="max-width: 200px; display: none; margin-top: 4px;">
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>

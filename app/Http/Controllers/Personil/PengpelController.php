@@ -8,14 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Personel;
 
-
 class PengpelController extends Controller
 {
-    public function index()  {
+    public function index() {
         $personel = Auth::user()->personel;
         $pengpel = PengembanganPelatihan::where('personel_id', $personel->id)->get();
         return view('personil.pengpel.index', [
-            'title'=>'Data Pendidikan',
+            'title' => 'Data Pendidikan',
             'pengpel' => $pengpel,
             'personel' => $personel,
         ]);
@@ -24,7 +23,7 @@ class PengpelController extends Controller
     public function create() {
         $personel = Personel::find(Auth::id());
         return view('personil.pengpel.create', [
-            'title'=>'Tambah Pendidikan',
+            'title' => 'Tambah Pendidikan',
             'personel' => $personel,
         ]);
     }
@@ -33,17 +32,27 @@ class PengpelController extends Controller
         $request->validate([
             'dikbang' => 'required|string',
             'tahun' => 'required|integer',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'gambar.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Memungkinkan untuk beberapa gambar
         ]);
 
+        // Inisialisasi variabel gambar
+        $imageName = null;
+
         if ($request->hasFile('gambar')) {
-            $image = $request->file('gambar');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/pendidikanKepolisian', $imageName);
-            $validateData['gambar'] = $imageName;
+            $images = $request->file('gambar');
+            $imageNames = [];
+            
+            foreach ($images as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->storeAs('public/pendidikanKepolisian', $imageName);
+                $imageNames[] = $imageName;
+            }
+
+            // Gabungkan semua nama file gambar menjadi satu string
+            $imageName = json_encode($imageNames); // Simpan sebagai array JSON
         }
     
-        // Save data to database (assuming you have a Pendidikan model)
+        // Simpan data ke database
         $pengpel = new PengembanganPelatihan();
         $pengpel->personel_id = Auth::user()->personel->id;
         $pengpel->dikbang = $request->dikbang;
@@ -53,6 +62,5 @@ class PengpelController extends Controller
         $pengpel->save();
     
         return redirect()->route('personil.pengpel.index')->with('success', 'Pengembangan berhasil ditambahkan');
-    
     }
 }

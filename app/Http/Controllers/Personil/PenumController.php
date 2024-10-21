@@ -22,8 +22,8 @@ class PenumController extends Controller
     }
 
     public function create() {
-        $personel = Personel::find(Auth::id());
-        $tingkatPendidikanUmum = JenjangPendidikan::all();
+        $personel = Personel::find(Auth::user()->personel->id); // Mengambil data personel yang login
+        $tingkatPendidikanUmum = JenjangPendidikan::all(); // Mendapatkan semua jenjang pendidikan
         return view('personil.pendidikanUmum.create', [
             'title' => 'Tambah Pendidikan',
             'tingkatPendidikanUmum' => $tingkatPendidikanUmum,
@@ -36,27 +36,36 @@ class PenumController extends Controller
             'jenjang_id' => 'required|exists:jenjang_pendidikans,id',
             'nama_institusi' => 'required|string',
             'tahun' => 'required|integer',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'gambar.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        if ($request->hasFile('gambar')) {
-            $image = $request->file('gambar');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/pendidikanUmum', $imageName);
-            $validateData['gambar'] = $imageName;
-        }
-    
-        // Save data to database (assuming you have a Pendidikan model)
         $pendidikan = new PendidikanUmum();
         $pendidikan->personel_id = Auth::user()->personel->id;
         $pendidikan->jenjang_id = $request->jenjang_id;
         $pendidikan->nama_institusi = $request->nama_institusi;
         $pendidikan->tahun = $request->tahun;
-        $pendidikan->gambar = $imageName;
-    
+
+        if($request->hasFile('gambar')) {
+            $images = $request->file('gambar');
+            $imageNames = [];
+            
+            foreach($images as $image) {
+                // Buat nama file unik dengan waktu dan nama asli file
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                
+                // Simpan gambar ke folder public/pendidikanUmum
+                $image->storeAs('public/pendidikanUmum', $imageName);
+                
+                // Simpan nama gambar dalam array
+                $imageNames[] = $imageName;
+            }
+
+            // Gabungkan semua nama file gambar menjadi satu string, bisa disimpan sebagai array jika perlu
+            $pendidikan->gambar = json_encode($imageNames);
+        }
+
         $pendidikan->save();
-    
+
         return redirect()->route('personil.penum.index')->with('success', 'Pendidikan berhasil ditambahkan');
-    
     }
 }

@@ -32,21 +32,25 @@ class RipangController extends Controller
         $request->validate([
             'pangkat' => 'required|string',
             'tmt' => 'required|date',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'gambar.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-
-        if($request->hasFile('gambar')) {
-            $image = $request->file('gambar');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/riwayatPangkat', $imageName);
-            $validateData['gambar'] = $imageName;
-        }
 
         $ripang = new RiwayatPangkat();
         $ripang->personel_id = Auth::user()->personel->id;
         $ripang->pangkat = $request->pangkat;
         $ripang->tmt = $request->tmt;
-        $ripang->gambar = $imageName;
+
+        // Handle multiple images
+        if($request->hasFile('gambar')) {
+            $imageNames = [];
+            foreach ($request->file('gambar') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->storeAs('public/riwayatPangkat', $imageName);
+                $imageNames[] = $imageName;
+            }
+            // Simpan nama gambar sebagai JSON atau format lain yang sesuai
+            $ripang->gambar = json_encode($imageNames); // Menggunakan JSON untuk menyimpan nama file
+        }
 
         $ripang->save();
 
