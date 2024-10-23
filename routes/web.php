@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PdfExportController;
+use App\Http\Controllers\Admin\SimsController;
 use App\Http\Controllers\Admin\DikUmController;
 use App\Http\Controllers\Admin\DikPolController;
 use App\Http\Controllers\Admin\KemHasController;
@@ -175,7 +176,20 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/update/{id}', [PersonilsController::class, 'update'])->name('update.person');
         Route::delete('/delete/{id}', [PersonilsController::class, 'delete'])->name('delete.person');
         Route::get('/export/{id}', [PdfExportController::class, 'export'])->name('export.person');
+
+        //Sim
+    Route::prefix('sim')->group(function () {
+        Route::get('/', [SimsController::class, 'index'])->name('view.sims');
+        Route::get('/data', [SimsController::class, 'getSims'])->name('data.sims');
+        Route::get('/create', [SimsController::class, 'create'])->name('create.sims');
+        Route::post('/store', [SimsController::class, 'store'])->name('store.sims');
+        Route::get('/edit/{id}', [SimsController::class, 'edit'])->name('edit.sims');
+        Route::post('/update/{id}', [SimsController::class, 'update'])->name('update.sims');
+        Route::delete('/delete/{id}', [SimsController::class, 'destroy'])->name('delete.sims');
     });
+
+    });
+
 
     Route::prefix('dikpol')->group(function () {
         Route::get('/', [DikPolController::class, 'index'])->name('index.dikpol');
