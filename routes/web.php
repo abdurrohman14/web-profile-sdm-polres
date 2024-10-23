@@ -41,6 +41,8 @@ use App\Http\Controllers\SuperAdmin\TandaKehormatanController;
 use App\Http\Controllers\SuperAdmin\PendidikanKepolisianController;
 use App\Http\Controllers\SuperAdmin\PengembanganPelatihanController;
 use App\Http\Controllers\SuperAdmin\PenugasanLuarStrukturController;
+use App\Http\Controllers\Personil\simPersonController;
+
 
 
 // Route::get('/', [HeroesController::class, 'index']);
@@ -470,4 +472,15 @@ Route::middleware(['auth', 'role:personil'])->group(function () {
         Route::get('/personil/pls-create', [PlsController::class, 'create'])->name('personil.pls.create');
         Route::post('/pls-store', [PlsController::class, 'store'])->name('personil.pls.store');
     });
+});
+
+// SIM Personel
+Route::prefix('sim')->group(function () {
+    Route::get('/', [simPersonController::class, 'index'])->name('view.sim');
+    Route::get('/data', [simPersonController::class, 'getSims'])->name('data.sim');
+    Route::get('/create', [simPersonController::class, 'create'])->name('create.sim');
+    Route::post('/store', [simPersonController::class, 'store'])->name('store.sim');
+    Route::get('/edit/{id}', [simPersonController::class, 'edit'])->name('edit.sim');
+    Route::post('/update/{id}', [simPersonController::class, 'update'])->name('update.sim');
+    Route::delete('/delete/{id}', [simPersonController::class, 'destroy'])->name('delete.sim');
 });
