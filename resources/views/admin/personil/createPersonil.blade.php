@@ -513,4 +513,271 @@
     </div>
 </div>
 
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h4 class="m-0 font-weight-bold text-primary">Data SIM</h4>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#tambahDataSimModal">
+            Tambah Data SIM
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Jenis</th>
+                        <th>Nomor</th>
+                        <th>File</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>    
+</div>
+
+<!-- Modal Pop-up Gambar-->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLabel">Pratinjau Gambar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body text-center">
+          <img id="modalImage" src="" alt="Gambar SIM" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<!-- Modal Tambah Data SIM -->
+<div class="modal fade" id="tambahDataSimModal" tabindex="-1" aria-labelledby="tambahDataSimLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tambahDataSimLabel">Tambah Data SIM</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createSimForm" method="POST" action="{{ route('store.sims') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="user_id" class="form-label">Personel</label>
+                        <select name="user_id" id="user_id" class="form-control" >
+                            <option value="" disabled selected>Pilih Personel</option>
+                            @foreach($user as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis">Jenis SIM</label>
+                        <input type="text" class="form-control" id="jenis" name="jenis">
+                    </div>
+                    <div class="form-group">
+                        <label for="nomor">Nomor</label>
+                        <input type="text" class="form-control" id="nomor" name="nomor">
+                    </div>
+                    <div class="form-group">
+                        <label for="file">File</label>
+                        <input type="file" class="form-control" id="file" name="file">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Data SIM -->
+<div class="modal fade" id="editDataSimModal" tabindex="-1" aria-labelledby="editDataSimLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editDataSimLabel">Edit Data SIM</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editSimForm" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="editJenis">Jenis SIM</label>
+                        <input type="text" class="form-control" id="editJenis" name="jenis">
+                    </div>
+                    <div class="form-group">
+                        <label for="editNomor">Nomor</label>
+                        <input type="text" class="form-control" id="editNomor" name="nomor">
+                    </div>
+                    <div class="form-group">
+                        <label for="editFile">File</label>
+                        <input type="file" class="form-control" id="editFile" name="file">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // list data
+    $(document).ready(function() {
+    var table = $('#dataTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ route('data.sims') }}',
+        columns: [
+            { data: null, name: 'id', render: function(data, type, row, meta) {
+                return meta.row + 1;
+            }},
+            { data: 'jenis', name: 'jenis' },
+            { data: 'nomor', name: 'nomor' },
+            { data: 'file', name: 'file', render: function(data, type, row) {
+                return `<a href="javascript:void(0)" onclick="showImageModal('${data}')">
+                    <i class="fas fa-solid fa-eye"></i>
+                </a>`;
+            }},
+            { data: 'id', name: 'aksi', render: function(data, type, row) {
+                return `
+                    <div class="d-flex align-items-center">
+                        <button onclick="editSim(${data})" class="btn btn-sm btn-primary mr-1"><i class="fas fa-solid fa-pen"></i></button>
+                        <form id="deleteForm${data}" action="#" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" onclick="deleteSim(${data})" class="btn btn-sm btn-danger"><i class="fas fa-solid fa-trash"></i></button>
+                        </form>
+                    </div>
+                `;
+            }}
+        ]
+    });
+
+    // tambah data
+    $('#createSimForm').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: '{{ route('store.sims') }}',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                $('#tambahDataSimModal').modal('hide');
+                table.ajax.reload();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: response.success
+                });
+            },
+            error: function(response) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: 'Terjadi kesalahan. Silakan coba lagi.'
+                });
+            }
+        });
+    });
+
+    // edit data
+    $('#editSimForm').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        var simId = $(this).data('id');
+
+        $.ajax({
+            url: `/person/sim/update/${simId}`,
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                $('#editDataSimModal').modal('hide');
+                table.ajax.reload();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: response.success
+                });
+            },
+            error: function(response) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: 'Terjadi kesalahan. Silakan coba lagi.'
+                });
+            }
+        });
+    });
+});
+
+function showImageModal(imagePath) {
+    const imageUrl = `{{ url('storage/') }}/${imagePath}`;
+    $('#modalImage').attr('src', imageUrl);
+    $('#imageModal').modal('show');
+}
+
+// edit data
+function editSim(id) {
+    $.get(`/person/sim/edit/${id}`, function(data) {
+        $('#editJenis').val(data.sim.jenis);
+        $('#editNomor').val(data.sim.nomor);
+        $('#editSimForm').data('id', data.sim.id);
+        $('#editDataSimModal').modal('show');
+    });
+}
+
+// hapus data
+function deleteSim(id) {
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: "Data SIM ini akan dihapus!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `{{ url('person/sim/delete') }}/${id}`,
+                method: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function(response) {
+                    $('#dataTable').DataTable().ajax.reload();
+                    Swal.fire(
+                        'Dihapus!',
+                        response.success,
+                        'success'
+                    );
+                },
+                error: function(response) {
+                    Swal.fire(
+                        'Gagal!',
+                        'Terjadi kesalahan. Silakan coba lagi.',
+                        'error'
+                    );
+                }
+            });
+        }
+    });
+}
+</script>
+
 @endsection

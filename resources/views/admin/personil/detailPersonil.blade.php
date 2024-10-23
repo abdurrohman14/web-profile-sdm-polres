@@ -262,4 +262,42 @@
     </div>
 </div>
 
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Pendidikan Umum</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->pendidikanUmum->isEmpty())
+                            <p>Belum ada data pendidikan umum.</p>
+                        @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Jenjang</th>
+                                    <th>Nama Institusi</th>
+                                    <th>Tahun</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->pendidikanUmum as $penum)
+                                <tr>
+                                    <td>{{ $penum->jenjang->nama }}</td>
+                                    <td>{{ $penum->nama_institusi }}</td>
+                                    <td>{{ $penum->tahun }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
