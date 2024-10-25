@@ -300,4 +300,257 @@
     </div>
 </div>
 
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Pendidikan Kepolisian</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->pendidikanKepolisian->isEmpty())
+                        <p>Belum ada data pendidikan kepolisian.</p>
+                    @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Tingkat</th>
+                                    <th>Tahun</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->pendidikanKepolisian as $key => $penkop)
+                                <tr>
+                                    <td>{{ $penkop->tingkat }}</td>
+                                    <td>{{ $penkop->tahun }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Riwayat Jabatan</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->riwayatJabatan->isEmpty())
+                        <p>Belum ada data riwayat jabatan.</p>
+                    @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Jabatan</th>
+                                    <th>TMT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->riwayatJabatan as $key => $rijabs)
+                                <tr>
+                                    <td>{{ $rijabs->jabatan }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($rijabs->tmt)->format('d-m-Y') }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Riwayat Pangkat</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->riwayatPangkat->isEmpty())
+                        <p>Belum ada data riwayat pangkat.</p>
+                        @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Pangkat</th>
+                                    <th>TMT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->riwayatPangkat as $key => $riwpat)
+                                <tr>
+                                    <td>{{ $riwpat->pangkat }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($riwpat->tmt)->format('d-m-Y') }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Tanda Kehormatan</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->tandaKehormatan->isEmpty())
+                        <p>Belum ada data tanda kehormatan.</p>
+                        @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Tanda Kehormatan</th>
+                                    <th>Tahun</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->tandaKehormatan as $key => $tankers)
+                                <tr>
+                                    <td>{{ $tankers->tanda_kehormatan }}</td>
+                                    <td>{{ $tankers->tahun }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Penugasan Luar Struktur</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->penugasanLuarStruktur->isEmpty())
+                        <p>Belum ada data penugasan luar struktur.</p>
+                        @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Penugasan</th>
+                                    <th>Lokasi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->penugasanLuarStruktur as $key => $penlu)
+                                <tr>
+                                    <td>{{ $penlu->penugasan }}</td>
+                                    <td>{{ $penlu->lokasi }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Pengembangan Pelatihan</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->pengembanganPelatihan->isEmpty())
+                        <p>Belum ada data pengembangan pelatihan.</p>
+                        @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Dikbang</th>
+                                    <th>Tahun</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->pengembanganPelatihan as $key => $penlats)
+                                <tr>
+                                    <td>{{ $penlats->dikbang }}</td>
+                                    <td>{{ $penlats->tahun }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Kemampuan Bahasa</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->kemampuanBahasa->isEmpty())
+                        <p>Belum ada data kemampuan bahasa.</p>
+                        @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Bahasa</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->kemampuanBahasa as $key => $mambas)
+                                <tr>
+                                    <td>{{ $mambas->bahasa }}</td>
+                                    <td>{{ $mambas->status }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
