@@ -4,7 +4,9 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between">
         <h3 class="m-0 font-weight-bold text-primary">Pendidikan Umum</h3>
-        <button type="submit" class="btn btn-success"><a href="{{ route('personil.penum.create') }}" class="text-white text-decoration-none">Tambah Data</a></button>
+        <button type="submit" class="btn btn-success">
+            <a href="{{ route('personil.penum.create') }}" class="text-white text-decoration-none">Tambah Data</a>
+        </button>
     </div>
     <div class="card-body">
         <div class="row">
@@ -22,6 +24,8 @@
                                     <th>Tingkat</th>
                                     <th>Nama Institusi</th>
                                     <th>Tahun</th>
+                                    <th>Ijazah</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,6 +34,27 @@
                                     <td>{{ $penum->jenjang->nama }}</td>
                                     <td>{{ $penum->nama_institusi }}</td>
                                     <td>{{ $penum->tahun }}</td>
+                                    <td>
+                                        @if(!empty($penum->gambar) && is_array(json_decode($penum->gambar)))
+                                            @foreach(json_decode($penum->gambar) as $image)
+                                                <a href="{{ asset('storage/pendidikanUmum/' . $image) }}" target="_blank">
+                                                    <img src="{{ asset('storage/pendidikanUmum/' . $image) }}" alt="{{ $image }}" style="width:100px; height:auto;">
+                                                </a>
+                                            @endforeach
+                                        @else
+                                            <a href="{{ asset('storage/pendidikanUmum/' . $penum->gambar) }}" target="_blank">
+                                                <img src="{{ asset('storage/pendidikanUmum/' . $penum->gambar) }}" alt="{{ $penum->gambar }}" style="width:100px; height:auto;">
+                                            </a>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('personil.penum.edit', $penum->id) }}" class="btn btn-primary">Edit</a>
+                                        <form action="{{ route('personil.penum.destroy', $penum->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

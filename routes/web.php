@@ -457,10 +457,16 @@ Route::middleware(['auth', 'role:personil'])->group(function () {
         Route::get('/personil/pendidikanKepolisian', [PenpolController::class, 'index'])->name('personil.penpol.index');
         Route::get('/personil/penpol-create', [PenpolController::class, 'create'])->name('personil.penpol.create');
         Route::post('/penpol-store', [PenpolController::class, 'store'])->name('personil.penpol.store');
+        Route::get('/personil/pendidikanKepolisian/{id}/edit', [PenpolController::class, 'edit'])->name('personil.penpol.edit');
+        Route::put('/personil/pendidikanKepolisian/{id}', [PenpolController::class, 'update'])->name('personil.penpol.update');
+        Route::delete('/personil/pendidikanKepolisian/{id}', [PenpolController::class, 'destroy'])->name('personil.penpol.destroy');
         // Pendidikan Umum
         Route::get('/personil/pendidikanUmum', [PenumController::class, 'index'])->name('personil.penum.index');
         Route::get('/personil/penum-create', [PenumController::class, 'create'])->name('personil.penum.create');
         Route::post('/penum-store', [PenumController::class, 'store'])->name('personil.penum.store');
+        Route::get('/personil/pendidikanUmum/{id}/edit', [PenumController::class, 'edit'])->name('personil.penum.edit');
+        Route::put('/personil/pendidikanUmum/{id}', [PenumController::class, 'update'])->name('personil.penum.update');
+        Route::delete('/personil/pendidikanUmum/{id}', [PenumController::class, 'destroy'])->name('personil.penum.destroy');
         // Riwayat Pangkat
         Route::get('/personil/riwayatPangkat', [RipangController::class, 'index'])->name('personil.ripang.index');
         Route::get('/personil/ripang-create', [RipangController::class, 'create'])->name('personil.ripang.create');
