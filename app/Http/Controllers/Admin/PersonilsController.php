@@ -330,7 +330,60 @@ class PersonilsController extends Controller
             // Bagren
             4 => 'index.renprogar',
             5 => 'index.dalprogar',
-        ];
+            // Bagsdm
+            6 => 'index.binkar',
+            7 => 'index.dalpers',
+            8 => 'index.watpers',
+            // Baglog
+            9 => 'index.bekpal',
+            10 => 'index.faskon',
+            // Siwas
+            11 => 'index.subsiopsnal',
+            12 => 'index.subsibin',
+            13 => 'index.subsidumas',
+            // Sipromam
+            14 => 'index.propam',
+            15 => 'index.paminal',
+            // Sihumas
+            16 => 'index.pidm',
+            17 => 'index.penmas',
+            // Sikum
+            18 => 'index.bankum',
+            19 => 'index.luhkum',
+            // Sitik
+            20 => 'index.tekkom',
+            21 => 'index.tekinfo',
+            // Sium
+            22 => 'index.mintu',
+            23 => 'index.yanma',
+            // Spkt
+            24 => 'index.spkt',
+            // Satintelkum
+            25 => 'index.intelkum',
+            // Satreskim
+            26 => 'index.reskim',
+            // Satnarkoba
+            27 => 'index.narkoba',
+            // Satbinmas
+            28 => 'index.binmas',
+            // Satsamapta
+            29 => 'index.samapta',
+            // Satlantas
+            30 => 'index.lantas',
+            // Satpamobvit
+            31 => 'index.pamobvit',
+            // Satpolairud
+            32 => 'index.polairud',
+            // Sattahti
+            33 => 'index.tahti',
+            // Sikeu
+            34 => 'index.gaji',
+            35 => 'index.verif',
+            36 => 'index.apk',
+            // Sidokkes
+            37 => 'index.dokpol',
+            38 => 'index.sikespol'
+        ];        
 
         return $routes[$jabatan_id] ?? 'index.person';
     }
