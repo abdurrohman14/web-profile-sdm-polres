@@ -471,10 +471,16 @@ Route::middleware(['auth', 'role:personil'])->group(function () {
         Route::get('/personil/riwayatPangkat', [RipangController::class, 'index'])->name('personil.ripang.index');
         Route::get('/personil/ripang-create', [RipangController::class, 'create'])->name('personil.ripang.create');
         Route::post('/ripang-store', [RipangController::class, 'store'])->name('personil.ripang.store');
+        Route::get('/personil/riwayatPangkat/{id}/edit', [RipangController::class, 'edit'])->name('personil.ripang.edit');
+        Route::put('/personil/riwayatPangkat/{id}', [RipangController::class, 'update'])->name('personil.ripang.update');
+        Route::delete('/personil/riwayatPangkat/{id}', [RipangController::class, 'destroy'])->name('personil.ripang.destroy');
         // Riwayat Jabatan
         Route::get('/personil/riwayatJabatan', [RijabController::class, 'index'])->name('personil.rijab.index');
         Route::get('/personil/rijab-create', [RijabController::class, 'create'])->name('personil.rijab.create');
         Route::post('/rijab-store', [RijabController::class, 'store'])->name('personil.rijab.store');
+        Route::get('personil/rijab/{id}/edit', [RijabController::class, 'edit'])->name('personil.rijab.edit');
+        Route::put('personil/rijab/{id}', [RijabController::class, 'update'])->name('personil.rijab.update');
+        Route::delete('/personil/riwayatJabatan/{id}', [RijabController::class, 'destroy'])->name('personil.rijab.destroy');
         // Riwayat Pengembangan
         Route::get('/personil/pengembanganPelatihan', [PengpelController::class, 'index'])->name('personil.pengpel.index');
         Route::get('/personil/pengpel-create', [PengpelController::class, 'create'])->name('personil.pengpel.create');

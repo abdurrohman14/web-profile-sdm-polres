@@ -37,12 +37,12 @@
                                     <td>
                                         @if(!empty($penum->gambar) && is_array(json_decode($penum->gambar)))
                                             @foreach(json_decode($penum->gambar) as $image)
-                                                <a href="{{ asset('storage/pendidikanUmum/' . $image) }}" target="_blank">
+                                                <a href="javascript:void(0)" onclick="showImage('{{ asset('storage/pendidikanUmum/' . $image) }}')">
                                                     <img src="{{ asset('storage/pendidikanUmum/' . $image) }}" alt="{{ $image }}" style="width:100px; height:auto;">
                                                 </a>
                                             @endforeach
                                         @else
-                                            <a href="{{ asset('storage/pendidikanUmum/' . $penum->gambar) }}" target="_blank">
+                                            <a href="javascript:void(0)" onclick="showImage('{{ asset('storage/pendidikanUmum/' . $penum->gambar) }}')">
                                                 <img src="{{ asset('storage/pendidikanUmum/' . $penum->gambar) }}" alt="{{ $penum->gambar }}" style="width:100px; height:auto;">
                                             </a>
                                         @endif
@@ -65,5 +65,23 @@
         </div>
     </div>
 </div>
+
+<!-- Modal for Image Popup -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Ijazah" style="width:100%; height:auto;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showImage(src) {
+        document.getElementById('modalImage').src = src;
+        $('#imageModal').modal('show');
+    }
+</script>
 
 @endsection

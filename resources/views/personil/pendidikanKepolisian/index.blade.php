@@ -32,7 +32,7 @@
                                     <td>{{ $penpol->tahun }}</td>
                                     <td>
                                         @foreach(explode(',', $penpol->gambar) as $image)
-                                        <a href="{{ asset('storage/pendidikanKepolisian/' . trim($image)) }}" target="_blank">
+                                        <a href="#" data-toggle="modal" data-target="#imageModal" data-image="{{ asset('storage/pendidikanKepolisian/' . trim($image)) }}">
                                             <img src="{{ asset('storage/pendidikanKepolisian/' . trim($image)) }}" alt="{{ $image }}" style="width:100px; height:auto;">
                                         </a>
                                         @endforeach
@@ -62,5 +62,26 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" alt="Gambar Ijazah" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $('#imageModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var imageUrl = button.data('image');
+            var modalImage = document.getElementById('modalImage');
+            modalImage.src = imageUrl;
+        });
+    });
+</script>
 
 @endsection
