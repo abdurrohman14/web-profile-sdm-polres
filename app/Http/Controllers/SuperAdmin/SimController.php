@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class SimController extends Controller
 {
     public function index() {
-        return view('superadmin.personil.create_personil');
+        return view('superadmin.personil.edit_personil');
     }
 
     public function getSims() {
@@ -22,7 +22,7 @@ class SimController extends Controller
 
     public function create() {
         $user = User::all();
-        return view('superadmin.personil.create_personil', compact('user'));
+        return view('superadmin.personil.edit_personil', compact('user'));
     }
 
     public function store(Request $request)

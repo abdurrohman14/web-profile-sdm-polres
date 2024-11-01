@@ -13,13 +13,13 @@ use App\Http\Controllers\Controller;
 class HeroesController extends Controller
 {
     public function index() {
-        $hero = Hero::first();
+        $heroSlide = Hero::all();
         $partners = Partner::all();
         $ourteams = Ourteam::all();
         $berita = Berita::all();
         $event = Event::all();
         return view('partials.landingPage.main', [
-            'hero' => $hero,
+            'heroSlide' => $heroSlide,
             'partners' => $partners,
             'ourteams' => $ourteams,
             'berita' => $berita,

@@ -35,21 +35,32 @@ class TankehController extends Controller
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // Inisialisasi variabel gambar
-        $imageName = null;
-
-        if ($request->hasFile('gambar')) {
-            $image = $request->file('gambar');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/tandaKehormatan', $imageName); // Perbaiki nama folder penyimpanan
-        }
 
         // Simpan data ke database
         $tankeh = new TandaKehormatan();
         $tankeh->personel_id = Auth::user()->personel->id;
         $tankeh->tanda_kehormatan = $request->tanda_kehormatan;
         $tankeh->tmt = $request->tmt;
-        $tankeh->gambar = $imageName; // Pastikan ini tidak menyebabkan error jika gambar kosong
+        
+        // Inisialisasi variabel gambar
+        if($request->hasFile('gambar')) {
+            $images = $request->file('gambar');
+            $imageNames = [];
+            
+            foreach($images as $image) {
+                // Buat nama file unik dengan waktu dan nama asli file
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                
+                // Simpan gambar ke folder public/pendidikanUmum
+                $image->storeAs('public/tandaKehormatan', $imageName);
+                
+                // Simpan nama gambar dalam array
+                $imageNames[] = $imageName;
+            }
+
+            // Gabungkan semua nama file gambar menjadi satu string, bisa disimpan sebagai array jika perlu
+            $tankeh->gambar = json_encode($imageNames);
+        }
 
         $tankeh->save();
 

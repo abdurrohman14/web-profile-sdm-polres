@@ -1,7 +1,7 @@
 @extends('partials.landingPage.main')
 @section('content')
 
-<section class="news mt-5">
+<section class="news">
     <div class="container">
         <h2 class="text-center mb-4">Acara</h2>
         <!-- Form Search -->
@@ -16,21 +16,21 @@
           </div>
         </form>
         <div class="row">
-            @if($event->isNotEmpty())
-            @foreach($event as $evt)
+            @if($events->isNotEmpty())
+            @foreach($events as $evt)
             <div class="col-md-4 mb-4">
-                <div class="card news-card">
+                <div class="card news-card h-100" style="width: 100%; height: 300px;">
                     <div class="image-container" style="position: relative;">
                         <a href="{{ route('lp.event.show', $evt->id) }}" class="text-decoration-none">
-                            <img src="{{ asset('storage/event/' . $evt->gambar) }}" class="card-img-top" alt="{{ $evt->judul }}" />
+                            <img src="{{ asset('storage/event/' . $evt->gambar) }}" class="card-img-top" style="height: 150px; object-fit: contain;" alt="{{ $evt->judul }}" />
                         </a>
                         <p class="date-overlay" style="position: absolute; bottom: 10px; right: 10px; background-color: rgba(0, 0, 0, 0.6); color: white; padding: 5px; border-radius: 3px;">
                             {{ $evt->created_at->locale('id')->translatedFormat('l, d F Y') }}
                         </p>
                     </div>
-                    <div class="card-body bg-warning">
+                    <div class="card-body">
                         <a href="{{ route('lp.event.show', $evt->id) }}" class="text-decoration-none">
-                            <h5 class="card-title">{{ $evt->judul }}</h5>
+                            <h5 class="card-title text-dark">{{ $evt->judul }}</h5>
                         </a>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
         </div>
         {{-- pagination --}}
         <div class="row justify-content-center mt-3">
-            {{ $event->links('pagination::bootstrap-5') }}
+            {{ $events->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </section>

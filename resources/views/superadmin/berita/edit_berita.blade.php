@@ -50,6 +50,19 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="dokumentasi">Dokumentasi</label>
+                <input type="file" class="form-control" id="dokumentasi" name="dokumentasi[]" accept=".jpg,.png,.jpeg,.gif" value="{{ old('dokumentasi', $beritas->dokumentasi) }}" multiple>
+                @if($beritas->dokumentasi && json_decode($beritas->dokumentasi))
+                    <div class="mt-2">
+                        @foreach (json_decode($beritas->dokumentasi) as $image)
+                            <img src="{{ asset('storage/berita/dokumentasi/' . $image) }}" alt="Pratinjau dokumentasi" class="img-thumbnail" width="200px">
+                        @endforeach
+                    </div>
+                @else
+                    <p class="text-muted">Dokumentasi belum tersedia</p>
+                @endif
+            </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
     </div>

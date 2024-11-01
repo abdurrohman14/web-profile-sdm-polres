@@ -1,63 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ $title }}</title>
-    <link rel="icon" href="{{ asset('assets1/image/sdm.png') }}" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="{{ asset('assets1/css/home.css') }}">
-    <style>
-      body {
-          font-family: 'Poppins', sans-serif;
-          padding-top: 70px; /* Adjust based on header height */
-          background-color:#f9f9f9;
-      }
-  
-      .header {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          z-index: 1000;
-          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-          transition: background-color 0.3s; /* Smooth transition for background color */
-      }
-  
-      .header-scrolled {
-          background-color: #ffffff !important; /* White background color */
-          color: #000000; /* Optional: Change text color to black for better readability */
-      }
-  </style>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="{{ asset('assets1/css/home.css') }}" />
   </head>
   <body>
     @include('partials.landingPage.navbar')
 
     @yield('content')
 
-    @includeWhen(isset($hero), 'partials.landingPage.hero')
-    @includeWhen(isset($partners), 'partials.landingPage.partners')
-    @includeWhen(isset($ourteams), 'partials.landingPage.team')
+    @includeWhen(isset($heroSlide), 'partials.landingPage.hero')
+
+    @includeWhen(isset($berita), 'partials.landingPage.berita')
+
+    @includeWhen(isset($event), 'partials.landingPage.events')
 
     @include('partials.landingPage.footer')
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-          const header = document.getElementById('main-header');
-          const scrollThreshold = 50; // Scroll threshold to add class
-  
-          window.addEventListener('scroll', function () {
-              if (window.scrollY > scrollThreshold) {
-                  header.classList.add('header-scrolled');
-              } else {
-                  header.classList.remove('header-scrolled');
-              }
-          });
+      AOS.init();
+      window.addEventListener("scroll", function () {
+        var navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("navbar-scrolled");
+        } else {
+          navbar.classList.remove("navbar-scrolled");
+        }
       });
-  </script>
+    </script>
   </body>
 </html>

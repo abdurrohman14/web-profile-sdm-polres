@@ -44,7 +44,7 @@ class PengpelController extends Controller
             
             foreach ($images as $image) {
                 $imageName = time() . '_' . $image->getClientOriginalName();
-                $image->storeAs('public/pendidikanKepolisian', $imageName);
+                $image->storeAs('public/pengembanganPelatihan', $imageName);
                 $imageNames[] = $imageName;
             }
 

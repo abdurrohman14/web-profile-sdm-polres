@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\Berita;
 use Illuminate\Http\Request;
+use App\Models\beritaDokumentasi;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
@@ -31,6 +32,7 @@ class BeritaController extends Controller
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120', // Validasi upload foto
             'deskripsi' => 'required|string',
             'status' =>  'nullable|boolean',
+            'dokumentasi.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120'
         ]);
 
         // Upload File
@@ -48,6 +50,17 @@ class BeritaController extends Controller
         $beritas->deskripsi = $validateData['deskripsi'];
         $beritas->status = $validateData['status'] ?? false;
         $beritas->gambar = $imageName; // Menyimpan foto dalam storage/app
+        
+        $documentationImages = [];
+        if ($request->hasFile('dokumentasi')) {
+            foreach ($request->file('dokumentasi') as $docImage) {
+                $docImageName = uniqid().'_'.$docImage->getClientOriginalName();
+                $docImage->storeAs('public/berita/dokumentasi', $docImageName);
+                $documentationImages[] = $docImageName;
+            }
+        }
+        $beritas->dokumentasi = json_encode($documentationImages);
+        
         $beritas->save();
 
         return redirect()->route('view.berita')->with('success', 'Data berhasil ditambahkan');
@@ -76,6 +89,7 @@ class BeritaController extends Controller
             'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
             'deskripsi' => 'required|string',
             'status' =>  'nullable|boolean',
+            'dokumentasi.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120'
         ]);
 
         $beritas = Berita::find($id);
@@ -104,6 +118,26 @@ class BeritaController extends Controller
 
         if(isset($validateData['gambar'])){
             $beritas->gambar = $validateData['gambar'];
+        }
+
+        if ($request->hasFile('dokumentasi')) {
+            if ($beritas->dokumentasi) {
+                $oldDocumentationImages = json_decode($beritas->dokumentasi);
+                foreach ($oldDocumentationImages as $oldImage) {
+                    Storage::delete('public/berita/dokumentasi/' . $oldImage);
+                }
+            }
+    
+            // Simpan gambar dokumentasi baru
+            $documentationImages = [];
+            foreach ($request->file('dokumentasi') as $docImage) {
+                $docImageName = uniqid() . '_' . $docImage->getClientOriginalName();
+                $docImage->storeAs('public/berita/dokumentasi', $docImageName);
+                $documentationImages[] = $docImageName;
+            }
+            $beritas->dokumentasi = json_encode($documentationImages);
+        } else {
+            $beritas->dokumentasi = $beritas->dokumentasi; // Gunakan dokumentasi lama jika tidak ada yang baru
         }
 
         $beritas->save();

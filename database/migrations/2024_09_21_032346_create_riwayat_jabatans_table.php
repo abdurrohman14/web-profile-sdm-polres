@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('riwayat_jabatans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('personel_id')->references('id')->on('personels')->onDelete('cascade');
-            $table->string('jabatan');
-            $table->date('tmt');
-            $table->string('gambar')->nullable();
+            $table->foreignId('jabatan_id')->constrained('jabatans')->onDelete('cascade'); // Menyimpan id pangkat
+            $table->foreignId('sub_jabatan_id')->nullable()->constrained('sub_jabatans')->onDelete('cascade'); // Menyimpan id sub-pangkat (nullable)
+            $table->date('tanggal_kenaikan');
             $table->timestamps();
         });
     }

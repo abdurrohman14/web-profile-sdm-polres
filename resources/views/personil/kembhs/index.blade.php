@@ -14,7 +14,7 @@
                         <div class="info-item d-flex mb-2">
                             <div class="label"><strong>Nama Lengkap</strong></div>
                             <div class="colon ml-2">:</div>
-                            <div class="value ml-2 font-weight-bold">{{ $kembhs[0]->personel->nama_lengkap ?? '-' }}</div>
+                            <div class="value ml-2 font-weight-bold">{{ Auth::user()->personel->nama_lengkap ?? '-' }}</div>
                         </div>
                         <table class="table border-0">
                             <thead>

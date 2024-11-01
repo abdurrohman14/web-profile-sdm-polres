@@ -52,6 +52,11 @@
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <div class="form-group">
+                <label for="dokumentasi">Dokumentasi</label>
+                <input type="file" class="form-control" id="dokumentasi" name="dokumentasi[]" accept=".jpg,.png,.jpeg,.gif" required multiple>
+                <img id="photo-preview" src="#" alt="Pratinjau" style="max-width: 200px; display: none; margin-top: 4px;">
+            </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
     </div>

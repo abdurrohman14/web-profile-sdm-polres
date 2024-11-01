@@ -12,24 +12,24 @@ use Illuminate\Support\Facades\Storage;
 class simPersonController extends Controller
 {
     public function index() {
-        return view('personil.create_personil');
+        return view('personil.edit');
     }
 
     public function getSims() {
-        $sims = Sim::all();
+        $sims = Sim::where('user_id', Auth::id())->get();
         return response()->json(['data' => $sims]);
     }
 
     public function create() {
-        $user = User::all();
-        return view('personil.create_personil', compact('user'));
+        $user = Auth::id();
+        return view('personil.edit', compact('user'));
     }
 
     public function store(Request $request)
     {
         // Validasi data
         $request->validate([
-            'user_id' => 'required|exists:users,id',
+            // 'user_id' => 'required|exists:users,id',
             'jenis' => 'required|string|max:255',
             'nomor' => 'required|string|max:255|unique:sims,nomor',
             'file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
@@ -43,7 +43,7 @@ class simPersonController extends Controller
 
         // Menambahkan data sim
         SIM::create([
-            'user_id' => $request->user_id,
+            'user_id' => Auth::id(),
             'jenis' => $request->jenis,
             'nomor' => $request->nomor,
             'file' => $filePath,

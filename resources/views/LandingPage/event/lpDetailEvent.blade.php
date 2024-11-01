@@ -1,34 +1,34 @@
 @extends('partials.landingPage.main')
 @section('content')
-<section class="news-detail mt-5">
+<section class="news-detail">
     <div class="container">
         <div class="row">
             <!-- Kolom 1: Detail event -->
             <div class="col-md-8">
                 <div class="card">
                     <!-- Menampilkan gambar event -->
-                    <img src="{{ asset('storage/event/' . $event->gambar) }}" class="card-img-top" alt="{{ $event->judul }}" />
+                    <img src="{{ asset('storage/event/' . $eventss->gambar) }}" class="card-img-top" alt="{{ $eventss->judul }}" />
 
                     <div class="card-body">
                         <!-- Judul event -->
-                        <h1 class="card-title">{{ $event->judul }}</h1>
+                        <h1 class="card-title">{{ $eventss->judul }}</h1>
 
                         <!-- Tanggal dan waktu pembuatan event -->
                         <p class="card-text">
                             <small class="text-muted">
-                                Dipublikasikan pada: {{ $event->created_at->locale('id')->translatedFormat('l, d F Y, H:i') }}
+                                Dipublikasikan pada: {{ $eventss->created_at->locale('id')->translatedFormat('l, d F Y, H:i') }}
                             </small>
                         </p>
 
                         <!-- Isi deskripsi event -->
                         <div class="card-text">
-                            {!! $event->deskripsi !!}
+                            {!! $eventss->deskripsi !!}
                         </div>
 
                         <!-- Kembali ke halaman event -->
-                        <div class="mt-4">
+                        {{-- <div class="mt-4">
                             <a href="{{ route('lp.event') }}" class="btn btn-secondary">Kembali ke event</a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

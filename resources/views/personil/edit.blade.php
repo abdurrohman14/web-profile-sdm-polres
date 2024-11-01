@@ -13,7 +13,7 @@
             <div class="col-md-6">
             <div class="form-group">
                 <label for="jabatan_id">Jabatan</label>
-                <select id="jabatan_id" name="jabatan_id" class="form-control">
+                <select id="jabatan_id" name="jabatan_id" class="form-control" disabled>
                     @foreach($jabatan as $jab)
                         <option value="{{ $jab->id }}" {{ $personel->jabatan_id == $jab->id ? 'selected' : '' }}>
                             {{ $jab->nama }}
@@ -26,7 +26,7 @@
             <div class="col-md-6">
             <div class="form-group">
                 <label for="sub_jabatan_id">Sub Jabatan</label>
-                <select id="sub_jabatan_id" name="sub_jabatan_id" class="form-control">
+                <select id="sub_jabatan_id" name="sub_jabatan_id" class="form-control" disabled>
                     <option value="">-- Pilih Sub Jabatan --</option>
                     @foreach($subJabatan as $subJab)
                         <option value="{{ $subJab->id }}" {{ $personel->sub_jabatan_id == $subJab->id ? 'selected' : '' }}>
@@ -40,7 +40,7 @@
             <div class="col-md-6">
             <div class="form-group">
                 <label for="pangkat_id">Pangkat</label>
-                <select id="pangkat_id" name="pangkat_id" class="form-control">
+                <select id="pangkat_id" name="pangkat_id" class="form-control" disabled>
                     @foreach($pangkat as $pang)
                         <option value="{{ $pang->id }}" {{ $personel->pangkat_id == $pang->id ? 'selected' : '' }}>
                             {{ $pang->nama }}
@@ -53,7 +53,7 @@
             <div class="col-md-6">
             <div class="form-group">
                 <label for="sub_pangkat_id">Sub Pangkat</label>
-                <select id="sub_pangkat_id" name="sub_pangkat_id" class="form-control">
+                <select id="sub_pangkat_id" name="sub_pangkat_id" class="form-control" disabled> 
                     <option value="">-- Pilih Sub Pangkat --</option>
                     @foreach($subPangkat as $subPang)
                         <option value="{{ $subPang->id }}" {{ $personel->sub_pangkat_id == $subPang->id ? 'selected' : '' }}>
@@ -510,7 +510,7 @@
             <div class="modal-body">
                 <form id="createSimForm" method="POST" action="{{ route('store.sim') }}" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="user_id" class="form-label">Personel</label>
                         <select name="user_id" id="user_id" class="form-control" >
                             <option value="" disabled selected>Pilih Personel</option>
@@ -518,7 +518,7 @@
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label for="jenis">Jenis SIM</label>
                         <input type="text" class="form-control" id="jenis" name="jenis">
@@ -575,7 +575,7 @@
     var table = $('#dataTable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{{ route('data.sim') }}',
+        ajax: '{{ route('data.sim.personil') }}',
         columns: [
             { data: null, name: 'id', render: function(data, type, row, meta) {
                 return meta.row + 1;
@@ -608,7 +608,7 @@
         var formData = new FormData(this);
 
         $.ajax({
-            url: '{{ route('store.sim') }}',
+            url: '{{ route('store.sim.personil') }}',
             method: 'POST',
             data: formData,
             processData: false,
@@ -639,7 +639,7 @@
         var simId = $(this).data('id');
 
         $.ajax({
-            url: `/personel/sim/update/${simId}`,
+            url: `/personil/personil/sim/update/${simId}`,
             method: 'POST',
             data: formData,
             processData: false,
@@ -672,7 +672,7 @@ function showImageModal(imagePath) {
 
 // edit data
 function editSim(id) {
-    $.get(`/personel/sim/edit/${id}`, function(data) {
+    $.get(`/personil/personil/sim/edit/${id}`, function(data) {
         $('#editJenis').val(data.sim.jenis);
         $('#editNomor').val(data.sim.nomor);
         $('#editSimForm').data('id', data.sim.id);
@@ -694,7 +694,7 @@ function deleteSim(id) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `{{ url('personel/sim/delete') }}/${id}`,
+                url: `{{ url('personil/sim/delete') }}/${id}`,
                 method: 'DELETE',
                 data: {
                     _token: '{{ csrf_token() }}',

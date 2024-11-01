@@ -469,6 +469,7 @@ Route::middleware(['auth', 'role:personil'])->group(function () {
         Route::delete('/personil/pendidikanUmum/{id}', [PenumController::class, 'destroy'])->name('personil.penum.destroy');
         // Riwayat Pangkat
         Route::get('/personil/riwayatPangkat', [RipangController::class, 'index'])->name('personil.ripang.index');
+        Route::post('/personil/riwayatPangkat', [RipangController::class, 'promote'])->name('personil.ripang.promote');
         Route::get('/personil/ripang-create', [RipangController::class, 'create'])->name('personil.ripang.create');
         Route::post('/ripang-store', [RipangController::class, 'store'])->name('personil.ripang.store');
         Route::get('/personil/riwayatPangkat/{id}/edit', [RipangController::class, 'edit'])->name('personil.ripang.edit');
@@ -497,16 +498,17 @@ Route::middleware(['auth', 'role:personil'])->group(function () {
         Route::get('/personil/penugasanLuarStruktur', [PlsController::class, 'index'])->name('personil.pls.index');
         Route::get('/personil/pls-create', [PlsController::class, 'create'])->name('personil.pls.create');
         Route::post('/pls-store', [PlsController::class, 'store'])->name('personil.pls.store');
+    
+        // SIM Personel
+        Route::prefix('personil/sim')->group(function () {
+            Route::get('/', [simPersonController::class, 'index'])->name('view.sim.personil');
+            Route::get('/data', [simPersonController::class, 'getSims'])->name('data.sim.personil');
+            Route::get('/create', [simPersonController::class, 'create'])->name('create.sim.personil');
+            Route::post('/store', [simPersonController::class, 'store'])->name('store.sim.personil');
+            Route::get('/edit/{id}', [simPersonController::class, 'edit'])->name('edit.sim.personil');
+            Route::post('/update/{id}', [simPersonController::class, 'update'])->name('update.sim.personil');
+            Route::delete('/delete/{id}', [simPersonController::class, 'destroy'])->name('delete.sim.personil');
+        });
     });
 });
 
-// SIM Personel
-Route::prefix('sim')->group(function () {
-    Route::get('/', [simPersonController::class, 'index'])->name('view.sim');
-    Route::get('/data', [simPersonController::class, 'getSims'])->name('data.sim');
-    Route::get('/create', [simPersonController::class, 'create'])->name('create.sim');
-    Route::post('/store', [simPersonController::class, 'store'])->name('store.sim');
-    Route::get('/edit/{id}', [simPersonController::class, 'edit'])->name('edit.sim');
-    Route::post('/update/{id}', [simPersonController::class, 'update'])->name('update.sim');
-    Route::delete('/delete/{id}', [simPersonController::class, 'destroy'])->name('delete.sim');
-});

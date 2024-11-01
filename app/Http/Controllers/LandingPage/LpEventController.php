@@ -9,9 +9,9 @@ use App\Http\Controllers\Controller;
 class LpEventController extends Controller
 {
     public function index() {
-        $event = Event::paginate(3);
+        $events = Event::paginate(3);
         return view('LandingPage.event.lpEvent', [
-            'event' => $event,
+            'events' => $events,
             'title' => 'Event',
         ]);
     }
@@ -21,30 +21,30 @@ class LpEventController extends Controller
         $query = $request->input('query');
 
         // Lakukan pencarian berdasarkan judul atau deskripsi
-        $event = Event::where('judul', 'LIKE', "%{$query}%")
+        $events = Event::where('judul', 'LIKE', "%{$query}%")
                         ->orWhere('deskripsi', 'LIKE', "%{$query}%")
                         ->latest()
                         ->paginate(5);
         
         // Kembalikan hasil pencarian ke view lpEvent.blade.php
         return view('LandingPage.event.lpEvent', [
-            'event' => $event,
+            'events' => $events,
             'query' => $query,
             'title' => 'Event',
         ]);
     }
 
     public function show($id) {
-        $event = Event::findOrFail($id);
-        $eventTerkait = Event::where('id', '!=', $event->id)
+        $eventss = Event::findOrFail($id);
+        $eventTerkait = Event::where('id', '!=', $eventss->id)
                             ->latest()
                             ->limit(5) // Ambil 5 event terbaru sebagai event terkait
                             ->get();
 
         return view('LandingPage.event.lpDetailEvent', [
-            'event' => $event,
+            'eventss' => $eventss,
             'eventTerkait' => $eventTerkait,
-            'title' => $event->judul,
+            'title' => $eventss->judul,
         ]);
     }
 }

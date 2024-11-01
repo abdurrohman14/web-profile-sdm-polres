@@ -13,7 +13,7 @@
                 <label for="pangkat_id" class="form-label">Pangkat</label>
                 <select name="pangkat_id" id="pangkat_id" class="form-control select2" required>
                     <option value="" disabled selected>Select Pangkat</option>
-                    @foreach($pangkat as $pangkat)
+                    @foreach($pangkatPolri as $pangkat)
                         <option value="{{ $pangkat->id }}"{{ $pangkat->id == $subPangkat->pangkat_id ? 'selected' : '' }}>{{ $pangkat->nama }}</option>
                     @endforeach
                 </select>

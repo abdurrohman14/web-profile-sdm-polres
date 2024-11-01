@@ -14,7 +14,7 @@
         <div class="row mb-3">
             <div class="col-md-3 font-weight-bold">Tingkat</div>
             <div class="col-md-0 mr-3">:</div>
-            <div class="col-md-7 px-0">{{ $pendikum->tingkat }}</div>
+            <div class="col-md-7 px-0">{{ $pendikum->jenjang->nama }}</div>
         </div>
         <div class="row mb-3">
             <div class="col-md-3 font-weight-bold">Nama Institusi</div>

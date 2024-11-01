@@ -1,20 +1,23 @@
-<section class="hero bg-warning" style="height: 750px">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            @if ($hero)
-                <div class="col-md-6 text-center">
-                    <h1>{{ $hero->judul }}</h1>
-                    <p>{{ $hero->deskripsi }}</p>
-                </div>
-                <div class="col-md-6 d-flex justify-content-center">
-                    <img src="{{ asset('storage/hero/' . $hero->gambar) }}" alt="Hero Image" width="200px" />
-                </div>
-            @else
-                <div class="col-md-12 text-center">
-                    <h1>Belum Ada Data</h1>
-                    <p>Data untuk hero section belum tersedia.</p>
-                </div>
-            @endif
+<!-- Hero Carousel -->
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        @foreach ($heroSlide as $index => $slide)
+        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+            <img src="{{ asset('storage/hero/' . $slide->gambar) }}" class="d-block w-100" alt="Slide {{ $index + 1 }}" />
+            <div class="overlay"></div>
+            <div class="carousel-caption mt-5">
+                <h1>{{ $slide->judul }}</h1>
+                <p>{{ $slide->deskripsi }}</p>
+            </div>
         </div>
+        @endforeach
     </div>
-</section>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>

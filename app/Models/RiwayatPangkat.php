@@ -11,13 +11,21 @@ class RiwayatPangkat extends Model
 
     protected $fillable = [
         'personel_id',
-        'pangkat',
-        'tmt',
-        'gambar',
+        'pangkat_id',
+        'sub_pangkat_id',
+        'tanggal_kenaikan',
     ];
 
     public function personel()
     {
         return $this->belongsTo(Personel::class);
+    }
+
+    public function pangkat() {
+        return $this->belongsTo(Pangkat::class);
+    }
+
+    public function subPangkat() {
+        return $this->belongsTo(subPangkatPolri::class);
     }
 }

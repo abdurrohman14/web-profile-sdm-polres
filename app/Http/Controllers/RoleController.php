@@ -120,6 +120,7 @@ class RoleController extends Controller
         // Cek kenaikan pangkat untuk setiap personel
         $personels = Personel::with('pangkat')->get();
         $lamaJabatanData = [];
+        $personelLayakNaikPangkat = 0;
         foreach ($personels as $personel) {
             $lamaJabatan = $personel->getLamaJabatan();
             // logika untuk notifikasi kenaikan pangkat
@@ -132,26 +133,14 @@ class RoleController extends Controller
                     Notifikasi::create([
                         'personel_id' => $personel->id,
                         'tipe' => 'kenaikan pangkat',
-                        'pesan' => 'Anda sudah 3 tahun di jabatan ini. Pertimbangkan untuk mengajukan kenaikan pangkat.',
+                        'pesan' => 'Anda layak untuk kenaikan pangkat, mohon segera mengurusnya di bagian SDM.',
                     ]);
                 }
             }
-            // Ambil notifikasi kelayakan kenaikan pangkat
-            $promotionNotification = $this->getPromotionNotifications($personel);
-            if (!empty($promotionNotification)) {
-                $notifikasi = Notifikasi::where('personel_id', $personel->id)
-                    ->where('tipe', 'promosi')
-                    ->first();
-
-                if (!$notifikasi) {
-                    Notifikasi::create([
-                        'personel_id' => $personel->id,
-                        'tipe' => 'promosi',
-                        'pesan' => $promotionNotification['message'],
-                        'sedang_dibaca' => false,
-                    ]);
-                }
+            if($lamaJabatan >= 4) {
+                $personelLayakNaikPangkat++;
             }
+            
             $lamaJabatanData[] = [
                 'nama' => $personel->nama_lengkap,
                 'lama_jabatan' => $personel->getLamaJabatan(),
@@ -209,6 +198,7 @@ class RoleController extends Controller
             'personelJabatanLama' => $personelJabatanLama,
             'personelBelumPelatihan' => $personelBelumPelatihan,
             'lamaJabatanData' => $lamaJabatanData,
+            'personelLayakNaikPangkat' => $personelLayakNaikPangkat,
         ]);
     }
 
@@ -231,14 +221,10 @@ class RoleController extends Controller
 
         // Tandai semua notifikasi sebagai telah dibaca setelah ditampilkan
         notifikasi::where('personel_id', $personel->id)->update(['sedang_dibaca' => true]);
-
-        // Periksa kelayakan kenaikan pangkat
-        $promotionNotifications = $this->getPromotionNotifications($personel);
         return view('personil.personil', [
             'personel' => $personel,
             'notifications' => $notifications,
             'title' => 'Dashboard',
-            'promotionNotifications' => $promotionNotifications,
         ]);
     }
 
@@ -250,20 +236,7 @@ class RoleController extends Controller
         ]);
     }
 
-    private function getPromotionNotifications($personel) {
-        // logika untuk mengecek kelayakan kenaikan pangkat
-        $promotionEligible = false;
-
-        // Misalkan jika pangkat saat ini adalah 'Bintara' dan telah 3 tahun,
-        // berikan notifikasi kenaikan pangkat
-        if ($personel->pangkat->nama === 'Bintara' && $this->hasBeenInPositionForYears($personel, 3)) {
-            $promotionEligible = true;
-        }
-
-        return $promotionEligible ? ['message' => 'Selamat! Anda memenuhi syarat untuk kenaikan pangkat.'] : [];
-    }
-
-    // Contoh metode untuk memeriksa waktu dalam jabatan
+    // metode untuk memeriksa waktu dalam jabatan
     private function hasBeenInPositionForYears($personel, $years) {
         $tmt = new \Carbon\Carbon($personel->tmt_status); // Asumsi tmt_status ada di model Personel
         return $tmt->diffInYears(now()) >= $years;

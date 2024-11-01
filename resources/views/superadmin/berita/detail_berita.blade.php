@@ -21,6 +21,22 @@
             <div class="col-md-0 mr-3">:</div>
             <div class="col-md-7 px-0"><img src="{{ asset('storage/berita/'. $beritas->gambar) }}" alt="" width="100px"></div>
         </div>
+        <div class="row mb-3">
+            <div class="col-md-3 font-weight-bold">Dokumentasi</div>
+            <div class="col-md-0 mr-3">:</div>
+            <div class="col-md-7 px-0">
+                <div class="row">
+                    @if($beritas->dokumentasi && json_decode($beritas->dokumentasi))
+                        @foreach(json_decode($beritas->dokumentasi) as $image)
+                            <div class="col-md-4 col-6 mb-2">
+                                <img src="{{ asset('storage/berita/dokumentasi/' . $image) }}" alt="Dokumentasi" class="img-fluid rounded" width="100px">
+                            </div>
+                        @endforeach
+                    @else
+                        <p class="text-muted">Tidak ada dokumentasi tersedia</p>
+                    @endif
+                </div>
+        </div>
     </div>
     <div class="card-footer">
         <a href="{{ route('view.berita') }}" class="btn btn-danger">

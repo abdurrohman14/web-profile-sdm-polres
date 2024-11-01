@@ -11,13 +11,21 @@ class RiwayatJabatan extends Model
 
     protected $fillable = [
         'personel_id',
-        'jabatan',
-        'tmt',
-        'gambar',
+        'jabatan_id',
+        'sub_jabatan_id',
+        'tanggal_kenaikan',
     ];
 
     public function personel()
     {
         return $this->belongsTo(Personel::class);
+    }
+
+    public function jabatan() {
+        return $this->belongsTo(Jabatan::class);
+    }
+
+    public function subJabatan() {
+        return $this->belongsTo(SubJabatan::class);
     }
 }

@@ -95,15 +95,15 @@ $jabatans = [
           <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Custom Components:</h6>
               <a class="collapse-item" href="{{ route('index.hero') }}">Hero</a>
-              <a class="collapse-item" href="{{ route('index.partner') }}">Partner</a>
-              <a class="collapse-item" href="{{ route('index.team') }}">OurTeam</a>
+              {{-- <a class="collapse-item" href="{{ route('index.partner') }}">Partner</a>
+              <a class="collapse-item" href="{{ route('index.team') }}">OurTeam</a> --}}
               <a class="collapse-item" href="{{ route('view.berita') }}">Berita</a>
               <a class="collapse-item" href="{{ route('view.event') }}">Events</a>
           </div>
       </div>
   </li>
 
-  <li class="nav-item">
+  {{-- <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
          aria-expanded="true" aria-controls="collapseFour">
           <i class="fas fa-solid fa-school text-dark"></i>
@@ -122,7 +122,7 @@ $jabatans = [
               <a class="collapse-item" href="{{ route('view.penlu') }}">Penugasan Luar Struktur</a>
           </div>
       </div>
-  </li>
+  </li> --}}
 
   <!-- Nav Item - Personel Collapse Menu -->
   <li class="nav-item">

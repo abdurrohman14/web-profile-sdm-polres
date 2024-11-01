@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('riwayat_pangkats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('personel_id')->references('id')->on('personels')->onDelete('cascade');
-            $table->string('pangkat');
-            $table->date('tmt');
-            $table->string('gambar')->nullable();
+            $table->foreignId('personel_id')->constrained('personels')->onDelete('cascade'); // Menggunakan 'constrained' untuk lebih sederhana
+            $table->foreignId('pangkat_id')->constrained('pangkats')->onDelete('cascade'); // Menyimpan id pangkat
+            $table->foreignId('sub_pangkat_id')->nullable()->constrained('sub_pangkat_polris')->onDelete('cascade'); // Menyimpan id sub-pangkat (nullable)
+            $table->date('tanggal_kenaikan');
             $table->timestamps();
         });
     }

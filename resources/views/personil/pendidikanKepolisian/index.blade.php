@@ -14,7 +14,7 @@
                         <div class="info-item d-flex mb-2">
                             <div class="label"><strong>Nama Lengkap</strong></div>
                             <div class="colon ml-2">:</div>
-                            <div class="value ml-2 font-weight-bold">{{ $pendidikanKepolisian[0]->personel->nama_lengkap ?? '-' }}</div>
+                            <div class="value ml-2 font-weight-bold">{{ Auth::user()->personel->nama_lengkap ?? '-' }}</div>
                         </div>
                         <table class="table border-0">
                             <thead>
@@ -66,6 +66,11 @@
 <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="modal-body text-center">
                 <img id="modalImage" src="" alt="Gambar Ijazah" class="img-fluid">
             </div>

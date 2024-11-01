@@ -9,9 +9,9 @@ use App\Models\Berita;
 class LpBeritaController extends Controller
 {
     public function index() {
-        $berita = Berita::where('status', 1 )->paginate(3);
+        $beritas = Berita::where('status', 1 )->paginate(3);
         return view('LandingPage.berita.lpBerita', [
-            'berita' => $berita,
+            'beritas' => $beritas,
             'title' => 'Berita',
         ]);
     }
@@ -37,16 +37,16 @@ class LpBeritaController extends Controller
 }
 
     public function show($slug) {
-        $berita = Berita::where('slug', $slug)->where('status', 1)->firstOrFail();
-        $beritaTerkait = Berita::where('id', '!=', $berita->id)
+        $beritass = Berita::where('slug', $slug)->where('status', 1)->firstOrFail();
+        $beritaTerkait = Berita::where('id', '!=', $beritass->id)
                             ->where('status', 1)
                             ->latest()
                             ->limit(5) // Ambil 5 berita terbaru sebagai berita terkait
                             ->get();
         return view('LandingPage.berita.lpDetailBerita', [
-            'berita' => $berita,
+            'beritass' => $beritass,
             'beritaTerkait' => $beritaTerkait,
-            'title' => $berita->judul,
+            'title' => $beritass->judul,
         ]);
     }
 }

@@ -25,7 +25,7 @@
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Jabatan</strong></div>
                         <div class="colon">:</div>
-                        <div class="value ml-2">{{ $personels->jabatan->nama }}</div>
+                        <div class="value ml-2">{{ $personels->jabatan->nama }} / {{ $personels->subJabatan->nama }}</div>
                     </div>
                     <div class="info-item d-flex mb-2">
                         <div class="label" style="min-width: 220px;"><strong>Pangkat Polri</strong></div>
@@ -263,7 +263,49 @@
         @endif
     </div>
     <div class="card-footer d-flex justify-content-end">
-        <a href="{{ route('view.personel') }}" class="btn btn-danger">Kembali</a>
+        <a href="{{ session('previous_url') ?? route('view.personel') }}" class="btn btn-danger">Kembali</a>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Pendidikan Kepolisian</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->pendidikanKepolisian->isEmpty())
+                            <p>Belum ada data pendidikan umum.</p>
+                        @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Tingkat</th>
+                                    <th>Tahun</th>
+                                    <th>Ijazah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->pendidikanKepolisian as $penpol)
+                                <tr>
+                                    <td>{{ $penpol->tingkat }}</td>
+                                    <td>{{ $penpol->tahun }}</td>
+                                    <td>
+                                        @foreach(json_decode($penpol->gambar) as $image)
+                                            <img src="{{ asset('storage/pendidikanKepolisian/' . $image) }}" alt="Gambar Pendidikan Kepolisian" style="width: 100px; height: auto;" data-toggle="modal" data-target="#imageModal" data-img-src="{{ asset('storage/pendidikanKepolisian/'.$image) }}">
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -285,6 +327,7 @@
                                     <th>Jenjang</th>
                                     <th>Nama Institusi</th>
                                     <th>Tahun</th>
+                                    <th>Ijazah</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -293,6 +336,11 @@
                                     <td>{{ $penum->jenjang->nama }}</td>
                                     <td>{{ $penum->nama_institusi }}</td>
                                     <td>{{ $penum->tahun }}</td>
+                                    <td>
+                                        @foreach(json_decode($penum->gambar) as $image)
+                                        <img src="{{ asset('storage/pendidikanUmum/' . $image) }}" alt="Gambar Pendidikan Umum" style="width: 100px; height: auto;" data-toggle="modal" data-target="#imageModal" data-img-src="{{ asset('storage/pendidikanUmum/'.$image) }}">
+                                        @endforeach
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -304,4 +352,264 @@
         </div>
     </div>
 </div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Riwayat Pangkat</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->riwayatPangkat->isEmpty())
+                            <p>Belum ada data riwayat pangkat.</p>
+                        @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Pangkat</th>
+                                    <th>Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->riwayatPangkat as $ripang)
+                                <tr>
+                                    <td>{{ $ripang->pangkat->nama }} / {{ $ripang->subPangkat->nama }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($ripang->tanggal_kenaikan)->format('d F Y') }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Riwayat Jabatan</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->riwayatJabatan->isEmpty())
+                            <p>Belum ada data riwayat jabatan.</p>
+                        @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Jabatan</th>
+                                    <th>Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->riwayatJabatan as $rijab)
+                                <tr>
+                                    <td>{{ $rijab->jabatan->nama }} / {{ $rijab->subJabatan->nama }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($rijab->tanggal_kenaikan)->format('d F Y') }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Pengembangan & Pelatihan</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->pengembanganPelatihan->isEmpty())
+                            <p>Belum ada data pengembangan & pelatihan.</p>
+                        @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Dikbang</th>
+                                    <th>Tahun</th>
+                                    <th>Gambar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->pengembanganPelatihan as $penlat)
+                                <tr>
+                                    <td>{{ $penlat->dikbang }}</td>
+                                    <td>{{ $penlat->tahun }}</td>
+                                    <td>
+                                        {{-- @foreach(json_decode($penlat->gambar) as $image)
+                                        <img src="{{ asset('storage/pengembanganPelatihan/' . $image) }}" alt="Gambar Pendidikan Umum" style="width: 100px; height: auto;">
+                                        @endforeach --}}
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Tanda Kehormatan</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->tandaKehormatan->isEmpty())
+                            <p>Belum ada data tanda kehormatan.</p>
+                        @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Tanda Kehormatan</th>
+                                    <th>TMT</th>
+                                    <th>Gambar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->tandaKehormatan as $tanker)
+                                <tr>
+                                    <td>{{ $tanker->tanda_kehormatan }}</td>
+                                    <td>{{ $tanker->tmt }}</td>
+                                    <td>
+                                        {{-- @foreach(json_decode($tanker->gambar) as $image)
+                                        <img src="{{ asset('storage/tandaKehormatan/' . $image) }}" alt="Gambar Pendidikan Umum" style="width: 100px; height: auto;">
+                                        @endforeach --}}
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Kemampuan Bahasa</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->kemampuanBahasa->isEmpty())
+                            <p>Belum ada data kemampuan bahasa.</p>
+                        @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Bahasa</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->kemampuanBahasa as $kemhas)
+                                <tr>
+                                    <td>{{ $kemhas->bahasa }}</td>
+                                    <td>{{ $kemhas->status }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h3 class="m-0 font-weight-bold text-primary">Penugasan Luar Struktur</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        @if($personels->penugasanLuarStruktur->isEmpty())
+                            <p>Belum ada data penugasan luar struktur.</p>
+                        @else
+                        <table class="table border-0">
+                            <thead>
+                                <tr>
+                                    <th>Penugasan</th>
+                                    <th>Lokasi</th>
+                                    <th>Gambar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($personels->penugasanLuarStruktur as $penlu)
+                                <tr>
+                                    <td>{{ $penlu->penugasan }}</td>
+                                    <td>{{ $penlu->lokasi }}</td>
+                                    <td>
+                                        {{-- @foreach(json_decode($penlu->gambar) as $image)
+                                        <img src="{{ asset('storage/penlu/' . $image) }}" alt="Gambar Pendidikan Umum" style="width: 100px; height: auto;">
+                                        @endforeach --}}
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Foto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" class="img-fluid" alt="Image">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('img[data-toggle="modal"]').on('click', function(){
+            var imgSrc = $(this).data('img-src');
+            $('#modalImage').attr('src', imgSrc);
+        });
+    });
+</script>
 @endsection

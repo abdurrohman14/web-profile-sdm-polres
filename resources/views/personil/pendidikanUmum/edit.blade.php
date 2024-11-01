@@ -13,10 +13,10 @@
             <!-- Tingkat Pendidikan -->
             <div class="form-group">
                 <label for="tingkat">Tingkat Pendidikan</label>
-                <select name="jenjang_id" class="form-control @error('tingkat') is-invalid @enderror">
+                <select name="jenjang_id" class="form-control @error('jenjang_id') is-invalid @enderror">
                     <option value="">-- Pilih Tingkat Pendidikan --</option>
                     @foreach ($tingkatPendidikanUmum as $tingkat)
-                        <option value="{{ $tingkat->id }}" {{ $tingkat->id == $pendidikan->tingkat ? 'selected' : '' }}>{{ $tingkat->nama }}</option>
+                        <option value="{{ $tingkat->id }}" {{ $pendidikan->jenjang_id == $tingkat->id ? 'selected' : '' }}>{{ $tingkat->nama }}</option>
                     @endforeach
                 </select>
                 @error('tingkat')
@@ -27,7 +27,7 @@
             <!-- Nama Institusi -->
             <div class="form-group">
                 <label for="nama_institusi">Nama Institusi</label>
-                <input type="text" name="nama_institusi" class="form-control @error('nama_institusi') is-invalid @enderror" value="{{ old('nama_institusi', $pendidikan->nama_nama_institusi) }}">
+                <input type="text" name="nama_institusi" class="form-control @error('nama_institusi') is-invalid @enderror" value="{{ old('nama_institusi', $pendidikan->nama_institusi) }}">
                 @error('nama_institusi')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

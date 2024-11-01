@@ -10,6 +10,8 @@ use App\Models\Personel;
 use App\Models\subJabatan;
 use App\Models\subPnsPolri;
 use Illuminate\Http\Request;
+use App\Models\RiwayatJabatan;
+use App\Models\RiwayatPangkat;
 use App\Models\subPangkatPolri;
 use App\Models\pangkat_pns_polri;
 use Illuminate\Support\Facades\DB;
@@ -153,6 +155,7 @@ class PersonilController extends Controller
 
     public function show($id) {
         $personels = Personel::with('pendidikanUmum')->find($id);
+        session(['previous_url' => url()->previous()]);
         return view('superadmin.personil.detail_personil', [
             'personels' => $personels,
             'title' => 'Detail personil'
@@ -251,6 +254,26 @@ class PersonilController extends Controller
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('public/personil/', $imageName);
             $validateData['gambar'] = $imageName;
+        }
+
+        // Cek perubahan pangkat atau sub pangkat
+        if ($personels->pangkat_id != $request->pangkat_id || $personels->sub_pangkat_id != $request->sub_pangkat_id) {
+            RiwayatPangkat::create([
+                'personel_id' => $personels->id,
+                'pangkat_id' => $personels->pangkat_id,
+                'sub_pangkat_id' => $personels->sub_pangkat_id,
+                'tanggal_kenaikan' => now(),
+            ]);
+        }
+
+        // cek perubahan jabatan dan sub jabatan
+        if ($personels->jabatan_id != $request->pangkat_id || $personels->sub_jabatan_id != $request->sub_jabatan_id) {
+            RiwayatJabatan::create([
+                'personel_id' => $personels->id,
+                'jabatan_id' => $personels->jabatan_id,
+                'sub_jabatan_id' => $personels->sub_jabatan_id,
+                'tanggal_kenaikan' => now(),
+            ]);
         }
 
         // Save data to the database

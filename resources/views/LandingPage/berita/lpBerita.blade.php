@@ -1,6 +1,6 @@
 @extends('partials.landingPage.main')
 @section('content')
-<section class="news mt-5">
+<section class="news">
     <div class="container">
       <h2 class="text-center mb-4">Berita</h2>
       <!-- Form Search -->
@@ -15,21 +15,21 @@
         </div>
       </form>
       <div class="row">
-        @if($berita->isNotEmpty())
-          @foreach($berita as $brt)
+        @if($beritas->isNotEmpty())
+          @foreach($beritas as $brt)
           <div class="col-md-4 mb-4">
-            <div class="card news-card">
+            <div class="card news-card h-100" style="width: 100%; height: 300px;">
               <div class="image-container" style="position: relative;">
                 <a href="{{ route('lp.berita.show', $brt->slug) }}" class="text-decoration-none">
-                  <img src="{{ asset('storage/berita/' . $brt->gambar) }}" class="card-img-top" alt="News 1" />
+                  <img src="{{ asset('storage/berita/' . $brt->gambar) }}" class="card-img-top" style="height: 150px; object-fit: contain;" alt="News 1" />
                 </a>
                   <p class="date-overlay" style="position: absolute; bottom: 10px; right: 10px; background-color: rgba(0, 0, 0, 0.6); color: white; padding: 5px; border-radius: 3px;">
                   {{ $brt->created_at->locale('id')->translatedFormat('l, d F Y') }}
                 </p>
               </div>
-              <div class="card-body bg-warning">
+              <div class="card-body">
                 <a href="{{ route('lp.berita.show', $brt->slug) }}" class="text-decoration-none">
-                  <h5 class="card-title">{{ $brt->judul }}</h5>
+                  <h5 class="card-title text-dark">{{ $brt->judul }}</h5>
                 </a>
               </div>
             </div>
@@ -43,7 +43,7 @@
       </div>
       <!-- Paginate links -->
       <div class="row justify-content-center mt-3">
-        {{ $berita->links('pagination::bootstrap-5') }}
+        {{ $beritas->links('pagination::bootstrap-5') }}
       </div>
     </div>
 </section>
