@@ -7,7 +7,7 @@
       @foreach($berita as $brt)
       <div class="col-md-4">
         <div class="card" data-aos="fade-up" data-aos-duration="2000">
-          <img src="{{ asset('storage/berita/'. $brt->gambar) }}" class="card-img-top" style="height: 150px; object-fit: contain;" alt="Course Image" />
+          <img src="{{ asset('storage/berita/'. $brt->gambar) }}" class="card-img-top" style="height: 300px; object-fit: cover;" alt="Course Image" />
           <div class="card-body">
             <a href="{{ route('lp.berita.show', $brt->slug) }}" class="text-decoration-none text-dark"><h5 class="card-title">{{ $brt->judul }}</h5></a>
             <p class="card-text"><i class="bi bi-calendar"></i> {{ $brt->created_at->locale('id')->translatedFormat('l, d F Y') }} <br /></p>

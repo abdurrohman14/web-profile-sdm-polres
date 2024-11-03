@@ -130,6 +130,12 @@ class PersonilsController extends Controller
             'akte_lahir' => 'nullable|string|max:255|unique:personels,akte_lahir,' . $request->id,
             'tmt_masa_dinas' => 'nullable|date|after_or_equal:tanggal_lahir',
         ]);
+
+         // Hitung tanggal pensiun dari tanggal lahir lalu ditambah satu bulan
+         if ($request->tanggal_lahir) {
+            $tanggal_pensiun = \Carbon\Carbon::parse($request->tanggal_lahir)->addYears(58)->addMonth(1)->firstOfMonth();
+            $validateData['tanggal_pensiun'] = $tanggal_pensiun;
+        }
         
         // Handle file upload
         if ($request->hasFile('gambar')) {

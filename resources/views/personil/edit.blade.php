@@ -694,7 +694,7 @@ function deleteSim(id) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `{{ url('personil/sim/delete') }}/${id}`,
+                url: `{{ url('/personil/personil/sim/delete') }}/${id}`,
                 method: 'DELETE',
                 data: {
                     _token: '{{ csrf_token() }}',

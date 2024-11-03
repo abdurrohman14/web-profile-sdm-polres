@@ -31,7 +31,7 @@
                                     <td>{{ $penpol->tingkat }}</td>
                                     <td>{{ $penpol->tahun }}</td>
                                     <td>
-                                        @foreach(explode(',', $penpol->gambar) as $image)
+                                        @foreach(json_decode($penpol->gambar) as $image)
                                         <a href="#" data-toggle="modal" data-target="#imageModal" data-image="{{ asset('storage/pendidikanKepolisian/' . trim($image)) }}">
                                             <img src="{{ asset('storage/pendidikanKepolisian/' . trim($image)) }}" alt="{{ $image }}" style="width:100px; height:auto;">
                                         </a>

@@ -250,8 +250,13 @@
                             <div class="colon">:</div>
                             <div class="value ml-2">{{ $personels->akte_lahir }}</div>
                         </div>
+                        <div class="info-item d-flex mb-2">
+                            <div class="label" style="min-width: 220px;"><strong>Tanggal Pensiun</strong></div>
+                            <div class="colon">:</div>
+                            <div class="value ml-2">{{ $personels->tanggal_pensiun }}</div>
+                        </div>
                     </div>
-                </div>
+                </div> 
             @else
                 <div class="row justify-content-md-center">
                     <p>Data tidak tersedia</p>
@@ -389,7 +394,7 @@
                                     <tbody>
                                         @foreach ($personels->riwayatJabatan as $key => $rijabs)
                                             <tr>
-                                                <td>{{ $rijabs->jabatan }}</td>
+                                                <td>{{ $rijabs->jabatan->nama }} / {{ $rijabs->subJabatan->nama }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($rijabs->tmt)->format('d-m-Y') }}</td>
                                             </tr>
                                         @endforeach

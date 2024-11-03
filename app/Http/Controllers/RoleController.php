@@ -272,9 +272,9 @@ class RoleController extends Controller
     public function update(Request $request, $id) {
 
         $validateData = $request->validate([
-            'jabatan_id' => 'required|exists:jabatans,id',
+            'jabatan_id' => 'nullable|exists:jabatans,id',
             'sub_jabatan_id' => 'nullable|exists:sub_jabatans,id',
-            'pangkat_id' => 'required|exists:pangkats,id',
+            'pangkat_id' => 'nullable|exists:pangkats,id',
             'sub_pangkat_id' => 'nullable|exists:sub_pangkat_polris,id',
             // 'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
             // 'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',

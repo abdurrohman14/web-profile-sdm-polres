@@ -21,7 +21,7 @@
             <div class="card news-card h-100" style="width: 100%; height: 300px;">
               <div class="image-container" style="position: relative;">
                 <a href="{{ route('lp.berita.show', $brt->slug) }}" class="text-decoration-none">
-                  <img src="{{ asset('storage/berita/' . $brt->gambar) }}" class="card-img-top" style="height: 150px; object-fit: contain;" alt="News 1" />
+                  <img src="{{ asset('storage/berita/' . $brt->gambar) }}" class="card-img-top" style="height: 300px; object-fit: cover;" alt="News 1" />
                 </a>
                   <p class="date-overlay" style="position: absolute; bottom: 10px; right: 10px; background-color: rgba(0, 0, 0, 0.6); color: white; padding: 5px; border-radius: 3px;">
                   {{ $brt->created_at->locale('id')->translatedFormat('l, d F Y') }}

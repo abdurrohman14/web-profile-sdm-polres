@@ -22,7 +22,7 @@
             @foreach($event as $events)
             <div class="col-md-3">
               <div class="card event-card h-100" style="width:100%; height:300px;">
-                <img src="{{ asset('storage/event/'.$events->gambar) }}" class="card-img-top" style="height: 150px; object-fit: contain;" alt="Event Image" />
+                <img src="{{ asset('storage/event/'.$events->gambar) }}" class="card-img-top" style="height:300px; object-fit: cover;" alt="Event Image" />
                 <div class="card-body">
                   <a href="{{ route('lp.event.show', $events->id) }}" class="text-decoration-none text-dark"> <h5 class="card-title">{{ $events->judul }}</h5></a>
                   <p class="card-text">
