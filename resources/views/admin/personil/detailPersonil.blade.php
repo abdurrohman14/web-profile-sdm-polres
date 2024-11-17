@@ -430,7 +430,7 @@
                                     <tbody>
                                         @foreach ($personels->riwayatPangkat as $key => $riwpat)
                                             <tr>
-                                                <td>{{ $riwpat->pangkat }}</td>
+                                                <td>{{ $riwpat->pangkat->nama }} / {{ $riwpat->subPangkat->nama }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($riwpat->tmt)->format('d-m-Y') }}</td>
                                             </tr>
                                         @endforeach
@@ -522,14 +522,14 @@
                                         <td>
                                             @if (!empty($penlu->gambar) && is_array(json_decode($penlu->gambar)))
                                                 @foreach (json_decode($penlu->gambar) as $image)
-                                                    <img src="{{ asset('storage/penugasanLuarStruktur/' . $image) }}" alt="{{ $image }}"
+                                                    <img src="{{ asset('storage/penlu/' . $image) }}" alt="{{ $image }}"
                                                          class="img-thumbnail" style="width:100px; height:auto; cursor:pointer;"
-                                                         onclick="showImage('{{ asset('storage/penugasanLuarStruktur/' . $image) }}')">
+                                                         onclick="showImage('{{ asset('storage/penlu/' . $image) }}')">
                                                 @endforeach
                                             @else
-                                                <img src="{{ asset('storage/penugasanLuarStruktur/' . $penlu->gambar) }}" alt="{{ $penlu->gambar }}"
+                                                <img src="{{ asset('storage/penlu/' . $penlu->gambar) }}" alt="{{ $penlu->gambar }}"
                                                      class="img-thumbnail" style="width:100px; height:auto; cursor:pointer;"
-                                                     onclick="showImage('{{ asset('storage/penugasanLuarStruktur/' . $penlu->gambar) }}')">
+                                                     onclick="showImage('{{ asset('storage/penlu/' . $penlu->gambar) }}')">
                                             @endif
                                         </td>
                                     </tr>

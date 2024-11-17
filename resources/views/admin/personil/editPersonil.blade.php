@@ -13,7 +13,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="jabatan_id">Jabatan</label>
-                        <select id="jabatan_id" name="jabatan_id" class="form-control">
+                        <select id="jabatan_id" name="jabatan_id" class="form-control" disabled>
                             @foreach($jabatan as $jab)
                                 <option value="{{ $jab->id }}" {{ $personels->jabatan_id == $jab->id ? 'selected' : '' }}>
                                     {{ $jab->nama }}
@@ -26,7 +26,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="sub_jabatan_id">Sub Jabatan</label>
-                        <select id="sub_jabatan_id" name="sub_jabatan_id" class="form-control">
+                        <select id="sub_jabatan_id" name="sub_jabatan_id" class="form-control" disabled>
                             <option value="">-- Pilih Sub Jabatan --</option>
                             @foreach($subJabatan as $subJab)
                                 <option value="{{ $subJab->id }}" {{ $personels->sub_jabatan_id == $subJab->id ? 'selected' : '' }}>
@@ -40,7 +40,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="pangkat_id">Pangkat</label>
-                        <select id="pangkat_id" name="pangkat_id" class="form-control">
+                        <select id="pangkat_id" name="pangkat_id" class="form-control" disabled>
                             @foreach($pangkat as $pang)
                                 <option value="{{ $pang->id }}" {{ $personels->pangkat_id == $pang->id ? 'selected' : '' }}>
                                     {{ $pang->nama }}
@@ -53,7 +53,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="sub_pangkat_id">Sub Pangkat</label>
-                        <select id="sub_pangkat_id" name="sub_pangkat_id" class="form-control">
+                        <select id="sub_pangkat_id" name="sub_pangkat_id" class="form-control" disabled >
                             <option value="">-- Pilih Sub Pangkat --</option>
                             @foreach($subPangkat as $subPang)
                                 <option value="{{ $subPang->id }}" {{ $personels->sub_pangkat_id == $subPang->id ? 'selected' : '' }}>

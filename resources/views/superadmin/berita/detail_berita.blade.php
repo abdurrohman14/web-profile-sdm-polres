@@ -37,10 +37,11 @@
                     @endif
                 </div>
         </div>
+        </div>
     </div>
     <div class="card-footer">
         <a href="{{ route('view.berita') }}" class="btn btn-danger">
-            <i class="fas fa-arrow-left mr-1"></i>Kembali</a>
+            Kembali</a>
     </div>
 </div>
 

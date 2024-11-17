@@ -10,6 +10,8 @@ use App\Models\Personel;
 use App\Models\SubJabatan;
 use App\Models\subPnsPolri;
 use Illuminate\Http\Request;
+use App\Models\RiwayatJabatan;
+use App\Models\RiwayatPangkat;
 use App\Models\subPangkatPolri;
 use App\Models\pangkat_pns_polri;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PersonilsController extends Controller
 {
-    public function index(Request $request,$subJabatan = null) {
+    public function index(Request $request,$userJabatan = null) {
         $userId = Auth::id();
         $user = User::find($userId);
 
@@ -208,9 +210,9 @@ class PersonilsController extends Controller
 
     public function update(Request $request, $id) {
         $validateData = $request->validate([
-           'jabatan_id' => 'required|exists:jabatans,id',
+           'jabatan_id' => 'nullable|exists:jabatans,id',
             'sub_jabatan_id' => 'nullable|exists:sub_jabatans,id',
-            'pangkat_id' => 'required|exists:pangkats,id',
+            'pangkat_id' => 'nullable|exists:pangkats,id',
             'sub_pangkat_id' => 'nullable|exists:sub_pangkat_polris,id',
             'pangkat_pns_polri_id' => 'nullable|exists:pangkat_pns_polris,id',
             'sub_pns_polri_id' => 'nullable|exists:sub_pns_polris,id',
@@ -260,6 +262,7 @@ class PersonilsController extends Controller
             'akte_lahir' => 'nullable|string|max:255|unique:personels,akte_lahir,' . $id,
             'tmt_masa_dinas' => 'nullable|date|after_or_equal:tanggal_lahir',
         ]);
+        $personels = Personel::findOrFail($id);
 
         // Handle file upload
         if ($request->hasFile('gambar')) {
@@ -269,9 +272,29 @@ class PersonilsController extends Controller
             $validateData['gambar'] = $imageName;
         }
 
+        // Cek perubahan pangkat atau sub pangkat
+        if ($personels->pangkat_id != $request->pangkat_id || $personels->sub_pangkat_id != $request->sub_pangkat_id) {
+            RiwayatPangkat::create([
+                'personel_id' => $personels->id,
+                'pangkat_id' => $personels->pangkat_id,
+                'sub_pangkat_id' => $personels->sub_pangkat_id,
+                'tanggal_kenaikan' => now(),
+            ]);
+        }
+
+        // cek perubahan jabatan dan sub jabatan
+        if ($personels->jabatan_id != $request->pangkat_id || $personels->sub_jabatan_id != $request->sub_jabatan_id) {
+            RiwayatJabatan::create([
+                'personel_id' => $personels->id,
+                'jabatan_id' => $personels->jabatan_id,
+                'sub_jabatan_id' => $personels->sub_jabatan_id,
+                'tanggal_kenaikan' => now(),
+            ]);
+        }
+
         // Save data to the database
         try {
-            $personels = Personel::findOrFail($id);
+            
 
             // Update user details
             $user = User::findOrFail($personels->user_id);

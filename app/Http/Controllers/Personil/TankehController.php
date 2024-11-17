@@ -32,7 +32,7 @@ class TankehController extends Controller
         $request->validate([
             'tanda_kehormatan' => 'required|string',
             'tmt' => 'required|integer',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'gambar.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
 

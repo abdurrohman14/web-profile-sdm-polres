@@ -451,9 +451,9 @@
                                     <td>{{ $penlat->dikbang }}</td>
                                     <td>{{ $penlat->tahun }}</td>
                                     <td>
-                                        {{-- @foreach(json_decode($penlat->gambar) as $image)
+                                        @foreach(json_decode($penlat->gambar) as $image)
                                         <img src="{{ asset('storage/pengembanganPelatihan/' . $image) }}" alt="Gambar Pendidikan Umum" style="width: 100px; height: auto;">
-                                        @endforeach --}}
+                                        @endforeach
                                     </td>
                                 </tr>
                                 @endforeach
@@ -493,9 +493,9 @@
                                     <td>{{ $tanker->tanda_kehormatan }}</td>
                                     <td>{{ $tanker->tmt }}</td>
                                     <td>
-                                        {{-- @foreach(json_decode($tanker->gambar) as $image)
+                                        @foreach(json_decode($tanker->gambar) as $image)
                                         <img src="{{ asset('storage/tandaKehormatan/' . $image) }}" alt="Gambar Pendidikan Umum" style="width: 100px; height: auto;">
-                                        @endforeach --}}
+                                        @endforeach
                                     </td>
                                 </tr>
                                 @endforeach
@@ -571,9 +571,9 @@
                                     <td>{{ $penlu->penugasan }}</td>
                                     <td>{{ $penlu->lokasi }}</td>
                                     <td>
-                                        {{-- @foreach(json_decode($penlu->gambar) as $image)
+                                        @foreach(json_decode($penlu->gambar) as $image)
                                         <img src="{{ asset('storage/penlu/' . $image) }}" alt="Gambar Pendidikan Umum" style="width: 100px; height: auto;">
-                                        @endforeach --}}
+                                        @endforeach
                                     </td>
                                 </tr>
                                 @endforeach
